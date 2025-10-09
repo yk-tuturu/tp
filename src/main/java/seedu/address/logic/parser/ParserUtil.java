@@ -34,7 +34,6 @@ public class ParserUtil {
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
-    
     /**
      * Parses {@code indices} into an array of {@code Index} and returns it.
      * Leading and trailing whitespaces will be trimmed.
