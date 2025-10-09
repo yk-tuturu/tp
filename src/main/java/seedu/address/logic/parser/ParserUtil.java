@@ -34,6 +34,15 @@ public class ParserUtil {
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
+    
+    public static Index[] parseIndexArray(String indices) throws ParseException {
+        String[] indexStrings = indices.trim().split("\\s+");
+        Index[] indexArray = new Index[indexStrings.length];
+        for (int i = 0; i < indexStrings.length; i++) {
+            indexArray[i] = parseIndex(indexStrings[i]);
+        }
+        return indexArray;
+    }
 
     /**
      * Parses a {@code String name} into a {@code Name}.
