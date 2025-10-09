@@ -46,7 +46,7 @@ public class DeleteCommand extends Command {
             Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
             model.deletePerson(personToDelete);
             deletedPersonsResult += String.format(MESSAGE_DELETE_PERSON_SUCCESS,
-                    Messages.format(personToDelete)) + "\n";
+                    Messages.format(personToDelete));
         }
         return new CommandResult(deletedPersonsResult);
     }
@@ -68,8 +68,10 @@ public class DeleteCommand extends Command {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("targetIndex", targetIndices) // fixme: improve this
-                .toString();
+        ToStringBuilder toStringBuilder = new ToStringBuilder(this);
+        for (Index targetIndices : targetIndices) {
+            toStringBuilder.add("targetIndex", targetIndices);
+        }
+        return toStringBuilder.toString();
     }
 }
