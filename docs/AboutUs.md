@@ -39,6 +39,11 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 - Role: Developer
 - Responsibilities: Data
 
+### Koh Wai Kei
+
+<img src="images/yk-tuturu.png" width="200px">
+
+[[github](http://github.com/yk-tuturu)]
 ### Wendy Tang
 
 <img src="images/wenn5055.png" width="200px">
