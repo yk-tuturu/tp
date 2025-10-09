@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,7 +45,8 @@ public class DeleteCommand extends Command {
         for (Index targetIndex : targetIndices) {
             Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
             model.deletePerson(personToDelete);
-            deletedPersonsResult += String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)) + "\n";
+            deletedPersonsResult += String.format(MESSAGE_DELETE_PERSON_SUCCESS,
+                    Messages.format(personToDelete)) + "\n";
         }
         return new CommandResult(deletedPersonsResult);
     }
