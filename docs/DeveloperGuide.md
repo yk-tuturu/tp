@@ -274,42 +274,93 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* kindergarten teacher/admin
+* has to manage a significant number of students
+* needs to keep track of the personal details and parents’ contact information
+* would like to manage the student’s activities and preferences (diet restrictions, grades, attendance)
 * prefer desktop apps over other types
-* can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: 
+
+* Provide fast access to the parents' contact details of any given student
+* Provide functionality to record and access the details of each student (e.g. allergies, preferences, etc.)
+
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
+| ID | Priority | Epic                              | As a …​              | I want to …​                                                  | So that I can…​                                                  |
+|----|----------|-----------------------------------|----------------------|---------------------------------------------------------------|------------------------------------------------------------------|
+| C1 | `* * *`  | Contact Management                | kindergarten teacher | view a student's parents' contact details                     | quickly contact them during emergencies                          | 
+| C2 | `* * *`  | Contact Management                | kindergarten admin   | store and retrieve parents' phone numbers and addresses       | send out updates and notices efficiently                         |
+| C3 | `* * *`  | Contact Management                | kindergarten teacher | search for a student by name                                  | access their profile quickly                                     | 
+| C4 | `* * *`  | Contact Management                | kindergarten admin   | add multiple emergency contacts for each student              | always have a fallback if the primary guardian is unavailable    |
+| C5 | `* *`    | Contact Management                | kindergarten admin   | see the name of the primary guardian                          | know who to contact first                                        |
+| C6 | `* *`    | Contact Management                | kindergarten teacher | update a parent's phone number                                | ensure the system always reflects the latest contact information |
+| C7 | `*`      | Contact Management                | kindergarten teacher | quickly retrieve parent contact info from my phone            | call them even when I am outside the office                      |
+| P1 | `* * *`  | Child Profiling                   | kindergarten teacher | record important facts about each student                     | tailor care and instructions to their needs                      |
+| P2 | `* * *`  | Child Profiling                   | kindergarten admin   | store and update each student's medical information           | respond correctly in health-related situations                   | 
+| P3 | `* * *`  | Child Profiling                   | kindergarten teacher | record emergency care instructions                            | act quickly in case of an incident                               |
+| U1 | `* * *`  | System Usability & Data Integrity | kindergarten admin   | secure sensitive data like medical condition and contact info | get parents to trust the system                                  |
+| U2 | `* *`    | System Usability & Data Integrity | user                 | delete outdated student information                           | ensure the database remains accurate                             |
+| U3 | `* *`    | System Usability & Data Integrity | user                 | edit outdated student information                             | ensure the database remains accurate                             |
+| U4 | `* *`    | System Usability & Data Integrity | user                 | export filtered student lists to PDF/Excel                    | share them with staff who do not use the system                  |
+| U5 | `*`      | System Usability & Data Integrity | kindergarten teacher | mark groups of students in bulk as graduated                  | avoid having to edit their info one by one                       |
+| U6 | `*`      | System Usability & Data Integrity | kindergarten teacher | import a list of student in bulk                              | avoid having to input them one by one                            |
+| U7 | `*`      | System Usability & Data Integrity | kindergarten teacher | access student profiles from my phone                         | look up information when I am outside the classroom              |
+| A1 | `* *`    | Academic Tracking                 | kindergarten teacher | record test scores for each student                           | track their progress over time                                   |
+| A2 | `* *`    | Academic Tracking                 | kindergarten teacher | take attendance of students                                   | track which students are present                                 |
+| A3 | `* *`    | Academic Tracking                 | kindergarten teacher | tag notes alongside attendance                                | ensure context is preserved in records                           |
+| A4 | `*`      | Academic Tracking                 | kindergarten teacher | automatically calculate a student's average score             | give timely feedback to parents                                  |
+| F1 | `* *`    | Filtering and Grouping            | kindergarten teacher | filter students by food allergies                             | inform the kitchen staff accordingly                             |
+| F2 | `* *`    | Filtering and Grouping            | kindergarten teacher | filter students who require halal meals                       | ensure meal orders are adjusted appropriately                    |
+| F3 | `* *`    | Filtering and Grouping            | kindergarten teacher | filter students with special needs                            | prepare inclusive activities                                     |
+| F4 | `*`      | Filtering and Grouping            | kindergarten teacher | sort students by their grades                                 | focus in on groups of a particular level of academic performance |
+| F5 | `*`      | Filtering and Grouping            | kindergarten teacher | filter students who are on medication                         | remind staff to monitor them more closely                        |
+| F6 | `*`      | Filtering and Grouping            | kindergarten teacher | filter students by graduation status                          | quickly see which students are active versus graduated           |
+| F7 | `*`      | Filtering and Grouping            | kindergarten teacher | filter students by abscence frequency                         | identify at-risk students                                        |
 
-*{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `ParentConnect` and the **Actor** is the `user`, unless specified otherwise)
+
+**Use case: Add a person**
+
+**MSS**
+
+1. User requests to add a person and provides the necessary details
+2. ParentConnect adds the person
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The given details are invalid.
+
+    * 1a1. ParentConnect shows an error message.
+
+      Use case ends.
+
+* 1b. Some fields are missing.
+
+    * 1b1. ParentConnect shows an error message.
+
+      Use case ends.
+
 
 **Use case: Delete a person**
 
 **MSS**
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  ParentConnect shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  ParentConnect deletes the person
 
     Use case ends.
 
@@ -321,7 +372,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. ParentConnect shows an error message.
 
       Use case resumes at step 2.
 
