@@ -45,13 +45,14 @@ public class PersonCard extends UiPart<Region> {
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
     public PersonCard(Person person, int displayedIndex) {
+        // TODO: For GUI person to fix
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
+        name.setText(person.getChildName().fullName);
+        phone.setText(person.getParentPhone().value);
         address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
+        email.setText(person.getParentEmail().value);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

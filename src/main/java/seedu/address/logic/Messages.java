@@ -36,11 +36,14 @@ public class Messages {
      */
     public static String format(Person person) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(person.getName())
+        // TODO: For YK to add on
+        builder.append(person.getChildName())
+                .append("; Parent: ")
+                .append(person.getParentName())
                 .append("; Phone: ")
-                .append(person.getPhone())
+                .append(person.getParentPhone())
                 .append("; Email: ")
-                .append(person.getEmail())
+                .append(person.getParentEmail())
                 .append("; Address: ")
                 .append(person.getAddress())
                 .append("; Tags: ");

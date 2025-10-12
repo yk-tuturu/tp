@@ -12,6 +12,8 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.PersonBuilder;
@@ -19,7 +21,7 @@ import seedu.address.testutil.PersonBuilder;
 public class PersonTest {
 
     @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
+    public void getTags_unmodifiable_throwsUnsupportedOperationException() {
         Person person = new PersonBuilder().build();
         assertThrows(UnsupportedOperationException.class, () -> person.getTags().remove(0));
     }
@@ -32,22 +34,35 @@ public class PersonTest {
         // null -> returns false
         assertFalse(ALICE.isSamePerson(null));
 
-        // same name, all other attributes different -> returns true
-        Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        // same child and parent name, all other attributes different -> returns true
+        Person editedAlice = new PersonBuilder(ALICE)
+                .withParentPhone(VALID_PHONE_BOB)
+                .withParentEmail(VALID_EMAIL_BOB)
+                .withAddress(VALID_ADDRESS_BOB)
+                .withTags(VALID_TAG_HUSBAND)
+                .build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
-        // different name, all other attributes same -> returns false
-        editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        // different child name -> returns false
+        editedAlice = new PersonBuilder(ALICE).withChildName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
 
-        // name differs in case, all other attributes same -> returns false
-        Person editedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
+        // different parent name -> returns false
+        editedAlice = new PersonBuilder(ALICE).withParentName("Different Parent").build();
+        assertFalse(ALICE.isSamePerson(editedAlice));
+
+        // same names but differing case -> still false
+        Person editedBob = new PersonBuilder(BOB)
+                .withChildName(VALID_NAME_BOB.toLowerCase())
+                .withParentName(BOB.getParentName().toString().toLowerCase())
+                .build();
         assertFalse(BOB.isSamePerson(editedBob));
 
-        // name has trailing spaces, all other attributes same -> returns false
+        // name with trailing spaces -> false
         String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
-        editedBob = new PersonBuilder(BOB).withName(nameWithTrailingSpaces).build();
+        editedBob = new PersonBuilder(BOB)
+                .withChildName(nameWithTrailingSpaces)
+                .build();
         assertFalse(BOB.isSamePerson(editedBob));
     }
 
@@ -69,16 +84,20 @@ public class PersonTest {
         // different person -> returns false
         assertFalse(ALICE.equals(BOB));
 
-        // different name -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        // different child name -> returns false
+        Person editedAlice = new PersonBuilder(ALICE).withChildName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different phone -> returns false
-        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        // different parent name -> returns false
+        editedAlice = new PersonBuilder(ALICE).withParentName("Different Parent").build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different email -> returns false
-        editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        // different parent phone -> returns false
+        editedAlice = new PersonBuilder(ALICE).withParentPhone(VALID_PHONE_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different parent email -> returns false
+        editedAlice = new PersonBuilder(ALICE).withParentEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different address -> returns false
@@ -88,12 +107,48 @@ public class PersonTest {
         // different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
+
+        // different allergies -> returns false
+        editedAlice = new PersonBuilder(ALICE).withAllergies("Peanuts", "Dust").build();
+        assertFalse(ALICE.equals(editedAlice));
     }
 
     @Test
     public void toStringMethod() {
-        String expected = Person.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
-                + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress() + ", tags=" + ALICE.getTags() + "}";
+        String expected = Person.class.getCanonicalName()
+                + "{child=" + ALICE.getChildName()
+                + ", parent=" + ALICE.getParentName()
+                + ", parentPhone=" + ALICE.getParentPhone()
+                + ", parentEmail=" + ALICE.getParentEmail()
+                + ", allergies=" + ALICE.getAllergies()
+                + ", address=" + ALICE.getAddress()
+                + ", tags=" + ALICE.getTags() + "}";
         assertEquals(expected, ALICE.toString());
+    }
+
+    @Test
+    public void editAllergies_updatesCorrectly() {
+        // start with ALICE having a default allergy list
+        Person originalAlice = new PersonBuilder(ALICE).withAllergies("Dust").build();
+
+        // simulate editing her allergies
+        Person editedAlice = new PersonBuilder(originalAlice)
+                .withAllergies("Peanuts", "Shellfish")
+                .build();
+
+        // ensure allergies actually changed
+        assertFalse(originalAlice.getAllergies().equals(editedAlice.getAllergies()));
+        assertEquals(List.of("Peanuts", "Shellfish"),
+                editedAlice.getAllergies().getAllergyList().stream()
+                        .map(Allergy::toString)
+                        .toList());
+
+        // all other attributes should remain unchanged
+        assertEquals(originalAlice.getChildName(), editedAlice.getChildName());
+        assertEquals(originalAlice.getParentName(), editedAlice.getParentName());
+        assertEquals(originalAlice.getParentPhone(), editedAlice.getParentPhone());
+        assertEquals(originalAlice.getParentEmail(), editedAlice.getParentEmail());
+        assertEquals(originalAlice.getAddress(), editedAlice.getAddress());
+        assertEquals(originalAlice.getTags(), editedAlice.getTags());
     }
 }

@@ -31,10 +31,11 @@ public class EditPersonDescriptorBuilder {
      * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
      */
     public EditPersonDescriptorBuilder(Person person) {
+        // TODO: For Edit command person to fix
         descriptor = new EditPersonDescriptor();
-        descriptor.setName(person.getName());
-        descriptor.setPhone(person.getPhone());
-        descriptor.setEmail(person.getEmail());
+        descriptor.setName(person.getChildName());
+        descriptor.setPhone(person.getParentPhone());
+        descriptor.setEmail(person.getParentEmail());
         descriptor.setAddress(person.getAddress());
         descriptor.setTags(person.getTags());
     }

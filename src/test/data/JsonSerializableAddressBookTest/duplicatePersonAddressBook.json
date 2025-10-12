@@ -1,14 +1,22 @@
 {
-  "persons": [ {
-    "name": "Alice Pauline",
-    "phone": "94351253",
-    "email": "alice@example.com",
-    "address": "123, Jurong West Ave 6, #08-111",
-    "tags": [ "friends" ]
-  }, {
-    "name": "Alice Pauline",
-    "phone": "94351253",
-    "email": "pauline@example.com",
-    "address": "4th street"
-  } ]
+  "persons": [
+    {
+      "childName": "Alice Pauline",
+      "parentName": "Paulines Mom",
+      "parentPhone": "94351253",
+      "parentEmail": "alice@example.com",
+      "address": "123, Jurong West Ave 6, #08-111",
+      "allergies": ["Peanuts"],
+      "tags": []
+    },
+    {
+      "childName": "Alice Pauline",
+      "parentName": "Paulines Mom",
+      "parentPhone": "94351253",
+      "parentEmail": "pauline@example.com",
+      "address": "4th street",
+      "allergies": ["Dust"],
+      "tags": []
+    }
+  ]
 }
