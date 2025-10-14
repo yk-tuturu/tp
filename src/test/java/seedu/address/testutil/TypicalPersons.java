@@ -23,36 +23,105 @@ import seedu.address.model.person.Person;
  */
 public class TypicalPersons {
 
-    public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
-            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-            .withPhone("94351253")
-            .withTags("friends").build();
-    public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
+    public static final Person ALICE = new PersonBuilder()
+            .withChildName("Alice Pauline")
+            .withParentName("Paulines Mom")
+            .withParentPhone("94351253")
+            .withParentEmail("alice@example.com")
+            .withAllergies("Peanuts")
+            .withAddress("123, Jurong West Ave 6, #08-111")
+            .build();
+
+    public static final Person BENSON = new PersonBuilder()
+            .withChildName("Benson Meier")
+            .withParentName("Bensons Dad")
+            .withParentPhone("98765432")
+            .withParentEmail("johnd@example.com")
+            .withAllergies("Milk", "Shellfish")
             .withAddress("311, Clementi Ave 2, #02-25")
-            .withEmail("johnd@example.com").withPhone("98765432")
-            .withTags("owesMoney", "friends").build();
-    public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withAddress("wall street").build();
-    public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withAddress("10th street").withTags("friends").build();
-    public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
-            .withEmail("werner@example.com").withAddress("michegan ave").build();
-    public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withAddress("little tokyo").build();
-    public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
-            .withEmail("anna@example.com").withAddress("4th street").build();
+            .build();
+
+    public static final Person CARL = new PersonBuilder()
+            .withChildName("Carl Kurz")
+            .withParentName("Carls Mom")
+            .withParentPhone("95352563")
+            .withParentEmail("heinz@example.com")
+            .withAllergies("Dust")
+            .withAddress("wall street")
+            .build();
+
+    public static final Person DANIEL = new PersonBuilder()
+            .withChildName("Daniel Meier")
+            .withParentName("Daniels Dad")
+            .withParentPhone("87652533")
+            .withParentEmail("cornelia@example.com")
+            .withAllergies("Eggs")
+            .withAddress("10th Street")
+            .build();
+
+    public static final Person ELLE = new PersonBuilder()
+            .withChildName("Elle Meyer")
+            .withParentName("Elles Mom")
+            .withParentPhone("9482224")
+            .withParentEmail("werner@example.com")
+            .withAllergies("Pollen")
+            .withAddress("Michegan Ave")
+            .build();
+
+    public static final Person FIONA = new PersonBuilder()
+            .withChildName("Fiona Kunz")
+            .withParentName("Fionas Dad")
+            .withParentPhone("9482427")
+            .withParentEmail("lydia@example.com")
+            .withAllergies("Gluten")
+            .withAddress("Little Tokyo")
+            .build();
+
+    public static final Person GEORGE = new PersonBuilder()
+            .withChildName("George Best")
+            .withParentName("Georges Mom")
+            .withParentPhone("9482442")
+            .withParentEmail("anna@example.com")
+            .withAllergies() // no allergies
+            .withAddress("4th Street")
+            .build();
 
     // Manually added
-    public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com").withAddress("little india").build();
-    public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com").withAddress("chicago ave").build();
+    public static final Person HOON = new PersonBuilder()
+            .withChildName("Hoon Meier")
+            .withParentName("Hoons Mom")
+            .withParentPhone("8482424")
+            .withParentEmail("stefan@example.com")
+            .withAllergies("Soy")
+            .withAddress("Little India")
+            .build();
+
+    public static final Person IDA = new PersonBuilder()
+            .withChildName("Ida Mueller")
+            .withParentName("Idas Dad")
+            .withParentPhone("8482131")
+            .withParentEmail("hans@example.com")
+            .withAllergies("Dust")
+            .withAddress("Chicago Ave")
+            .build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
-    public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+    public static final Person AMY = new PersonBuilder()
+            .withChildName(VALID_NAME_AMY)
+            .withParentName("Amys Mom")
+            .withParentPhone(VALID_PHONE_AMY)
+            .withParentEmail(VALID_EMAIL_AMY)
+            .withAllergies("Eggs")
+            .withAddress(VALID_ADDRESS_AMY)
+            .build();
+
+    public static final Person BOB = new PersonBuilder()
+            .withChildName(VALID_NAME_BOB)
+            .withParentName("Bobs Dad")
+            .withParentPhone(VALID_PHONE_BOB)
+            .withParentEmail(VALID_EMAIL_BOB)
+            .withAllergies("Peanuts", "Milk")
+            .withAddress(VALID_ADDRESS_BOB)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

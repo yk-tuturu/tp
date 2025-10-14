@@ -1,13 +1,22 @@
 {
-  "persons": [ {
-    "name": "Valid Person",
-    "phone": "9482424",
-    "email": "hans@example.com",
-    "address": "4th street"
-  }, {
-    "name": "Person With Invalid Phone Field",
-    "phone": "948asdf2424",
-    "email": "hans@example.com",
-    "address": "4th street"
-  } ]
+  "persons": [
+    {
+      "childName": "Valid Child",
+      "parentName": "Valid Parent",
+      "parentPhone": "9482424",
+      "parentEmail": "hans@example.com",
+      "address": "4th street",
+      "allergies": ["Peanuts", "Milk"],
+      "tags": []
+    },
+    {
+      "childName": "Child With Invalid Phone Field",
+      "parentName": "Parent Example",
+      "parentPhone": "948asdf2424",
+      "parentEmail": "hans@example.com",
+      "address": "4th street",
+      "allergies": ["Dust"],
+      "tags": []
+    }
+  ]
 }

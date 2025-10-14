@@ -29,10 +29,11 @@ public class PersonUtil {
      * Returns the part of command string for the given {@code person}'s details.
      */
     public static String getPersonDetails(Person person) {
+        // TODO: For GUI person to fix
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + person.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + person.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
+        sb.append(PREFIX_NAME + person.getChildName().fullName + " ");
+        sb.append(PREFIX_PHONE + person.getParentPhone().value + " ");
+        sb.append(PREFIX_EMAIL + person.getParentEmail().value + " ");
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")

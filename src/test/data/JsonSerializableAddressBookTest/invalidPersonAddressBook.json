@@ -1,8 +1,13 @@
 {
-  "persons": [ {
-    "name": "Hans Muster",
-    "phone": "9482424",
-    "email": "invalid@email!3e",
-    "address": "4th street"
-  } ]
+  "persons": [
+    {
+      "childName": "Hans Muster",
+      "parentName": "Musters Dad",
+      "parentPhone": "9482424",
+      "parentEmail": "invalid@email!3e",
+      "address": "4th street",
+      "allergies": ["Peanuts"],
+      "tags": []
+    }
+  ]
 }

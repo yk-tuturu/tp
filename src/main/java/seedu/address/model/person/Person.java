@@ -11,15 +11,17 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a child's record in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
 
     // Identity fields
-    private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private final Name childName;
+    private final Name parentName;
+    private final Phone parentPhone;
+    private final Email parentEmail;
+    private final AllergyList allergies;
 
     // Data fields
     private final Address address;
@@ -28,29 +30,39 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
+    public Person(Name child_name, Name parent_name, Phone parent_phone, Email parent_email, AllergyList allergies, Address address, Set<Tag> tags) {
+        requireAllNonNull(child_name, parent_name, parent_phone, parent_email, allergies, address, tags);
+        this.childName = child_name;
+        this.parentName = parent_name;
+        this.parentPhone = parent_phone;
+        this.parentEmail = parent_email;
+        this.allergies = allergies;
         this.address = address;
         this.tags.addAll(tags);
     }
 
-    public Name getName() {
-        return name;
+    public Name getChildName() {
+        return childName;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Name getParentName() {
+        return parentName;
     }
 
-    public Email getEmail() {
-        return email;
+    public Phone getParentPhone() {
+        return parentPhone;
+    }
+
+    public Email getParentEmail() {
+        return parentEmail;
     }
 
     public Address getAddress() {
         return address;
+    }
+
+    public AllergyList getAllergies() {
+        return allergies;
     }
 
     /**
@@ -71,7 +83,8 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName());
+                && otherPerson.getChildName().equals(getChildName())
+                && otherPerson.getParentName().equals(getParentName());
     }
 
     /**
@@ -90,9 +103,11 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return name.equals(otherPerson.name)
-                && phone.equals(otherPerson.phone)
-                && email.equals(otherPerson.email)
+        return childName.equals(otherPerson.childName)
+                && parentName.equals(otherPerson.parentName)
+                && parentPhone.equals(otherPerson.parentPhone)
+                && parentEmail.equals(otherPerson.parentEmail)
+                && allergies.equals(otherPerson.allergies)
                 && address.equals(otherPerson.address)
                 && tags.equals(otherPerson.tags);
     }
@@ -100,15 +115,17 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(childName, parentName, parentPhone, parentEmail, allergies, address, tags);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("name", name)
-                .add("phone", phone)
-                .add("email", email)
+                .add("child", childName)
+                .add("parent", parentName)
+                .add("parentPhone", parentPhone)
+                .add("parentEmail", parentEmail)
+                .add("allergies", allergies)
                 .add("address", address)
                 .add("tags", tags)
                 .toString();
