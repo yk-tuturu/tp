@@ -13,7 +13,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-public class AllergiesTest {
+public class AllergyListTest {
 
     private static final Allergy PEANUTS = new Allergy("Peanuts");
     private static final Allergy MILK = new Allergy("Milk");
