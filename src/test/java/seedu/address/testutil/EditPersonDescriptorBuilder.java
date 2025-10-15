@@ -1,11 +1,14 @@
 package seedu.address.testutil;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Allergy;
+import seedu.address.model.person.AllergyList;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -33,34 +36,54 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder(Person person) {
         // TODO: For Edit command person to fix
         descriptor = new EditPersonDescriptor();
-        descriptor.setName(person.getChildName());
-        descriptor.setPhone(person.getParentPhone());
-        descriptor.setEmail(person.getParentEmail());
+        descriptor.setChildName(person.getChildName());
+        descriptor.setParentName(person.getParentName());
+        descriptor.setParentPhone(person.getParentPhone());
+        descriptor.setParentEmail(person.getParentEmail());
+        descriptor.setAllergies(person.getAllergies());
         descriptor.setAddress(person.getAddress());
         descriptor.setTags(person.getTags());
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code childName} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withName(String name) {
-        descriptor.setName(new Name(name));
+    public EditPersonDescriptorBuilder withChildName(String childName) {
+        descriptor.setChildName(new Name(childName));
+        return this;
+    }
+    
+    /**
+     * Sets the {@code parentName} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withParentName(String parentName) {
+        descriptor.setParentName(new Name(parentName));
         return this;
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code parentPhone} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
+    public EditPersonDescriptorBuilder withParentPhone(String parentPhone) {
+        descriptor.setParentPhone(new Phone(parentPhone));
         return this;
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code parentEmail} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
+    public EditPersonDescriptorBuilder withParentEmail(String parentEmail) {
+        descriptor.setParentEmail(new Email(parentEmail));
+        return this;
+    }
+    
+    /**
+     * Parses the {@code allergies} into a {@code List<Allergy>} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditPersonDescriptorBuilder withAllergies(String... allergies) {
+        List<Allergy> allergyList = Stream.of(allergies).map(Allergy::new).collect(Collectors.toList());
+        descriptor.setAllergies(new AllergyList(allergyList));
         return this;
     }
 

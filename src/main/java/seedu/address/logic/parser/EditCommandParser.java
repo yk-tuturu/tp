@@ -3,8 +3,10 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTEMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CHILDNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTPHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -17,6 +19,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.AllergyList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,7 +35,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CHILDNAME, PREFIX_PARENTPHONE, PREFIX_PARENTEMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_CHILDNAME, PREFIX_PARENTNAME, PREFIX_PARENTPHONE,
+                        PREFIX_PARENTEMAIL, PREFIX_ALLERGY, PREFIX_ADDRESS, PREFIX_TAG);
 
         Index index;
 
@@ -42,19 +46,24 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CHILDNAME, PREFIX_PARENTPHONE, PREFIX_PARENTEMAIL, PREFIX_ADDRESS);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CHILDNAME, PREFIX_PARENTNAME, PREFIX_PARENTPHONE,
+                PREFIX_PARENTEMAIL, PREFIX_ADDRESS); // TODO: check with team if allergies should be here (idts?? same as tag)
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
         if (argMultimap.getValue(PREFIX_CHILDNAME).isPresent()) {
-            editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_CHILDNAME).get()));
+            editPersonDescriptor.setChildName(ParserUtil.parseName(argMultimap.getValue(PREFIX_CHILDNAME).get()));
+        }
+        if (argMultimap.getValue(PREFIX_PARENTNAME).isPresent()) {
+            editPersonDescriptor.setParentName(ParserUtil.parseName(argMultimap.getValue(PREFIX_PARENTNAME).get()));
         }
         if (argMultimap.getValue(PREFIX_PARENTPHONE).isPresent()) {
-            editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PARENTPHONE).get()));
+            editPersonDescriptor.setParentPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PARENTPHONE).get()));
         }
         if (argMultimap.getValue(PREFIX_PARENTEMAIL).isPresent()) {
-            editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_PARENTEMAIL).get()));
+            editPersonDescriptor.setParentEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_PARENTEMAIL).get()));
         }
+        parseAllergiesForEdit(argMultimap.getAllValues(PREFIX_ALLERGY)).ifPresent(editPersonDescriptor::setAllergies);
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
@@ -82,4 +91,18 @@ public class EditCommandParser implements Parser<EditCommand> {
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
 
+    /**
+     * Parses {@code Collection<String> allergies} into an {@code AllergyList} if {@code allergies} is non-empty.
+     * If {@code allergies} contain only one element which is an empty string, it will be parsed into an
+     * empty {@code AllergyList}.
+     */
+    private Optional<AllergyList> parseAllergiesForEdit(Collection<String> allergies) throws ParseException {
+        assert allergies != null;
+
+        if (allergies.isEmpty()) {
+            return Optional.empty(); // return empty AllergyList
+        }
+        Collection<String> allergyList = allergies.size() == 1 && allergies.contains("") ? Collections.emptySet() : allergies;
+        return Optional.of(ParserUtil.parseAllergies(allergyList));
+    }
 }

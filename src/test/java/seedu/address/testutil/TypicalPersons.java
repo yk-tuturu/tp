@@ -1,15 +1,17 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY_MILK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY_PEANUTS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY_PARENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB_PARENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -108,19 +110,19 @@ public class TypicalPersons {
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder()
             .withChildName(VALID_NAME_AMY)
-            .withParentName("Amys Mom")
+            .withParentName(VALID_NAME_AMY_PARENT)
             .withParentPhone(VALID_PHONE_AMY)
             .withParentEmail(VALID_EMAIL_AMY)
-            .withAllergies("Eggs")
+            .withAllergies(VALID_ALLERGY_PEANUTS)
             .withAddress(VALID_ADDRESS_AMY)
             .build();
 
     public static final Person BOB = new PersonBuilder()
             .withChildName(VALID_NAME_BOB)
-            .withParentName("Bobs Dad")
+            .withParentName(VALID_NAME_BOB_PARENT)
             .withParentPhone(VALID_PHONE_BOB)
             .withParentEmail(VALID_EMAIL_BOB)
-            .withAllergies("Peanuts", "Milk")
+            .withAllergies(VALID_ALLERGY_PEANUTS, VALID_ALLERGY_MILK)
             .withAddress(VALID_ADDRESS_BOB)
             .build();
 

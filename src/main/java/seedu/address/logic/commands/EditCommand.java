@@ -2,8 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTEMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CHILDNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTPHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -30,18 +32,20 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_CHILDNAME + "NAME] "
-            + "[" + PREFIX_PARENTPHONE + "PHONE] "
-            + "[" + PREFIX_PARENTEMAIL + "EMAIL] "
+            + "[" + PREFIX_CHILDNAME + "CHILDNAME] "
+            + "[" + PREFIX_PARENTNAME + "PARENTNAME] "
+            + "[" + PREFIX_PARENTPHONE + "PARENTPHONE] "
+            + "[" + PREFIX_PARENTEMAIL + "PARENTEMAIL] "
+            + "[" + PREFIX_ALLERGY + "ALLERGY]..."
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PARENTPHONE + "91234567 "
             + PREFIX_PARENTEMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_CHILD_SUCCESS = "Edited Child: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_CHILD = "This child already exists in the address book.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -71,12 +75,12 @@ public class EditCommand extends Command {
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_CHILD);
         }
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
+        return new CommandResult(String.format(MESSAGE_EDIT_CHILD_SUCCESS, Messages.format(editedPerson))); // Todo: check if format() needs to be updated
     }
 
     /**
@@ -86,13 +90,16 @@ public class EditCommand extends Command {
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
         // TODO: For Edit command person to fix
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getChildName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getParentPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getParentEmail());
+        Name updatedChildName = editPersonDescriptor.getChildName().orElse(personToEdit.getChildName());
+        Name updatedParentName = editPersonDescriptor.getParentName().orElse(personToEdit.getParentName());
+        Phone updatedParentPhone = editPersonDescriptor.getParentPhone().orElse(personToEdit.getParentPhone());
+        Email updatedParentEmail = editPersonDescriptor.getParentEmail().orElse(personToEdit.getParentEmail());
+        AllergyList updatedAllergies = editPersonDescriptor.getAllergies().orElse(personToEdit.getAllergies()); // new AllergyList(new ArrayList<>())
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, new Name("Parent here"), updatedPhone, updatedEmail, new AllergyList(new ArrayList<>()), updatedAddress, updatedTags);
+        return new Person(updatedChildName, updatedParentName, updatedParentPhone,
+                updatedParentEmail, updatedAllergies, updatedAddress, updatedTags);
     }
 
     @Override
@@ -124,12 +131,14 @@ public class EditCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditPersonDescriptor {
-        private Name name;
-        private Phone phone;
-        private Email email;
+        private Name childName;
+        private Name parentName;
+        private Phone parentPhone;
+        private Email parentEmail;
+        private AllergyList allergies;
         private Address address;
         private Set<Tag> tags;
-
+        
         public EditPersonDescriptor() {}
 
         /**
@@ -137,9 +146,11 @@ public class EditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
-            setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
+            setChildName(toCopy.childName);
+            setParentName(toCopy.parentName);
+            setParentPhone(toCopy.parentPhone);
+            setParentEmail(toCopy.parentEmail);
+            setAllergies(toCopy.allergies);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
         }
@@ -148,31 +159,48 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(childName, parentName, parentPhone,
+                    parentEmail, allergies, address, tags);
         }
 
-        public void setName(Name name) {
-            this.name = name;
+        public void setChildName(Name childName) {
+            this.childName = childName;
         }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
+        public Optional<Name> getChildName() {
+            return Optional.ofNullable(childName);
+        }
+        
+        public void setParentName(Name parentName) {
+            this.parentName = parentName;
+        }
+        
+        public Optional<Name> getParentName() {
+            return Optional.ofNullable(parentName);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setParentPhone(Phone parentPhone) {
+            this.parentPhone = parentPhone;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Phone> getParentPhone() {
+            return Optional.ofNullable(parentPhone);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setParentEmail(Email parentEmail) {
+            this.parentEmail = parentEmail;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<Email> getParentEmail() {
+            return Optional.ofNullable(parentEmail);
+        }
+        
+        public void setAllergies(AllergyList allergies) {
+            this.allergies = allergies;
+        }
+        
+        public Optional<AllergyList> getAllergies() {
+            return Optional.ofNullable(allergies);
         }
 
         public void setAddress(Address address) {
@@ -212,9 +240,11 @@ public class EditCommand extends Command {
             }
 
             EditPersonDescriptor otherEditPersonDescriptor = (EditPersonDescriptor) other;
-            return Objects.equals(name, otherEditPersonDescriptor.name)
-                    && Objects.equals(phone, otherEditPersonDescriptor.phone)
-                    && Objects.equals(email, otherEditPersonDescriptor.email)
+            return Objects.equals(childName, otherEditPersonDescriptor.childName)
+                    && Objects.equals(parentName, otherEditPersonDescriptor.parentName)
+                    && Objects.equals(parentPhone, otherEditPersonDescriptor.parentPhone)
+                    && Objects.equals(parentEmail, otherEditPersonDescriptor.parentEmail)
+                    && Objects.equals(allergies, otherEditPersonDescriptor.allergies)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags);
         }
@@ -222,9 +252,11 @@ public class EditCommand extends Command {
         @Override
         public String toString() {
             return new ToStringBuilder(this)
-                    .add("name", name)
-                    .add("phone", phone)
-                    .add("email", email)
+                    .add("name", childName)
+                    .add("parentName", parentName)
+                    .add("phone", parentPhone)
+                    .add("email", parentEmail)
+                    .add("allergies", allergies)
                     .add("address", address)
                     .add("tags", tags)
                     .toString();
