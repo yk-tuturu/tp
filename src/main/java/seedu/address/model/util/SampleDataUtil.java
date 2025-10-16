@@ -29,7 +29,7 @@ public class SampleDataUtil {
                 ),
                 new Person(
                         new Name("Bernice Yu"),
-                        new Name("Bernice's Mom"),
+                        new Name("Bernices Mom"),
                         new Phone("99272758"),
                         new Email("berniceyu@example.com"),
                         new AllergyList(
@@ -39,8 +39,8 @@ public class SampleDataUtil {
                         getTagSet("colleagues", "friends")
                 ),
                 new Person(
-                        new Name("Charlotte Oliveiro"),
-                        new Name("Charlotte's Mom"),
+                        new Name("Charlotte Oliveir"),
+                        new Name("Charlottes Mom"),
                         new Phone("93210283"),
                         new Email("charlotte@example.com"),
                         new AllergyList(
@@ -51,7 +51,7 @@ public class SampleDataUtil {
                 ),
                 new Person(
                         new Name("David Li"),
-                        new Name("David's Dad"),
+                        new Name("Davids Dad"),
                         new Phone("91031282"),
                         new Email("lidavid@example.com"),
                         new AllergyList(
@@ -62,7 +62,7 @@ public class SampleDataUtil {
                 ),
                 new Person(
                         new Name("Irfan Ibrahim"),
-                        new Name("Irfan's Dad"),
+                        new Name("Irfans Dad"),
                         new Phone("92492021"),
                         new Email("irfan@example.com"),
                         new AllergyList(
@@ -73,7 +73,7 @@ public class SampleDataUtil {
                 ),
                 new Person(
                         new Name("Roy Balakrishnan"),
-                        new Name("Roy's Dad"),
+                        new Name("Roys Dad"),
                         new Phone("92624417"),
                         new Email("royb@example.com"),
                         new AllergyList(
@@ -89,6 +89,7 @@ public class SampleDataUtil {
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
+            System.out.println("populating");
             sampleAb.addPerson(samplePerson);
         }
         return sampleAb;
