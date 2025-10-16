@@ -2,8 +2,10 @@ package seedu.address.logic.parser;
 // TODO: add in the new imports from CliSyntax and use them
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTEMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CHILDNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTPHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -28,7 +30,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CHILDNAME, PREFIX_PARENTPHONE, PREFIX_PARENTEMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_CHILDNAME, PREFIX_PARENTNAME, PREFIX_PARENTPHONE, PREFIX_PARENTEMAIL, PREFIX_ADDRESS, PREFIX_ALLERGY, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_CHILDNAME, PREFIX_ADDRESS, PREFIX_PARENTPHONE, PREFIX_PARENTEMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -37,13 +39,15 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CHILDNAME, PREFIX_PARENTPHONE, PREFIX_PARENTEMAIL, PREFIX_ADDRESS);
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_CHILDNAME).get());
+        Name parentName = ParserUtil.parseName(argMultimap.getValue(PREFIX_PARENTNAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PARENTPHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_PARENTEMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        AllergyList allergies = ParserUtil.parseAllergies(argMultimap.getAllValues(PREFIX_ALLERGY));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         // TODO: For Add command person to fix
-        Person person = new Person(name, new Name("Parent Here"), phone, email, new AllergyList(new ArrayList<>()), address, tagList);
+        Person person = new Person(name, parentName, phone, email, allergies, address, tagList);
 
         return new AddCommand(person);
     }

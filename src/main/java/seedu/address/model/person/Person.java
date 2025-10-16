@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -64,6 +65,8 @@ public class Person {
     public AllergyList getAllergies() {
         return allergies;
     }
+
+    public List<Allergy> getAllergyList() { return allergies.getAllergyList(); }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
