@@ -3,19 +3,23 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTEMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CHILDNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTEMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTPHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.AllergyList;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -30,14 +34,18 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CHILDNAME, PREFIX_PARENTNAME, PREFIX_PARENTPHONE, PREFIX_PARENTEMAIL, PREFIX_ADDRESS, PREFIX_ALLERGY, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_CHILDNAME, PREFIX_PARENTNAME, PREFIX_PARENTPHONE,
+                        PREFIX_PARENTEMAIL, PREFIX_ADDRESS, PREFIX_ALLERGY, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_CHILDNAME, PREFIX_ADDRESS, PREFIX_PARENTPHONE, PREFIX_PARENTEMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CHILDNAME, PREFIX_PARENTPHONE, PREFIX_PARENTEMAIL, PREFIX_ADDRESS);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CHILDNAME,
+                                                 PREFIX_PARENTPHONE,
+                                                 PREFIX_PARENTEMAIL,
+                                                 PREFIX_ADDRESS);
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_CHILDNAME).get());
         Name parentName = ParserUtil.parseName(argMultimap.getValue(PREFIX_PARENTNAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PARENTPHONE).get());
