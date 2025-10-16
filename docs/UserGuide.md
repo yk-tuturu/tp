@@ -20,7 +20,7 @@ ParentConnect is a **desktop app for kindergarten teachers to manage parents' co
 
 1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for your ParentConnect.
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
@@ -93,13 +93,13 @@ Examples:
 
 ### Listing all children : `list`
 
-Shows a list of all children in the address book.
+Shows a list of all children in ParentConnect.
 
 Format: `list`
 
 ### Editing a child : `edit`
 
-Edits an existing child in the address book.
+Edits an existing child in ParentConnect.
 
 Format: `edit INDEX [c/CHILD_NAME] [b/PARENT_NAME] [p/PARENT_PHONE_NUMBER] [e/PARENT_EMAIL] [r/ALLERGIES] [a/ADDRESS] [t/TAG]…​`
 
@@ -134,21 +134,21 @@ Examples:
 
 ### Deleting a child : `delete`
 
-Deletes the specified child from the address book.
+Deletes the specified child from ParentConnect.
 
 Format: `delete INDEX`
 
 * Deletes the child at the specified `INDEX`.
-* The index refers to the index number shown in the displayed childrent list.
+* The index refers to the index number shown in the displayed children list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd child in the address book.
+* `list` followed by `delete 2` deletes the 2nd child in ParentConnect.
 * `find Betsy` followed by `delete 1` deletes the 1st child in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from ParentConnect.
 
 Format: `clear`
 
@@ -160,7 +160,7 @@ Format: `exit`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+ParentConnect data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
@@ -170,7 +170,7 @@ ParentConnect data are saved automatically as a JSON file `[JAR file location]/d
 
 **Caution:**
 If your changes to the data file makes its format invalid, ParentConnect will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+Furthermore, certain edits can cause the ParentConnect to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
 ### Archiving data files `[coming in v2.0]`
