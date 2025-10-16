@@ -36,9 +36,13 @@ public class PersonUtil {
         // TODO: For GUI person to fix
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_CHILDNAME + person.getChildName().fullName + " ");
+        sb.append(PREFIX_PARENTNAME + person.getParentName().fullName + " ");
         sb.append(PREFIX_PARENTPHONE + person.getParentPhone().value + " ");
         sb.append(PREFIX_PARENTEMAIL + person.getParentEmail().value + " ");
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
+        person.getAllergyList().stream().forEach(
+                s -> sb.append(PREFIX_ALLERGY + s.toString() + " ")
+        );
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -57,7 +61,7 @@ public class PersonUtil {
         descriptor.getAllergies().ifPresent(allergyList -> {
             List<Allergy> allergies = allergyList.getAllergyList();
             if (allergies.isEmpty()) {
-                sb.append(PREFIX_ALLERGY);
+                sb.append(PREFIX_ALLERGY + " ");
             } else {
                 allergies.forEach(s -> sb.append(PREFIX_ALLERGY).append(s).append(" "));
             }

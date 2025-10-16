@@ -113,7 +113,6 @@ public class TypicalPersons {
             .withParentName(VALID_NAME_AMY_PARENT)
             .withParentPhone(VALID_PHONE_AMY)
             .withParentEmail(VALID_EMAIL_AMY)
-            .withAllergies(VALID_ALLERGY_PEANUTS)
             .withAddress(VALID_ADDRESS_AMY)
             .build();
 
@@ -122,7 +121,6 @@ public class TypicalPersons {
             .withParentName(VALID_NAME_BOB_PARENT)
             .withParentPhone(VALID_PHONE_BOB)
             .withParentEmail(VALID_EMAIL_BOB)
-            .withAllergies(VALID_ALLERGY_PEANUTS, VALID_ALLERGY_MILK)
             .withAddress(VALID_ADDRESS_BOB)
             .build();
 

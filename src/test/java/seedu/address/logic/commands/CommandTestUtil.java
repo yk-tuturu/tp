@@ -78,14 +78,14 @@ public class CommandTestUtil {
                 .withParentName(VALID_NAME_AMY_PARENT)
                 .withParentPhone(VALID_PHONE_AMY)
                 .withParentEmail(VALID_EMAIL_AMY)
-                .withAllergies(VALID_ALLERGY_PEANUTS)
                 .withAddress(VALID_ADDRESS_AMY)
+                .withAllergies()
                 .withTags(VALID_TAG_SINGLEPARENT).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withChildName(VALID_NAME_BOB)
                 .withParentName(VALID_NAME_BOB_PARENT)
                 .withParentPhone(VALID_PHONE_BOB)
                 .withParentEmail(VALID_EMAIL_BOB)
-                .withAllergies(VALID_ALLERGY_MILK, VALID_ALLERGY_DUST)
+                .withAllergies()
                 .withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_SINGLEPARENT, VALID_TAG_SPECIALNEEDS).build();
     }

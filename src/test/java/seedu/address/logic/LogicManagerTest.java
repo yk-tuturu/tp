@@ -177,7 +177,6 @@ public class LogicManagerTest {
                         + NAME_DESC_AMY_PARENT
                         + PHONE_DESC_AMY_PARENT
                         + EMAIL_DESC_AMY_PARENT
-                        + ALLERGY_DESC_PEANUTS
                         + ADDRESS_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();

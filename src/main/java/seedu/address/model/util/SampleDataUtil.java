@@ -89,7 +89,6 @@ public class SampleDataUtil {
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
-            System.out.println("populating");
             sampleAb.addPerson(samplePerson);
         }
         return sampleAb;

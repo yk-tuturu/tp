@@ -36,7 +36,7 @@ public class PersonBuilder {
         parentName = new Name(DEFAULT_PARENT_NAME);
         parentPhone = new Phone(DEFAULT_PARENT_PHONE);
         parentEmail = new Email(DEFAULT_PARENT_EMAIL);
-        allergies = new AllergyList(List.of(new Allergy("Dust"), new Allergy("Peanut")));
+        allergies = new AllergyList(List.of());
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
