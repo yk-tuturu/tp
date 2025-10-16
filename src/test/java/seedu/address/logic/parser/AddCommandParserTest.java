@@ -16,17 +16,17 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY_PARENT
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB_PARENT;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_SPECIALNEEDS;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_SINGLEPARENT;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_SPECIALNEEDS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SPECIALNEEDS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SINGLEPARENT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SPECIALNEEDS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTEMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CHILDNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTEMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTPHONE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -53,15 +53,17 @@ public class AddCommandParserTest {
         Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_SINGLEPARENT).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT
-                + ADDRESS_DESC_BOB + TAG_DESC_SINGLEPARENT, new AddCommand(expectedPerson));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB_PARENT
+                + EMAIL_DESC_BOB_PARENT + ADDRESS_DESC_BOB + TAG_DESC_SINGLEPARENT, new AddCommand(expectedPerson));
 
 
         // multiple tags - all accepted
-        Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_SINGLEPARENT, VALID_TAG_SPECIALNEEDS)
+        Person expectedPersonMultipleTags = new PersonBuilder(BOB)
+                .withTags(VALID_TAG_SINGLEPARENT, VALID_TAG_SPECIALNEEDS)
                 .build();
         assertParseSuccess(parser,
-                NAME_DESC_BOB + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT + ADDRESS_DESC_BOB + TAG_DESC_SPECIALNEEDS + TAG_DESC_SINGLEPARENT,
+                NAME_DESC_BOB + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT + ADDRESS_DESC_BOB
+                         + TAG_DESC_SPECIALNEEDS + TAG_DESC_SINGLEPARENT,
                 new AddCommand(expectedPersonMultipleTags));
     }
 
@@ -88,9 +90,14 @@ public class AddCommandParserTest {
 
         // multiple fields repeated
         assertParseFailure(parser,
-                validExpectedPersonString + PHONE_DESC_AMY_PARENT + EMAIL_DESC_AMY_PARENT + NAME_DESC_AMY + ADDRESS_DESC_AMY
+                validExpectedPersonString
+                        + PHONE_DESC_AMY_PARENT
+                        + EMAIL_DESC_AMY_PARENT
+                        + NAME_DESC_AMY
+                        + ADDRESS_DESC_AMY
                         + validExpectedPersonString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CHILDNAME, PREFIX_ADDRESS, PREFIX_PARENTEMAIL, PREFIX_PARENTPHONE));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CHILDNAME, PREFIX_ADDRESS, PREFIX_PARENTEMAIL,
+                        PREFIX_PARENTPHONE));
 
         // invalid value followed by valid value
 
@@ -133,7 +140,8 @@ public class AddCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY_PARENT + EMAIL_DESC_AMY_PARENT + ADDRESS_DESC_AMY,
+        assertParseSuccess(parser,
+                NAME_DESC_AMY + PHONE_DESC_AMY_PARENT + EMAIL_DESC_AMY_PARENT + ADDRESS_DESC_AMY,
                 new AddCommand(expectedPerson));
     }
 
@@ -142,7 +150,8 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT + ADDRESS_DESC_BOB,
+        assertParseFailure(parser,
+                VALID_NAME_BOB + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT + ADDRESS_DESC_BOB,
                 expectedMessage);
 
         // missing phone prefix
@@ -154,7 +163,8 @@ public class AddCommandParserTest {
                 expectedMessage);
 
         // missing address prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT + VALID_ADDRESS_BOB,
+        assertParseFailure(parser,
+                NAME_DESC_BOB + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT + VALID_ADDRESS_BOB,
                 expectedMessage);
 
         // all prefixes missing
@@ -165,31 +175,38 @@ public class AddCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT + ADDRESS_DESC_BOB
+        assertParseFailure(parser,
+                INVALID_NAME_DESC + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT + ADDRESS_DESC_BOB
                 + TAG_DESC_SPECIALNEEDS + TAG_DESC_SINGLEPARENT, Name.MESSAGE_CONSTRAINTS);
 
         // invalid phone
-        assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB_PARENT + ADDRESS_DESC_BOB
+        assertParseFailure(parser,
+                NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB_PARENT + ADDRESS_DESC_BOB
                 + TAG_DESC_SPECIALNEEDS + TAG_DESC_SINGLEPARENT, Phone.MESSAGE_CONSTRAINTS);
 
         // invalid email
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB_PARENT + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
+        assertParseFailure(parser,
+                NAME_DESC_BOB + PHONE_DESC_BOB_PARENT + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
                 + TAG_DESC_SPECIALNEEDS + TAG_DESC_SINGLEPARENT, Email.MESSAGE_CONSTRAINTS);
 
         // invalid address
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT + INVALID_ADDRESS_DESC
+        assertParseFailure(parser,
+                NAME_DESC_BOB + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT + INVALID_ADDRESS_DESC
                 + TAG_DESC_SPECIALNEEDS + TAG_DESC_SINGLEPARENT, Address.MESSAGE_CONSTRAINTS);
 
         // invalid tag
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT + ADDRESS_DESC_BOB
+        assertParseFailure(parser,
+                NAME_DESC_BOB + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT + ADDRESS_DESC_BOB
                 + INVALID_TAG_DESC + VALID_TAG_SINGLEPARENT, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT + INVALID_ADDRESS_DESC,
+        assertParseFailure(parser,
+                INVALID_NAME_DESC + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT + INVALID_ADDRESS_DESC,
                 Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT
+        assertParseFailure(parser,
+                PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT
                 + ADDRESS_DESC_BOB + TAG_DESC_SPECIALNEEDS + TAG_DESC_SINGLEPARENT,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }

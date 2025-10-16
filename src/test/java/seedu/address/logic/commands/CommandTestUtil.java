@@ -3,23 +3,21 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTEMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CHILDNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTEMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTPHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
@@ -45,9 +43,9 @@ public class CommandTestUtil {
     public static final String VALID_TAG_SPECIALNEEDS = "special needs";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_CHILDNAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_AMY_PARENT = " " + PREFIX_PARENTNAME +  VALID_NAME_AMY_PARENT;
+    public static final String NAME_DESC_AMY_PARENT = " " + PREFIX_PARENTNAME + VALID_NAME_AMY_PARENT;
     public static final String NAME_DESC_BOB = " " + PREFIX_CHILDNAME + VALID_NAME_BOB;
-    public static final String NAME_DESC_BOB_PARENT = " " + PREFIX_PARENTNAME +  VALID_NAME_BOB_PARENT;
+    public static final String NAME_DESC_BOB_PARENT = " " + PREFIX_PARENTNAME + VALID_NAME_BOB_PARENT;
     public static final String PHONE_DESC_AMY_PARENT = " " + PREFIX_PARENTPHONE + VALID_PHONE_AMY;
     public static final String PHONE_DESC_BOB_PARENT = " " + PREFIX_PARENTPHONE + VALID_PHONE_BOB;
     public static final String EMAIL_DESC_AMY_PARENT = " " + PREFIX_PARENTEMAIL + VALID_EMAIL_AMY;

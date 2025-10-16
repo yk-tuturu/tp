@@ -90,16 +90,24 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid phone followed by valid email
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY_PARENT, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+                "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY_PARENT, Phone.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_SINGLEPARENT + TAG_DESC_SPECIALNEEDS + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_SINGLEPARENT + TAG_EMPTY + TAG_DESC_SPECIALNEEDS, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_SINGLEPARENT + TAG_DESC_SPECIALNEEDS, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+                "1" + TAG_DESC_SINGLEPARENT + TAG_DESC_SPECIALNEEDS + TAG_EMPTY,
+                Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+                "1" + TAG_DESC_SINGLEPARENT + TAG_EMPTY + TAG_DESC_SPECIALNEEDS,
+                Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+                "1" + TAG_EMPTY + TAG_DESC_SINGLEPARENT + TAG_DESC_SPECIALNEEDS,
+                Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
+        assertParseFailure(parser,
+                "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
                 Name.MESSAGE_CONSTRAINTS);
     }
 
