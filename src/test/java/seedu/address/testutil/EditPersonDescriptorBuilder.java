@@ -52,7 +52,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setChildName(new Name(childName));
         return this;
     }
-    
+
     /**
      * Sets the {@code parentName} of the {@code EditPersonDescriptor} that we are building.
      */
@@ -76,7 +76,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setParentEmail(new Email(parentEmail));
         return this;
     }
-    
+
     /**
      * Parses the {@code allergies} into a {@code List<Allergy>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
