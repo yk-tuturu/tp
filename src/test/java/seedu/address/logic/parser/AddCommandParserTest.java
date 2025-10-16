@@ -4,7 +4,6 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.ALLERGY_DESC_DUST;
-import static seedu.address.logic.commands.CommandTestUtil.ALLERGY_DESC_MILK;
 import static seedu.address.logic.commands.CommandTestUtil.ALLERGY_DESC_PEANUTS;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY_PARENT;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB_PARENT;
@@ -57,8 +56,8 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Person expectedPerson = new PersonBuilder(BOB).withAllergies(VALID_ALLERGY_DUST).
-                withTags(VALID_TAG_SINGLEPARENT).build();
+        Person expectedPerson = new PersonBuilder(BOB).withAllergies(VALID_ALLERGY_DUST)
+                        .withTags(VALID_TAG_SINGLEPARENT).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + NAME_DESC_BOB_PARENT
@@ -150,7 +149,9 @@ public class AddCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Person expectedPerson = new PersonBuilder(AMY).withAllergies().withTags().build();
-        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_AMY_PARENT + PHONE_DESC_AMY_PARENT + EMAIL_DESC_AMY_PARENT + ADDRESS_DESC_AMY,
+        assertParseSuccess(parser,
+                NAME_DESC_AMY + NAME_DESC_AMY_PARENT + PHONE_DESC_AMY_PARENT
+                        + EMAIL_DESC_AMY_PARENT + ADDRESS_DESC_AMY,
                 new AddCommand(expectedPerson));
     }
 
@@ -184,32 +185,45 @@ public class AddCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + NAME_DESC_BOB_PARENT + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT + ADDRESS_DESC_BOB
-                + TAG_DESC_SPECIALNEEDS + TAG_DESC_SINGLEPARENT, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+                INVALID_NAME_DESC + NAME_DESC_BOB_PARENT + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT
+                        + ADDRESS_DESC_BOB + TAG_DESC_SPECIALNEEDS + TAG_DESC_SINGLEPARENT,
+                Name.MESSAGE_CONSTRAINTS);
 
         // invalid phone
-        assertParseFailure(parser, NAME_DESC_BOB + NAME_DESC_BOB_PARENT + INVALID_PHONE_DESC + EMAIL_DESC_BOB_PARENT + ADDRESS_DESC_BOB
-                + TAG_DESC_SPECIALNEEDS + TAG_DESC_SINGLEPARENT, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+                NAME_DESC_BOB + NAME_DESC_BOB_PARENT + INVALID_PHONE_DESC + EMAIL_DESC_BOB_PARENT
+                        + ADDRESS_DESC_BOB + TAG_DESC_SPECIALNEEDS + TAG_DESC_SINGLEPARENT,
+                Phone.MESSAGE_CONSTRAINTS);
 
         // invalid email
-        assertParseFailure(parser, NAME_DESC_BOB + NAME_DESC_BOB_PARENT + PHONE_DESC_BOB_PARENT + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
-                + TAG_DESC_SPECIALNEEDS + TAG_DESC_SINGLEPARENT, Email.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+                NAME_DESC_BOB + NAME_DESC_BOB_PARENT + PHONE_DESC_BOB_PARENT + INVALID_EMAIL_DESC
+                        + ADDRESS_DESC_BOB + TAG_DESC_SPECIALNEEDS + TAG_DESC_SINGLEPARENT,
+                Email.MESSAGE_CONSTRAINTS);
 
         // invalid address
-        assertParseFailure(parser, NAME_DESC_BOB + NAME_DESC_BOB_PARENT + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT + INVALID_ADDRESS_DESC
-                + TAG_DESC_SPECIALNEEDS + TAG_DESC_SINGLEPARENT, Address.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+                NAME_DESC_BOB + NAME_DESC_BOB_PARENT + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT
+                        + INVALID_ADDRESS_DESC + TAG_DESC_SPECIALNEEDS + TAG_DESC_SINGLEPARENT,
+                Address.MESSAGE_CONSTRAINTS);
 
         // invalid tag
-        assertParseFailure(parser, NAME_DESC_BOB + NAME_DESC_BOB_PARENT + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT + ADDRESS_DESC_BOB
-                + INVALID_TAG_DESC + VALID_TAG_SINGLEPARENT, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+                NAME_DESC_BOB + NAME_DESC_BOB_PARENT + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT
+                        + ADDRESS_DESC_BOB + INVALID_TAG_DESC + VALID_TAG_SINGLEPARENT,
+                Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + NAME_DESC_BOB_PARENT + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT + INVALID_ADDRESS_DESC,
+        assertParseFailure(parser,
+                INVALID_NAME_DESC + NAME_DESC_BOB_PARENT + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT
+                        + INVALID_ADDRESS_DESC,
                 Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + NAME_DESC_BOB_PARENT + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT
-                + ADDRESS_DESC_BOB + TAG_DESC_SPECIALNEEDS + TAG_DESC_SINGLEPARENT,
+        assertParseFailure(parser,
+                PREAMBLE_NON_EMPTY + NAME_DESC_BOB + NAME_DESC_BOB_PARENT + PHONE_DESC_BOB_PARENT
+                        + EMAIL_DESC_BOB_PARENT + ADDRESS_DESC_BOB + TAG_DESC_SPECIALNEEDS + TAG_DESC_SINGLEPARENT,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }
