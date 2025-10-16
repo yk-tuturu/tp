@@ -90,8 +90,8 @@ public class TypicalPersons {
 
     // Manually added
     public static final Person HOON = new PersonBuilder()
-            .withChildName("Hoon Meier")
-            .withParentName("Elle Meier")
+            .withChildName("Hoon heh")
+            .withParentName("Elle egh")
             .withParentPhone("8482424")
             .withParentEmail("elle@example.com")
             .withAllergies("Soy")
