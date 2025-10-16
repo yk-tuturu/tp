@@ -1,15 +1,19 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTEMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CHILDNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTPHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.person.Allergy;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -47,8 +51,17 @@ public class PersonUtil {
     public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getChildName().ifPresent(name -> sb.append(PREFIX_CHILDNAME).append(name.fullName).append(" "));
+        descriptor.getParentName().ifPresent(name -> sb.append(PREFIX_PARENTNAME).append(name.fullName).append(" "));
         descriptor.getParentPhone().ifPresent(phone -> sb.append(PREFIX_PARENTPHONE).append(phone.value).append(" "));
         descriptor.getParentEmail().ifPresent(email -> sb.append(PREFIX_PARENTEMAIL).append(email.value).append(" "));
+        descriptor.getAllergies().ifPresent(allergyList -> {
+            List<Allergy> allergies = allergyList.getAllergyList();
+            if (allergies.isEmpty()) {
+                sb.append(PREFIX_ALLERGY);
+            } else {
+                allergies.forEach(s -> sb.append(PREFIX_ALLERGY).append(s).append(" "));
+            }
+        });
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
