@@ -63,6 +63,24 @@
       "address": "4th Street",
       "allergies": [],
       "tags": []
+    },
+    {
+      "childName": "Amy Bee",
+      "parentName": "Alice Choo",
+      "parentPhone": "11111111",
+      "parentEmail": "amy@example.com",
+      "address": "Block 312, Amy Street 1",
+      "allergies": ["peanuts"],
+      "tags": []
+    },
+    {
+      "childName": "Bob Choo",
+      "parentName": "Betty Lim",
+      "parentPhone": "22222222",
+      "parentEmail": "bob@example.com",
+      "address": "Block 123, Bobby Street 3",
+      "allergies": ["peanuts", "milk"],
+      "tags": []
     }
   ]
 }
