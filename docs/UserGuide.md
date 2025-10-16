@@ -109,6 +109,7 @@ Format: `edit INDEX [c/CHILD_NAME] [b/PARENT_NAME] [p/PARENT_PHONE_NUMBER] [e/PA
 * When editing tags, the existing tags of the child will be removed i.e adding of tags is not cumulative.
 * You can remove all the child’s tags by typing `t/` without
     specifying any tags after it.
+* Allergies have the same behaviour as tags i.e. all operations you can do on tags work for allergies as well
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st child's parent to be `91234567` and `johndoe@example.com` respectively.
