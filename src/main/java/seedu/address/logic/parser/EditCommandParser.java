@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTEMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CHILDNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTEMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTPHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -46,8 +46,9 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
+        // TODO: check with team if allergies should be here (idts?? same as tag)
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CHILDNAME, PREFIX_PARENTNAME, PREFIX_PARENTPHONE,
-                PREFIX_PARENTEMAIL, PREFIX_ADDRESS); // TODO: check with team if allergies should be here (idts?? same as tag)
+                PREFIX_PARENTEMAIL, PREFIX_ADDRESS);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
@@ -102,7 +103,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (allergies.isEmpty()) {
             return Optional.empty(); // return empty AllergyList
         }
-        Collection<String> allergyList = allergies.size() == 1 && allergies.contains("") ? Collections.emptySet() : allergies;
+        Collection<String> allergyList = allergies.size() == 1 && allergies.contains("")
+                                         ? Collections.emptySet()
+                                         : allergies;
         return Optional.of(ParserUtil.parseAllergies(allergyList));
     }
 }
