@@ -138,7 +138,7 @@ public class EditCommand extends Command {
         private AllergyList allergies;
         private Address address;
         private Set<Tag> tags;
-        
+
         public EditPersonDescriptor() {}
 
         /**
@@ -170,11 +170,11 @@ public class EditCommand extends Command {
         public Optional<Name> getChildName() {
             return Optional.ofNullable(childName);
         }
-        
+
         public void setParentName(Name parentName) {
             this.parentName = parentName;
         }
-        
+
         public Optional<Name> getParentName() {
             return Optional.ofNullable(parentName);
         }
@@ -194,11 +194,11 @@ public class EditCommand extends Command {
         public Optional<Email> getParentEmail() {
             return Optional.ofNullable(parentEmail);
         }
-        
+
         public void setAllergies(AllergyList allergies) {
             this.allergies = allergies;
         }
-        
+
         public Optional<AllergyList> getAllergies() {
             return Optional.ofNullable(allergies);
         }

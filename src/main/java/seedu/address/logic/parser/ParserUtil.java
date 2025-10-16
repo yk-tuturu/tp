@@ -138,7 +138,7 @@ public class ParserUtil {
         }
         return tagSet;
     }
-    
+
     /**
      * Parses a {@code String allergy} into an {@code Allergy}.
      * Leading and trailing whitespaces will be trimmed.
@@ -153,7 +153,7 @@ public class ParserUtil {
         }
         return new Allergy(trimmedAllergy);
     }
-    
+
     /**
      * Parses {@code Collection<String> allergies} into an {@code AllergyList}.
      */
@@ -165,5 +165,4 @@ public class ParserUtil {
         }
         return new AllergyList(allergyList);
     }
-    
 }
