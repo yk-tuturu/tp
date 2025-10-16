@@ -329,12 +329,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `ParentConnect` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Add a person**
+**Use case: Add a child**
 
 **MSS**
 
-1. User requests to add a person and provides the necessary details
-2. ParentConnect adds the person
+1. User requests to add a child and provides the necessary details
+2. ParentConnect adds the child
 
     Use case ends.
 
@@ -353,14 +353,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case ends.
 
 
-**Use case: Delete a person**
+**Use case: Delete a child**
 
 **MSS**
 
-1.  User requests to list persons
-2.  ParentConnect shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  ParentConnect deletes the person
+1.  User requests to list children's details
+2.  ParentConnect shows a list of children
+3.  User requests to delete a specific child in the list
+4.  ParentConnect deletes the child
 
     Use case ends.
 
@@ -375,6 +375,40 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. ParentConnect shows an error message.
 
       Use case resumes at step 2.
+
+**Use case: Edit a child**
+
+**MSS**
+
+1.  User requests to list children's details
+2.  ParentConnect shows a list of children
+3.  User requests to edit a specific child in the list and provides necessary details
+4.  ParentConnect updates the child with the new info provided
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. ParentConnect shows an error message.
+
+      Use case resumes at step 2.
+* 3b. The given details are invalid.
+
+    * 3b1. ParentConnect shows an error message.
+
+      Use case ends.
+
+* 3c. Some fields are missing.
+
+    * 3c1. ParentConnect shows an error message.
+
+      Use case ends. 
 
 *{More to be added}*
 
