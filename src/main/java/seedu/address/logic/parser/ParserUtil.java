@@ -50,7 +50,7 @@ public class ParserUtil {
         for (int i = 0; i < indexStrings.length; i++) {
             indexArray[i] = parseIndex(indexStrings[i]);
         }
-        Arrays.sort(indexArray, (x,y) -> y.getZeroBased() - x.getZeroBased());
+        Arrays.sort(indexArray, (x, y) -> y.getZeroBased() - x.getZeroBased());
         return indexArray;
     }
 
