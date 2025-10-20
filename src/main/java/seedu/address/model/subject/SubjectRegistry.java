@@ -1,9 +1,10 @@
 package seedu.address.model.subject;
 
 import java.util.EnumSet;
-import java.util.Map;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
+
 import seedu.address.model.person.Person;
 
 /**

@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
 import seedu.address.model.person.Person;
 
 /**
@@ -17,7 +18,7 @@ public class ScoreDict {
      * Adds or updates the score of a person.
      *
      * @param person The person whose score is to be set.
-     * @param score The score to assign to the person.
+     * @param score  The score to assign to the person.
      */
     void setScore(Person person, int score) {
         scores.put(person, score);
