@@ -33,9 +33,9 @@ ParentConnect is a **desktop app for kindergarten teachers to manage parents' co
 
    * `add c/Jane Doe b/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a child named `Jane Doe` to ParentConnect.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+   * `delete 3` : Deletes the 3rd child entry shown in the current list.
 
-   * `clear` : Deletes all contacts.
+   * `clear` : Deletes all child entry.
 
    * `exit` : Exits the app.
 
@@ -133,19 +133,19 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a child : `delete`
+### Deleting a child entry : `delete`
 
-Deletes the specified child from ParentConnect.
+Deletes the specified child entry from ParentConnect.
 
 Format: `delete INDEX`
 
-* Deletes the child at the specified `INDEX`.
+* Deletes the child entry at the specified `INDEX`.
 * The index refers to the index number shown in the displayed children list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd child in ParentConnect.
-* `find Betsy` followed by `delete 1` deletes the 1st child in the results of the `find` command.
+* `list` followed by `delete 2` deletes the 2nd child entry in ParentConnect.
+* `find Betsy` followed by `delete 1` deletes the 1st child entry in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
@@ -175,6 +175,10 @@ Furthermore, certain edits can cause the ParentConnect to behave in unexpected w
 </box>
 
 ### Archiving data files `[coming in v2.0]`
+
+_Details coming soon ..._
+
+### Subject and Grades `[coming in v1.4]`
 
 _Details coming soon ..._
 
