@@ -187,7 +187,29 @@ _Details coming soon ..._
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains 
+the data of your previous AddressBook home folder.
+
+**Q**: I made a mistake by bulk deleting some children. Can I undo? <br>
+**A**: No, unfortunately ParentConnect does not have an undo feature. However, if you have a backup of your data file, 
+you can restore the deleted data by replacing the current data file with your backup. 
+
+**Q**: Where can I find the data file?<br>
+**A**: The data file is located in the `data` folder inside your ParentConnect home folder (i.e., the folder where the 
+jar file is located).
+
+**Q**: Can I use ParentConnect on my mobile device?<br>
+**A**: No, ParentConnect is a desktop application and does not support mobile devices.
+
+**Q**: Can I use ParentConnect without the GUI?<br>
+**A**: No, while ParentConnect is for fast typist, it still requires the GUI to operate since we want to make 
+information vsualisation easier.
+
+**Q**: How do I report bugs or suggest new features?<br>
+**A**: Please visit our [GitHub Issues page](https://github.com/AY2526S1-CS2103T-F08a-4/tp/issues) and make a new issue.
+We welcome all kinds of feedback!
+
+
 
 --------------------------------------------------------------------------------------------------------------------
 
