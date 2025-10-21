@@ -45,7 +45,7 @@ SubjectRegistry ..> Subject : uses
 SubjectRegistry ..> ScoreDict : uses
 SubjectRegistry ..> Person : uses
 Subject "1" o-- "1" ScoreDict : has
-Subject "1" o-- "*" Person : enrolls
+Subject "0..3" o-- "*" Person : enrolls
 ScoreDict "*" o-- "*" Person : maps score of
 
 @enduml
