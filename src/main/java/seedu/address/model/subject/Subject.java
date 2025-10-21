@@ -15,20 +15,22 @@ public enum Subject {
     ENGLISH,
     SCIENCE;
 
+    private static final int DEFAULT_SCORE = -1;
+
     private final ScoreDict scoreDict = new ScoreDict();
     private final Set<Person> students = new HashSet<>();
 
     /**
      * Enrolls a person in this subject.
      * Called internally when a person enrolls in a subject.
-     * If the person does not already have a score, a default score of 0 is assigned.
+     * If the person does not already have a score, a default score of -1 is assigned.
      *
      * @param person The person to enroll.
      */
     void enrollPerson(Person person) {
         students.add(person);
         if (!scoreDict.contains(person)) {
-            scoreDict.setScore(person, 0); // default score is 0
+            scoreDict.setScore(person, DEFAULT_SCORE);
         }
     }
 
