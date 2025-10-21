@@ -78,18 +78,18 @@ Format: `help`
 
 ### Adding a child: `add`
 
-Adds a child to ParentConnect.
+Adds a new child record to ParentConnect.
 
 Format: `add c/CHILD_NAME b/PARENT_NAME p/PARENT_PHONE_NUMBER e/PARENT_EMAIL a/ADDRESS [r/ALLERGIES] [t/TAG]…​`
 
 <box type="tip" seamless>
 
-**Tip:** A child can have any number of tags and allergies (including 0)
+**Tip:** Tags and allergies are optional fields! A child can have as many tags or allergies as necessary, or none at all.
 </box>
 
 Examples:
-* `add c/Marcus b/Hofmann p/98765432 e/hofmann@example.com a/John street, block 123, #01-01`
-* `add c/Tokai Teio b/Symboli Rudolf p/88888888 e/SR@example.com a/Tracen Academy t/Monarch of the East r/honey`
+* `add c/Ella Dawson b/Helen Dawson p/91234567 e/hofmann@example.com a/John street, block 123, #01-01`
+* `add c/Justin Jr b/Justin Sr p/88888888 e/TT@example.com a/22 College Avenue West #20-204 136754 Singapore t/ADHD r/dust`
 
 ### Listing all children : `list`
 
