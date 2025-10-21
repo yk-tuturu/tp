@@ -47,9 +47,9 @@ public class ScoreDictTest {
         scoreDict.setScore(BENSON, 90);
         scoreDict.setScore(CARL, 75);
 
-        assertEquals(85, scoreDict.getScore(ALICE).orElse(-1));
-        assertEquals(90, scoreDict.getScore(BENSON).orElse(-1));
-        assertEquals(75, scoreDict.getScore(CARL).orElse(-1));
+        assertEquals(85, scoreDict.getScore(ALICE).orElse(-100));
+        assertEquals(90, scoreDict.getScore(BENSON).orElse(-100));
+        assertEquals(75, scoreDict.getScore(CARL).orElse(-100));
     }
 
     @Test

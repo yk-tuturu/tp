@@ -29,7 +29,7 @@ public class SubjectTest {
         Subject.MATH.enrollPerson(ALICE);
 
         assertTrue(Subject.MATH.getStudents().contains(ALICE));
-        assertEquals(0, Subject.MATH.getScore(ALICE));
+        assertEquals(-1, Subject.MATH.getScore(ALICE));
     }
 
     @Test
@@ -112,7 +112,7 @@ public class SubjectTest {
     public void getScore_enrolledButNoScoreSet_returnsDefaultScore() {
         Subject.MATH.enrollPerson(ALICE);
 
-        assertEquals(0, Subject.MATH.getScore(ALICE));
+        assertEquals(-1, Subject.MATH.getScore(ALICE));
     }
 
     @Test

@@ -124,13 +124,13 @@ public class SubjectRegistryTest {
     }
 
     @Test
-    public void getScoresOf_defaultScore_returnsZero() {
+    public void getScoresOf_defaultScore_returnsNegativeOne() {
         Subject.SCIENCE.enrollPerson(CARL);
 
         Map<Subject, Integer> scores = SubjectRegistry.getScoresOf(CARL);
 
         assertEquals(1, scores.size());
-        assertEquals(0, scores.get(Subject.SCIENCE));
+        assertEquals(-1, scores.get(Subject.SCIENCE));
     }
 
     @Test
