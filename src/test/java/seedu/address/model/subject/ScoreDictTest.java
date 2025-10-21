@@ -208,7 +208,7 @@ public class ScoreDictTest {
     }
 
     @Test
-    public void integration_addUpdateRemove_worksCorrectly() {
+    public void integration_addUpdateRemove_success() {
         scoreDict.setScore(ALICE, 85);
         scoreDict.setScore(BENSON, 90);
         scoreDict.setScore(CARL, 75);
@@ -228,7 +228,7 @@ public class ScoreDictTest {
     }
 
     @Test
-    public void integration_removeAndReAdd_worksCorrectly() {
+    public void integration_removeAndReAdd_success() {
         scoreDict.setScore(ALICE, 85);
         scoreDict.removePerson(ALICE);
 
