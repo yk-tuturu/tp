@@ -4,7 +4,7 @@
   pageNav: 3
 ---
 
-# AB-3 User Guide
+# ParentConnect User Guide
 
 ParentConnect is a **desktop app for kindergarten teachers to manage parents' contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ParentConnect can get your contact management tasks done faster than traditional GUI apps.
 
