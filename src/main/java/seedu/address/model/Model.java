@@ -87,7 +87,11 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
     
-    boolean hasSubject(Subject subject);
+    default boolean hasSubject(Subject subject) {
+        return false;
+    }
     
-    List<Subject> getSubjectList();
+    default List<Subject> getSubjectList() {
+        return List.of();
+    }
 }

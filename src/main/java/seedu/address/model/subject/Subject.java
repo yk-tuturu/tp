@@ -27,7 +27,7 @@ public enum Subject {
      *
      * @param person The person to enroll.
      */
-    void enrollPerson(Person person) {
+    public void enrollPerson(Person person) {
         students.add(person);
         if (!scoreDict.contains(person)) {
             scoreDict.setScore(person, DEFAULT_SCORE);
