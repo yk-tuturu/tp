@@ -13,26 +13,25 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.subject.Subject;
 
-public class EnrollCommand extends Command {
+public class UnenrollCommand extends Command {
+    public static final String COMMAND_WORD = "unenroll";
 
-    public static final String COMMAND_WORD = "enroll";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enrolls all students at the specified indexes "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unenrolls all students at the specified indexes "
             + "into the listed subjects; or enrolls all students currently listed if the 'all' keyword is used\n"
             + "Parameters: INDEXES (must be positive integers) or 'ALL', s/SUBJECT...\n"
-            + "Example: " + COMMAND_WORD + " 1 2 3 s/math"
+            + "Example: " + COMMAND_WORD + " 1 2 3 s/math "
             + "or: " + COMMAND_WORD + " all s/math s/science";
 
-    public static final String MESSAGE_ENROLL_PERSON_SUCCESS = "Enrolled Person: %1$s in Subject: %2$s\n";
-    public static final String MESSAGE_NO_PERSON_ENROLLED = "All selected students are already enrolled!";
+    public static final String MESSAGE_ENROLL_PERSON_SUCCESS = "Unenrolled Person: %1$s in Subject: %2$s\n";
+    public static final String MESSAGE_NO_PERSON_UNENROLLED = "All selected students are already unenrolled";
 
     private final Index[] indexes;
-    private final boolean enrollAll;
+    private final boolean unenrollAll;
     private final Set<Subject> subjectSet;
 
-    public EnrollCommand(Index[] indexes, boolean enrollAll, Set<Subject> subjectSet) {
+    public UnenrollCommand(Index[] indexes, boolean unenrollAll, Set<Subject> subjectSet) {
         this.indexes = indexes;
-        this.enrollAll = enrollAll;
+        this.unenrollAll = unenrollAll;
         this.subjectSet = subjectSet;
     }
 
@@ -44,10 +43,10 @@ public class EnrollCommand extends Command {
         StringBuilder sb = new StringBuilder();
 
         // enroll all currently shown students
-        if (enrollAll) {
+        if (unenrollAll) {
             for (Person person : lastShownList) {
                 for (Subject subject : subjectSet) {
-                    if (!subject.getStudents().contains(person)) {
+                    if (subject.getStudents().contains(person)) {
                         subject.enrollPerson(person);
                         sb.append(String.format(MESSAGE_ENROLL_PERSON_SUCCESS,
                                 Messages.formatShort(person), subject.toString()));
@@ -64,21 +63,21 @@ public class EnrollCommand extends Command {
 
             for (Index index : indexes) {
                 for (Subject subject : subjectSet) {
-                    Person personToEnroll = lastShownList.get(index.getZeroBased());
+                    Person personToUnenroll = lastShownList.get(index.getZeroBased());
 
-                    // check if student is already enrolled, then enrol
-                    if (!subject.getStudents().contains(personToEnroll)) {
-                        subject.enrollPerson(personToEnroll);
+                    // check if student is actually in the class, then unenroll
+                    if (subject.getStudents().contains(personToUnenroll)) {
+                        subject.enrollPerson(personToUnenroll);
                         sb.append(String.format(MESSAGE_ENROLL_PERSON_SUCCESS,
-                                Messages.formatShort(personToEnroll), subject.toString()));
+                                Messages.formatShort(personToUnenroll), subject.toString()));
                     }
                 }
             }
         }
 
-        String enrolledPersonsResult = sb.toString();
+        String unenrolledPersonsResult = sb.toString();
 
-        return new CommandResult(enrolledPersonsResult.isEmpty() ? MESSAGE_NO_PERSON_ENROLLED : enrolledPersonsResult);
+        return new CommandResult(unenrolledPersonsResult.isEmpty() ? MESSAGE_NO_PERSON_UNENROLLED : unenrolledPersonsResult);
     }
 
     @Override
@@ -88,13 +87,13 @@ public class EnrollCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EnrollCommand)) {
+        if (!(other instanceof UnenrollCommand)) {
             return false;
         }
 
-        EnrollCommand otherCommand = (EnrollCommand) other;
+        UnenrollCommand otherCommand = (UnenrollCommand) other;
         return indexes.equals(otherCommand.indexes)
-                && enrollAll == otherCommand.enrollAll
+                && unenrollAll == otherCommand.unenrollAll
                 && subjectSet.equals(otherCommand.subjectSet);
     }
 
@@ -102,7 +101,7 @@ public class EnrollCommand extends Command {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("indexes", indexes)
-                .add("enrolAll", enrollAll)
+                .add("enrolAll", unenrollAll)
                 .add("subjects", subjectSet)
                 .toString();
     }
