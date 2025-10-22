@@ -20,6 +20,42 @@ public enum Subject {
     private final ScoreDict scoreDict = new ScoreDict();
     private final Set<Person> students = new HashSet<>();
 
+    public static final String MESSAGE_CONSTRAINTS =
+            "Subject string should not be empty, and it should be one of the registered subjects MATH, ENGLISH, SCIENCE";
+
+    /**
+     * Gets the correct subject based on string, case insensitive
+     * @param name string of subject name
+     * @return the subject enum
+     */
+    public static Subject fromString(String name) {
+        for (Subject subject : Subject.values()) {
+            if (subject.name().equalsIgnoreCase(name)) {
+                return subject;
+            }
+        }
+        throw new IllegalArgumentException("No subject found for name: " + name);
+    }
+
+    /**
+     * Checks whether the given name corresponds to a valid {@link Subject}.
+     * The comparison is case-insensitive.
+     *
+     * @param name The name of the subject to check.
+     * @return {@code true} if the name matches an existing subject; {@code false} otherwise.
+     */
+    public static boolean contains(String name) {
+        if (name == null) {
+            return false;
+        }
+        for (Subject subject : Subject.values()) {
+            if (subject.name().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Enrolls a person in this subject.
      * Called internally when a person enrolls in a subject.
@@ -27,7 +63,7 @@ public enum Subject {
      *
      * @param person The person to enroll.
      */
-    void enrollPerson(Person person) {
+    public void enrollPerson(Person person) {
         students.add(person);
         if (!scoreDict.contains(person)) {
             scoreDict.setScore(person, DEFAULT_SCORE);
@@ -39,7 +75,7 @@ public enum Subject {
      *
      * @param person The person to unenroll.
      */
-    void unenrollPerson(Person person) {
+    public void unenrollPerson(Person person) {
         students.remove(person);
         scoreDict.removePerson(person);
     }
