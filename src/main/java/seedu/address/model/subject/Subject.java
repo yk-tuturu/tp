@@ -124,4 +124,9 @@ public enum Subject {
     public ScoreDict getScoreDict() {
         return scoreDict;
     }
+
+    @Override
+    public String toString() {
+        return this.name();
+    }
 }

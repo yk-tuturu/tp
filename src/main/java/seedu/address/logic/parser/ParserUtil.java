@@ -18,6 +18,7 @@ import seedu.address.model.person.AllergyList;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.subject.Subject;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -166,5 +167,36 @@ public class ParserUtil {
             allergyList.add(parseAllergy(allergyName));
         }
         return new AllergyList(allergyList);
+    }
+
+    public static Subject parseSubject(String subject) throws ParseException {
+        requireNonNull(subject);
+
+        String trimmedSubject = subject.trim();
+
+        if (!Subject.contains(subject)) {
+            throw new ParseException(Subject.MESSAGE_CONSTRAINTS);
+        }
+
+        return Subject.fromString(subject);
+    }
+
+    public static Set<Subject> parseSubjects(List<String> subjects) throws ParseException {
+        requireNonNull(subjects);
+
+        final Set<Subject> subjectSet = new HashSet<>();
+        for (String subject : subjects) {
+            subjectSet.add(parseSubject(subject));
+        }
+        return subjectSet;
+    }
+
+    /**
+     * Check if the text matches the "ALL" keyword
+     * @param text
+     * @return
+     */
+    public static boolean checkIsAll(String text) {
+        return text.trim().equalsIgnoreCase("all");
     }
 }
