@@ -65,9 +65,9 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
 
         PersonContainsKeywordsPredicate otherPersonContainsKeywordsPredicate = (PersonContainsKeywordsPredicate) other;
         return childNameKeywords.equals(otherPersonContainsKeywordsPredicate.childNameKeywords)
-                & parentNameKeywords.equals(otherPersonContainsKeywordsPredicate.parentNameKeywords)
-                & allergyKeywords.equals(otherPersonContainsKeywordsPredicate.allergyKeywords)
-                & tagKeywords.equals(otherPersonContainsKeywordsPredicate.tagKeywords);
+                && parentNameKeywords.equals(otherPersonContainsKeywordsPredicate.parentNameKeywords)
+                && allergyKeywords.equals(otherPersonContainsKeywordsPredicate.allergyKeywords)
+                && tagKeywords.equals(otherPersonContainsKeywordsPredicate.tagKeywords);
     }
 
     @Override
