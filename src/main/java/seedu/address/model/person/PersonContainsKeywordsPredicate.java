@@ -5,7 +5,6 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Tests that a {@code Person}'s {@code Name}, {@code Allergy} or {@code Tag} matches any of the keywords given.
@@ -16,6 +15,15 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> allergyKeywords;
     private final List<String> tagKeywords;
 
+    /**
+     * Constructs a {@code PersonContainsKeywordsPredicate} with the given keywords for
+     * child name, parent name, allergies, and tags.
+     *
+     * @param childNameKeywords list of keywords to match against child names, must not be null
+     * @param parentNameKeywords list of keywords to match against parent names, must not be null
+     * @param allergyKeywords list of keywords to match against allergies, must not be null
+     * @param tagKeywords list of keywords to match against tags, must not be null
+     */
     public PersonContainsKeywordsPredicate(List<String> childNameKeywords, List<String> parentNameKeywords,
                                            List<String> allergyKeywords, List<String> tagKeywords) {
 
