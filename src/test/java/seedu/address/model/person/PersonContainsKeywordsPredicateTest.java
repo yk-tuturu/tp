@@ -44,10 +44,10 @@ public class PersonContainsKeywordsPredicateTest {
         assertEquals(firstPredicate, firstPredicateCopy);
 
         // different types -> returns false
-        assertNotEquals(1, firstPredicate);
+        assertNotEquals(firstPredicate, 1);
 
         // null -> returns false
-        assertNotEquals(null, firstPredicate);
+        assertNotEquals(firstPredicate, null);
 
         // different person -> returns false
         assertNotEquals(firstPredicate, secondPredicate);
