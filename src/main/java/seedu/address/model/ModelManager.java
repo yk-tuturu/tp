@@ -129,13 +129,13 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
-    
+
     @Override
     public boolean hasSubject(Subject subject) {
         requireNonNull(subject);
         return addressBook.hasSubject(subject);
     }
-    
+
     @Override
     public List<Subject> getSubjectList() {
         return addressBook.getSubjectList();

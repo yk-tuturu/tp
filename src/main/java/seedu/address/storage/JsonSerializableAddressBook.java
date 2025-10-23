@@ -107,7 +107,6 @@ class JsonSerializableAddressBook {
                 if (person == null) {
                     throw new IllegalValueException("Unknown person in scores: " + dto.getPersonName());
                 }
-                // Enroll then set score (enroll will add default -1 if needed)
                 subject.enrollPerson(person);
                 Integer sc = dto.getScore();
                 if (sc != null && sc >= 0) {
@@ -115,8 +114,6 @@ class JsonSerializableAddressBook {
                 }
             }
         }
-
         return addressBook;
     }
-
 }

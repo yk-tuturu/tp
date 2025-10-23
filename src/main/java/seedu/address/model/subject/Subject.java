@@ -89,7 +89,7 @@ public enum Subject {
     public ScoreDict getScoreDict() {
         return scoreDict;
     }
-    
+
     /**
      * Returns a list of all defined subjects.
      *

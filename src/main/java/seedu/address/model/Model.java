@@ -86,12 +86,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
-    
+
     /**
      * Returns true if the model contains the given subject.
      */
     boolean hasSubject(Subject subject);
-    
+
     /**
      * Returns an unmodifiable view of the list of Subjects.
      */
