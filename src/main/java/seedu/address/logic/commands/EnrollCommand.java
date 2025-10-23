@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -52,43 +54,36 @@ public class EnrollCommand extends Command {
 
         List<Person> lastShownList = model.getFilteredPersonList();
         StringBuilder sb = new StringBuilder();
+        List<Person> personsToProcess;
 
-        // enroll all currently shown students
         if (enrollAll) {
-            for (Person person : lastShownList) {
-                for (Subject subject : subjectSet) {
-                    if (!subject.getStudents().contains(person)) {
-                        subject.enrollPerson(person);
-                        sb.append(String.format(MESSAGE_ENROLL_PERSON_SUCCESS,
-                                Messages.formatShort(person), subject.toString()));
-                    }
-                }
-            }
+            personsToProcess = lastShownList;
         } else {
-            // check for index out of range
+            // Validate indexes and map to persons
+            personsToProcess = new ArrayList<>();
             for (Index index : indexes) {
-                if (index.getZeroBased() >= lastShownList.size()) {
+                int i = index.getZeroBased();
+                if (i >= lastShownList.size()) {
                     throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
                 }
+                personsToProcess.add(lastShownList.get(i));
             }
+        }
 
-            for (Index index : indexes) {
-                for (Subject subject : subjectSet) {
-                    Person personToEnroll = lastShownList.get(index.getZeroBased());
-
-                    // check if student is already enrolled, then enrol
-                    if (!subject.getStudents().contains(personToEnroll)) {
-                        subject.enrollPerson(personToEnroll);
-                        sb.append(String.format(MESSAGE_ENROLL_PERSON_SUCCESS,
-                                Messages.formatShort(personToEnroll), subject.toString()));
-                    }
+        for (Person person : personsToProcess) {
+            for (Subject subject : subjectSet) {
+                if (!subject.getStudents().contains(person)) {
+                    subject.enrollPerson(person);
+                    sb.append(String.format(MESSAGE_ENROLL_PERSON_SUCCESS,
+                            Messages.formatShort(person), subject));
                 }
             }
         }
 
         String enrolledPersonsResult = sb.toString();
 
-        return new CommandResult(enrolledPersonsResult.isEmpty() ? MESSAGE_NO_PERSON_ENROLLED : enrolledPersonsResult);
+        return new CommandResult(enrolledPersonsResult.isEmpty() ? MESSAGE_NO_PERSON_ENROLLED
+                : enrolledPersonsResult);
     }
 
     @Override
@@ -103,7 +98,7 @@ public class EnrollCommand extends Command {
         }
 
         EnrollCommand otherCommand = (EnrollCommand) other;
-        return indexes.equals(otherCommand.indexes)
+        return Arrays.equals(indexes, otherCommand.indexes)
                 && enrollAll == otherCommand.enrollAll
                 && subjectSet.equals(otherCommand.subjectSet);
     }

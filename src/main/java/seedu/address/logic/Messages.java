@@ -62,11 +62,7 @@ public class Messages {
      * @return
      */
     public static String formatShort(Person person) {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(person.getChildName())
-                .append("; Parent: ")
-                .append(person.getParentName());
-        return builder.toString();
+        return person.getChildName().toString();
     }
 
 }

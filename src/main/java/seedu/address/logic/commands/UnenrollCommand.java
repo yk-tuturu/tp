@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -25,7 +27,7 @@ public class UnenrollCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 2 3 s/math "
             + "or: " + COMMAND_WORD + " all s/math s/science";
 
-    public static final String MESSAGE_ENROLL_PERSON_SUCCESS = "Unenrolled Person: %1$s in Subject: %2$s\n";
+    public static final String MESSAGE_UNENROLL_PERSON_SUCCESS = "Unenrolled Person: %1$s in Subject: %2$s\n";
     public static final String MESSAGE_NO_PERSON_UNENROLLED = "All selected students are already unenrolled";
 
     private final Index[] indexes;
@@ -52,35 +54,28 @@ public class UnenrollCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
         StringBuilder sb = new StringBuilder();
 
-        // enroll all currently shown students
+        List<Person> personsToProcess;
+
         if (unenrollAll) {
-            for (Person person : lastShownList) {
-                for (Subject subject : subjectSet) {
-                    if (subject.getStudents().contains(person)) {
-                        subject.enrollPerson(person);
-                        sb.append(String.format(MESSAGE_ENROLL_PERSON_SUCCESS,
-                                Messages.formatShort(person), subject.toString()));
-                    }
-                }
-            }
+            personsToProcess = lastShownList;
         } else {
-            // check for index out of range
+            // Validate indexes and map to persons
+            personsToProcess = new ArrayList<>();
             for (Index index : indexes) {
-                if (index.getZeroBased() >= lastShownList.size()) {
+                int i = index.getZeroBased();
+                if (i >= lastShownList.size()) {
                     throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
                 }
+                personsToProcess.add(lastShownList.get(i));
             }
+        }
 
-            for (Index index : indexes) {
-                for (Subject subject : subjectSet) {
-                    Person personToUnenroll = lastShownList.get(index.getZeroBased());
-
-                    // check if student is actually in the class, then unenroll
-                    if (subject.getStudents().contains(personToUnenroll)) {
-                        subject.enrollPerson(personToUnenroll);
-                        sb.append(String.format(MESSAGE_ENROLL_PERSON_SUCCESS,
-                                Messages.formatShort(personToUnenroll), subject.toString()));
-                    }
+        for (Person person : personsToProcess) {
+            for (Subject subject : subjectSet) {
+                if (subject.getStudents().contains(person)) {
+                    subject.unenrollPerson(person);
+                    sb.append(String.format(MESSAGE_UNENROLL_PERSON_SUCCESS,
+                            Messages.formatShort(person), subject));
                 }
             }
         }
@@ -103,7 +98,7 @@ public class UnenrollCommand extends Command {
         }
 
         UnenrollCommand otherCommand = (UnenrollCommand) other;
-        return indexes.equals(otherCommand.indexes)
+        return Arrays.equals(indexes, otherCommand.indexes)
                 && unenrollAll == otherCommand.unenrollAll
                 && subjectSet.equals(otherCommand.subjectSet);
     }

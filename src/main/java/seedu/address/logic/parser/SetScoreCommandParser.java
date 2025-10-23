@@ -1,9 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SCORE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
@@ -12,42 +12,46 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.subject.Subject;
 
 /**
- * Parser for the unenroll command
+ * Parses command for setscore
  */
-public class UnenrollCommandParser implements Parser<UnenrollCommand> {
-
+public class SetScoreCommandParser implements Parser {
     /**
-     * Parses the given {@code String} of arguments in the context of the UnenrollCommand
-     * and returns a UnenrollCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the SetScoreCommand
+     * and returns a SetScoreCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public UnenrollCommand parse(String args) throws ParseException {
+    public seedu.address.logic.commands.SetScoreCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_SUBJECT);
+                ArgumentTokenizer.tokenize(args, PREFIX_SUBJECT, PREFIX_SCORE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_SUBJECT)
+        if (!arePrefixesPresent(argMultimap, PREFIX_SUBJECT, PREFIX_SCORE)
                 || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnenrollCommand.MESSAGE_USAGE));
         }
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_SUBJECT, PREFIX_SCORE);
+
         Index[] indices;
-        boolean unenrollAll = false;
-        Set<Subject> subjects;
+        Subject subject;
+        int score;
+        boolean setAll = false;
 
         try {
             String preamble = argMultimap.getPreamble();
             if (ParserUtil.checkIsAll(preamble)) {
-                unenrollAll = true;
+                setAll = true;
                 indices = new Index[0];
             } else {
                 indices = ParserUtil.parseIndexArray(preamble);
             }
-            subjects = ParserUtil.parseSubjects(argMultimap.getAllValues(PREFIX_SUBJECT));
+            subject = ParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT).get());
+            score = ParserUtil.parseScore(argMultimap.getValue(PREFIX_SCORE).get());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnenrollCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    seedu.address.logic.commands.SetScoreCommand.MESSAGE_USAGE), pe);
         }
 
-        return new UnenrollCommand(indices, unenrollAll, subjects);
+        return new seedu.address.logic.commands.SetScoreCommand(indices, setAll, subject, score);
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
