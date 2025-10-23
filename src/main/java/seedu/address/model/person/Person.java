@@ -31,13 +31,13 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name child_name, Name parent_name, Phone parent_phone, Email parent_email, AllergyList allergies,
+    public Person(Name childName, Name parentName, Phone parentPhone, Email parentEmail, AllergyList allergies,
                   Address address, Set<Tag> tags) {
-        requireAllNonNull(child_name, parent_name, parent_phone, parent_email, allergies, address, tags);
-        this.childName = child_name;
-        this.parentName = parent_name;
-        this.parentPhone = parent_phone;
-        this.parentEmail = parent_email;
+        requireAllNonNull(childName, parentName, parentPhone, parentEmail, allergies, address, tags);
+        this.childName = childName;
+        this.parentName = parentName;
+        this.parentPhone = parentPhone;
+        this.parentEmail = parentEmail;
         this.allergies = allergies;
         this.address = address;
         this.tags.addAll(tags);
@@ -67,7 +67,9 @@ public class Person {
         return allergies;
     }
 
-    public List<Allergy> getAllergyList() { return allergies.getAllergyList(); }
+    public List<Allergy> getAllergyList() {
+        return allergies.getAllergyList();
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}

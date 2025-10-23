@@ -18,6 +18,7 @@ import seedu.address.model.person.AllergyList;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.subject.Subject;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -166,5 +167,67 @@ public class ParserUtil {
             allergyList.add(parseAllergy(allergyName));
         }
         return new AllergyList(allergyList);
+    }
+
+    /**
+     * Parse a single subject string into a {@code Subject}
+     * @param subject the string to be parsed
+     * @return a subject object
+     * @throws ParseException
+     */
+    public static Subject parseSubject(String subject) throws ParseException {
+        requireNonNull(subject);
+
+        String trimmedSubject = subject.trim();
+
+        if (!Subject.contains(subject)) {
+            throw new ParseException(Subject.MESSAGE_CONSTRAINTS);
+        }
+
+        return Subject.fromString(subject);
+    }
+
+    /**
+     * Parse a list of subject strings into their corresponding subjects
+     * @param subjects the list of subjects
+     * @return A set of subject objects
+     * @throws ParseException
+     */
+    public static List<Subject> parseSubjects(List<String> subjects) throws ParseException {
+        requireNonNull(subjects);
+
+        final List<Subject> subjectList = new ArrayList<>();
+        for (String subject : subjects) {
+            subjectList.add(parseSubject(subject));
+        }
+        return subjectList.stream().distinct().toList();
+    }
+
+    /**
+     * Check if the text matches the "ALL" keyword
+     * @param text
+     * @return
+     */
+    public static boolean checkIsAll(String text) {
+        return text.trim().equalsIgnoreCase("all");
+    }
+
+    /**
+     * Parses a score from user input. Must be between 0 - 100
+     * @param scoreString the string to be processed
+     * @return an integer representation of the score
+     * @throws ParseException
+     */
+    public static int parseScore(String scoreString) throws ParseException {
+        try {
+            int score = Integer.parseInt(scoreString);
+            if (score < 0 || score > 100) {
+                throw new ParseException("Score must be between 0 to 100!");
+            }
+
+            return score;
+        } catch (NumberFormatException | NullPointerException e) {
+            throw new ParseException("Score must be numeric!");
+        }
     }
 }

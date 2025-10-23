@@ -56,4 +56,13 @@ public class Messages {
         return builder.toString();
     }
 
+    /**
+     * Formats a person into a relatively shorter string containing only child and parent name
+     * @param person the person object to format
+     * @return
+     */
+    public static String formatShort(Person person) {
+        return person.getChildName().toString();
+    }
+
 }

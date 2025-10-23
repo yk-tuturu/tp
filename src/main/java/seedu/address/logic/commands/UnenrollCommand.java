@@ -1,0 +1,113 @@
+package seedu.address.logic.commands;
+
+import static java.util.Objects.requireNonNull;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.person.Person;
+import seedu.address.model.subject.Subject;
+
+/**
+ * Unenrolls students from a subject
+ */
+public class UnenrollCommand extends Command {
+    public static final String COMMAND_WORD = "unenroll";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unenrolls all students at the specified indexes "
+            + "into the listed subjects; or enrolls all students currently listed if the 'all' keyword is used\n"
+            + "Parameters: INDEXES (must be positive integers) or 'ALL', s/SUBJECT...\n"
+            + "Example: " + COMMAND_WORD + " 1 2 3 s/math "
+            + "or: " + COMMAND_WORD + " all s/math s/science";
+
+    public static final String MESSAGE_UNENROLL_PERSON_SUCCESS = "Unenrolled Person: %1$s in Subject: %2$s\n";
+    public static final String MESSAGE_NO_PERSON_UNENROLLED = "All selected students are already unenrolled";
+
+    private final Index[] indexes;
+    private final boolean unenrollAll;
+    private final List<Subject> subjectList;
+
+    /**
+     * Unenrolls an index array of students into one or more subjects
+     * The enrollAll flag can be set to true to unenroll all shown students
+     * @param indexes the index array
+     * @param unenrollAll if true, unenroll all currently shown students
+     * @param subjectList a set of subjects to be unenrolled from
+     */
+    public UnenrollCommand(Index[] indexes, boolean unenrollAll, List<Subject> subjectList) {
+        this.indexes = indexes;
+        this.unenrollAll = unenrollAll;
+        this.subjectList = subjectList;
+    }
+
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
+        List<Person> lastShownList = model.getFilteredPersonList();
+        StringBuilder sb = new StringBuilder();
+
+        List<Person> personsToProcess;
+
+        if (unenrollAll) {
+            personsToProcess = lastShownList;
+        } else {
+            // Validate indexes and map to persons
+            personsToProcess = new ArrayList<>();
+            for (Index index : indexes) {
+                int i = index.getZeroBased();
+                if (i >= lastShownList.size()) {
+                    throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                }
+                personsToProcess.add(lastShownList.get(i));
+            }
+        }
+
+        for (Person person : personsToProcess) {
+            for (Subject subject : subjectList) {
+                if (subject.getStudents().contains(person)) {
+                    subject.unenrollPerson(person);
+                    sb.append(String.format(MESSAGE_UNENROLL_PERSON_SUCCESS,
+                            Messages.formatShort(person), subject));
+                }
+            }
+        }
+
+        String unenrolledPersonsResult = sb.toString();
+
+        return new CommandResult(unenrolledPersonsResult.isEmpty() ? MESSAGE_NO_PERSON_UNENROLLED
+                : unenrolledPersonsResult);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof UnenrollCommand)) {
+            return false;
+        }
+
+        UnenrollCommand otherCommand = (UnenrollCommand) other;
+        return Arrays.equals(indexes, otherCommand.indexes)
+                && unenrollAll == otherCommand.unenrollAll
+                && subjectList.equals(otherCommand.subjectList);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("indexes", indexes)
+                .add("enrolAll", unenrollAll)
+                .add("subjects", subjectList)
+                .toString();
+    }
+}

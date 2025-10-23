@@ -90,7 +90,7 @@ public class EditCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        // Todo: check if format() needs to be updated
+
         return new CommandResult(String.format(MESSAGE_EDIT_CHILD_SUCCESS, Messages.format(editedPerson)));
     }
 
@@ -100,7 +100,6 @@ public class EditCommand extends Command {
      */
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
-        // TODO: For Edit command person to fix
         Name updatedChildName = editPersonDescriptor.getChildName().orElse(personToEdit.getChildName());
         Name updatedParentName = editPersonDescriptor.getParentName().orElse(personToEdit.getParentName());
         Phone updatedParentPhone = editPersonDescriptor.getParentPhone().orElse(personToEdit.getParentPhone());
