@@ -8,6 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CHILDNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTEMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTPHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SCORE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -67,6 +69,12 @@ public class CommandTestUtil {
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
+    public static final String INVALID_SUBJECT_DESC = " " + PREFIX_SUBJECT + "notasubject!@#*&(";
+    public static final String INVALID_SCORE_DESC = " " + PREFIX_SCORE + "notascore";
+    public static final String VALID_SUBJECT_DESC = " " + PREFIX_SUBJECT + "math";
+    public static final String VALID_SUBJECT_2_DESC = " " + PREFIX_SUBJECT + "science";
+    public static final String VALID_SCORE_DESC = " " + PREFIX_SCORE + "100";
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;

@@ -193,14 +193,14 @@ public class ParserUtil {
      * @return A set of subject objects
      * @throws ParseException
      */
-    public static Set<Subject> parseSubjects(List<String> subjects) throws ParseException {
+    public static List<Subject> parseSubjects(List<String> subjects) throws ParseException {
         requireNonNull(subjects);
 
-        final Set<Subject> subjectSet = new HashSet<>();
+        final List<Subject> subjectList = new ArrayList<>();
         for (String subject : subjects) {
-            subjectSet.add(parseSubject(subject));
+            subjectList.add(parseSubject(subject));
         }
-        return subjectSet;
+        return subjectList.stream().distinct().toList();
     }
 
     /**

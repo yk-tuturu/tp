@@ -32,19 +32,19 @@ public class UnenrollCommand extends Command {
 
     private final Index[] indexes;
     private final boolean unenrollAll;
-    private final Set<Subject> subjectSet;
+    private final List<Subject> subjectList;
 
     /**
      * Unenrolls an index array of students into one or more subjects
      * The enrollAll flag can be set to true to unenroll all shown students
      * @param indexes the index array
      * @param unenrollAll if true, unenroll all currently shown students
-     * @param subjectSet a set of subjects to be unenrolled from
+     * @param subjectList a set of subjects to be unenrolled from
      */
-    public UnenrollCommand(Index[] indexes, boolean unenrollAll, Set<Subject> subjectSet) {
+    public UnenrollCommand(Index[] indexes, boolean unenrollAll, List<Subject> subjectList) {
         this.indexes = indexes;
         this.unenrollAll = unenrollAll;
-        this.subjectSet = subjectSet;
+        this.subjectList = subjectList;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class UnenrollCommand extends Command {
         }
 
         for (Person person : personsToProcess) {
-            for (Subject subject : subjectSet) {
+            for (Subject subject : subjectList) {
                 if (subject.getStudents().contains(person)) {
                     subject.unenrollPerson(person);
                     sb.append(String.format(MESSAGE_UNENROLL_PERSON_SUCCESS,
@@ -100,7 +100,7 @@ public class UnenrollCommand extends Command {
         UnenrollCommand otherCommand = (UnenrollCommand) other;
         return Arrays.equals(indexes, otherCommand.indexes)
                 && unenrollAll == otherCommand.unenrollAll
-                && subjectSet.equals(otherCommand.subjectSet);
+                && subjectList.equals(otherCommand.subjectList);
     }
 
     @Override
@@ -108,7 +108,7 @@ public class UnenrollCommand extends Command {
         return new ToStringBuilder(this)
                 .add("indexes", indexes)
                 .add("enrolAll", unenrollAll)
-                .add("subjects", subjectSet)
+                .add("subjects", subjectList)
                 .toString();
     }
 }
