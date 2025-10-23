@@ -46,7 +46,6 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        // TODO: check with team if allergies should be here (idts?? same as tag)
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CHILDNAME, PREFIX_PARENTNAME, PREFIX_PARENTPHONE,
                 PREFIX_PARENTEMAIL, PREFIX_ADDRESS);
 
