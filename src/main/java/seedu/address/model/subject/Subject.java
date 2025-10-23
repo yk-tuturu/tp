@@ -39,7 +39,7 @@ public enum Subject {
      *
      * @param person The person to unenroll.
      */
-    void unenrollPerson(Person person) {
+    public void unenrollPerson(Person person) {
         students.remove(person);
         scoreDict.removePerson(person);
     }

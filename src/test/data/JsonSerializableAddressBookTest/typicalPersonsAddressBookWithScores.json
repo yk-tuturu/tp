@@ -1,0 +1,114 @@
+{
+  "_comment": "AddressBook save file with typical persons plus HOON and IDA and some scores",
+  "persons": [
+    {
+      "childName": "Alice Pauline",
+      "parentName": "Paulines Mom",
+      "parentPhone": "94351253",
+      "parentEmail": "alice@example.com",
+      "address": "123, Jurong West Ave 6, #08-111",
+      "allergies": ["Peanuts"],
+      "tags": []
+    },
+    {
+      "childName": "Benson Meier",
+      "parentName": "Bensons Dad",
+      "parentPhone": "98765432",
+      "parentEmail": "johnd@example.com",
+      "address": "311, Clementi Ave 2, #02-25",
+      "allergies": ["Milk", "Shellfish"],
+      "tags": []
+    },
+    {
+      "childName": "Carl Kurz",
+      "parentName": "Carls Mom",
+      "parentPhone": "95352563",
+      "parentEmail": "heinz@example.com",
+      "address": "wall street",
+      "allergies": ["Dust"],
+      "tags": []
+    },
+    {
+      "childName": "Daniel Meier",
+      "parentName": "Daniels Dad",
+      "parentPhone": "87652533",
+      "parentEmail": "cornelia@example.com",
+      "address": "10th Street",
+      "allergies": ["Eggs"],
+      "tags": []
+    },
+    {
+      "childName": "Elle Meyer",
+      "parentName": "Elles Mom",
+      "parentPhone": "9482224",
+      "parentEmail": "werner@example.com",
+      "address": "Michegan Ave",
+      "allergies": ["Pollen"],
+      "tags": []
+    },
+    {
+      "childName": "Fiona Kunz",
+      "parentName": "Fionas Dad",
+      "parentPhone": "9482427",
+      "parentEmail": "lydia@example.com",
+      "address": "Little Tokyo",
+      "allergies": ["Gluten"],
+      "tags": []
+    },
+    {
+      "childName": "George Best",
+      "parentName": "Georges Mom",
+      "parentPhone": "9482442",
+      "parentEmail": "anna@example.com",
+      "address": "4th Street",
+      "allergies": [],
+      "tags": []
+    },
+    {
+      "childName": "Amy Bee",
+      "parentName": "Alice Choo",
+      "parentPhone": "11111111",
+      "parentEmail": "amy@example.com",
+      "address": "Block 312, Amy Street 1",
+      "allergies": [],
+      "tags": []
+    },
+    {
+      "childName": "Bob Choo",
+      "parentName": "Betty Lim",
+      "parentPhone": "22222222",
+      "parentEmail": "bob@example.com",
+      "address": "Block 123, Bobby Street 3",
+      "allergies": [],
+      "tags": []
+    },
+    {
+      "childName": "Hoon heh",
+      "parentName": "Elle egh",
+      "parentPhone": "8482424",
+      "parentEmail": "elle@example.com",
+      "address": "Little India",
+      "allergies": ["Soy"],
+      "tags": []
+    },
+    {
+      "childName": "Ida Mueller",
+      "parentName": "Idas Dad",
+      "parentPhone": "8482131",
+      "parentEmail": "hans@example.com",
+      "address": "Chicago Ave",
+      "allergies": ["Dust"],
+      "tags": []
+    }
+  ],
+  "subjectScores": {
+    "MATH": [
+      { "personName": "Hoon heh", "score": 88 }
+    ],
+    "SCIENCE": [
+      { "personName": "Ida Mueller", "score": 92 }
+    ],
+    "ENGLISH": []
+  }
+}
+

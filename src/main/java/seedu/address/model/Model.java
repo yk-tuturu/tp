@@ -87,11 +87,13 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
     
-    default boolean hasSubject(Subject subject) {
-        return false;
-    }
+    /**
+     * Returns true if the model contains the given subject.
+     */
+    boolean hasSubject(Subject subject);
     
-    default List<Subject> getSubjectList() {
-        return List.of();
-    }
+    /**
+     * Returns an unmodifiable view of the list of Subjects.
+     */
+    List<Subject> getSubjectList();
 }
