@@ -1,6 +1,7 @@
 package seedu.address.model.subject;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.person.Person;
@@ -27,7 +28,7 @@ public enum Subject {
      *
      * @param person The person to enroll.
      */
-    void enrollPerson(Person person) {
+    public void enrollPerson(Person person) {
         students.add(person);
         if (!scoreDict.contains(person)) {
             scoreDict.setScore(person, DEFAULT_SCORE);
@@ -39,7 +40,7 @@ public enum Subject {
      *
      * @param person The person to unenroll.
      */
-    void unenrollPerson(Person person) {
+    public void unenrollPerson(Person person) {
         students.remove(person);
         scoreDict.removePerson(person);
     }
@@ -89,5 +90,14 @@ public enum Subject {
      */
     public ScoreDict getScoreDict() {
         return scoreDict;
+    }
+
+    /**
+     * Returns a list of all defined subjects.
+     *
+     * @return A list of all subjects.
+     */
+    public static List<Subject> getAllSubjects() {
+        return List.of(Subject.values());
     }
 }
