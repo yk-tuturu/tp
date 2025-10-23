@@ -13,6 +13,9 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.subject.Subject;
 
+/**
+ * Enrolls a person into a subject
+ */
 public class EnrollCommand extends Command {
 
     public static final String COMMAND_WORD = "enroll";
@@ -30,6 +33,13 @@ public class EnrollCommand extends Command {
     private final boolean enrollAll;
     private final Set<Subject> subjectSet;
 
+    /**
+     * Enrolls an index array of students into one or more subjects
+     * The enrollAll flag can be set to true to enroll all shown students
+     * @param indexes the index array
+     * @param enrollAll if true, enroll all currently shown students
+     * @param subjectSet a set of subjects to be enrolled in
+     */
     public EnrollCommand(Index[] indexes, boolean enrollAll, Set<Subject> subjectSet) {
         this.indexes = indexes;
         this.enrollAll = enrollAll;

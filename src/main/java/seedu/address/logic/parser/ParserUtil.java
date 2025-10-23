@@ -169,6 +169,12 @@ public class ParserUtil {
         return new AllergyList(allergyList);
     }
 
+    /**
+     * Parse a single subject string into a {@code Subject}
+     * @param subject the string to be parsed
+     * @return a subject object
+     * @throws ParseException
+     */
     public static Subject parseSubject(String subject) throws ParseException {
         requireNonNull(subject);
 
@@ -181,6 +187,12 @@ public class ParserUtil {
         return Subject.fromString(subject);
     }
 
+    /**
+     * Parse a list of subject strings into their corresponding subjects
+     * @param subjects the list of subjects
+     * @return A set of subject objects
+     * @throws ParseException
+     */
     public static Set<Subject> parseSubjects(List<String> subjects) throws ParseException {
         requireNonNull(subjects);
 
@@ -200,6 +212,12 @@ public class ParserUtil {
         return text.trim().equalsIgnoreCase("all");
     }
 
+    /**
+     * Parses a score from user input. Must be between 0 - 100
+     * @param scoreString the string to be processed
+     * @return an integer representation of the score
+     * @throws ParseException
+     */
     public static int parseScore(String scoreString) throws ParseException {
         try {
             int score = Integer.parseInt(scoreString);

@@ -13,6 +13,9 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.subject.Subject;
 
+/**
+ * Unenrolls students from a subject
+ */
 public class UnenrollCommand extends Command {
     public static final String COMMAND_WORD = "unenroll";
 
@@ -29,6 +32,13 @@ public class UnenrollCommand extends Command {
     private final boolean unenrollAll;
     private final Set<Subject> subjectSet;
 
+    /**
+     * Unenrolls an index array of students into one or more subjects
+     * The enrollAll flag can be set to true to unenroll all shown students
+     * @param indexes the index array
+     * @param unenrollAll if true, unenroll all currently shown students
+     * @param subjectSet a set of subjects to be unenrolled from
+     */
     public UnenrollCommand(Index[] indexes, boolean unenrollAll, Set<Subject> subjectSet) {
         this.indexes = indexes;
         this.unenrollAll = unenrollAll;
@@ -77,7 +87,8 @@ public class UnenrollCommand extends Command {
 
         String unenrolledPersonsResult = sb.toString();
 
-        return new CommandResult(unenrolledPersonsResult.isEmpty() ? MESSAGE_NO_PERSON_UNENROLLED : unenrolledPersonsResult);
+        return new CommandResult(unenrolledPersonsResult.isEmpty() ? MESSAGE_NO_PERSON_UNENROLLED
+                : unenrolledPersonsResult);
     }
 
     @Override
