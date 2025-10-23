@@ -199,4 +199,17 @@ public class ParserUtil {
     public static boolean checkIsAll(String text) {
         return text.trim().equalsIgnoreCase("all");
     }
+
+    public static int parseScore(String scoreString) throws ParseException {
+        try {
+            int score = Integer.parseInt(scoreString);
+            if (score < 0 || score > 100) {
+                throw new ParseException("Score must be between 0 to 100!");
+            }
+
+            return score;
+        } catch (NumberFormatException | NullPointerException e) {
+            throw new ParseException("Score must be numeric!");
+        }
+    }
 }

@@ -24,6 +24,54 @@ public class SubjectTest {
         }
     }
 
+    // --- fromString() tests --------------------------------------------
+
+    @Test
+    public void fromString_validNames_success() {
+        assertEquals(Subject.MATH, Subject.fromString("MATH"));
+        assertEquals(Subject.ENGLISH, Subject.fromString("ENGLISH"));
+        assertEquals(Subject.SCIENCE, Subject.fromString("SCIENCE"));
+
+        // Case-insensitive
+        assertEquals(Subject.MATH, Subject.fromString("math"));
+        assertEquals(Subject.ENGLISH, Subject.fromString("english"));
+        assertEquals(Subject.SCIENCE, Subject.fromString("science"));
+    }
+
+    @Test
+    public void fromString_invalidNames_throwsException() {
+        assertThrows(IllegalArgumentException.class, () -> Subject.fromString("History"));
+        assertThrows(IllegalArgumentException.class, () -> Subject.fromString(""));
+        assertThrows(IllegalArgumentException.class, () -> Subject.fromString(null));
+    }
+
+    // --- contains() tests --------------------------------------------
+
+    @Test
+    public void contains_validNames_true() {
+        assertTrue(Subject.contains("MATH"));
+        assertTrue(Subject.contains("english")); // lowercase
+        assertTrue(Subject.contains("Science")); // mixed case
+    }
+
+    @Test
+    public void contains_invalidNames_false() {
+        assertFalse(Subject.contains("History"));
+        assertFalse(Subject.contains(""));
+        assertFalse(Subject.contains(null));
+    }
+
+    // --- consistency check -------------------------------------------
+
+    @Test
+    public void contains_andFromString_consistent() {
+        for (Subject s : Subject.values()) {
+            String name = s.name();
+            assertTrue(Subject.contains(name));
+            assertEquals(s, Subject.fromString(name));
+        }
+    }
+
     @Test
     public void enrollPerson_success() {
         Subject.MATH.enrollPerson(ALICE);

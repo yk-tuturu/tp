@@ -15,13 +15,15 @@ public enum Subject {
     ENGLISH,
     SCIENCE;
 
+    public static final String MESSAGE_CONSTRAINTS =
+            "Subject string should not be empty, and it should be one of the registered subjects "
+                    + "MATH, ENGLISH, SCIENCE";
     private static final int DEFAULT_SCORE = -1;
 
     private final ScoreDict scoreDict = new ScoreDict();
     private final Set<Person> students = new HashSet<>();
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Subject string should not be empty, and it should be one of the registered subjects MATH, ENGLISH, SCIENCE";
+
 
     /**
      * Gets the correct subject based on string, case insensitive
@@ -45,15 +47,12 @@ public enum Subject {
      * @return {@code true} if the name matches an existing subject; {@code false} otherwise.
      */
     public static boolean contains(String name) {
-        if (name == null) {
+        try {
+            fromString(name);
+            return true;
+        } catch (IllegalArgumentException e) {
             return false;
         }
-        for (Subject subject : Subject.values()) {
-            if (subject.name().equalsIgnoreCase(name)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -63,11 +62,13 @@ public enum Subject {
      *
      * @param person The person to enroll.
      */
-    public void enrollPerson(Person person) {
+    public Person enrollPerson(Person person) {
         students.add(person);
         if (!scoreDict.contains(person)) {
             scoreDict.setScore(person, DEFAULT_SCORE);
         }
+
+        return person;
     }
 
     /**
@@ -75,9 +76,11 @@ public enum Subject {
      *
      * @param person The person to unenroll.
      */
-    public void unenrollPerson(Person person) {
+    public Person unenrollPerson(Person person) {
         students.remove(person);
         scoreDict.removePerson(person);
+
+        return person;
     }
 
     /**
