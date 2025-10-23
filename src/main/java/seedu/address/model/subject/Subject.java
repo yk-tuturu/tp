@@ -87,7 +87,7 @@ public enum Subject {
      * @param score The score to assign.
      * @throws IllegalStateException If the student is not enrolled in this subject.
      */
-    public void setScore(Person person, int score) {
+    public void setScore(Person person, Score score) {
         if (!students.contains(person)) {
             throw new IllegalStateException(
                     person.getChildName() + " is not enrolled in " + name());
@@ -102,7 +102,7 @@ public enum Subject {
      * @return The student's score.
      * @throws IllegalStateException If the student is not enrolled or has no score.
      */
-    public int getScore(Person person) {
+    public Score getScore(Person person) {
         return scoreDict.getScore(person).orElseThrow(() ->
                 new IllegalStateException(person.getChildName() + " has no score for " + name()));
     }

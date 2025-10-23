@@ -12,7 +12,7 @@ import seedu.address.model.person.Person;
  * Provides controlled access to add, remove, and query scores.
  */
 public class ScoreDict {
-    private final Map<Person, Integer> scores = new HashMap<>();
+    private final Map<Person, Score> scores = new HashMap<>();
 
     /**
      * Adds or updates the score of a person.
@@ -20,7 +20,7 @@ public class ScoreDict {
      * @param person The person whose score is to be set.
      * @param score  The score to assign to the person.
      */
-    void setScore(Person person, int score) {
+    void setScore(Person person, Score score) {
         scores.put(person, score);
     }
 
@@ -39,9 +39,7 @@ public class ScoreDict {
      * @param person The person whose score is to be retrieved.
      * @return An {@link Optional} containing the score if present, otherwise empty.
      */
-    Optional<Integer> getScore(Person person) {
-        return Optional.ofNullable(scores.get(person));
-    }
+    Optional<Score> getScore(Person person) { return Optional.ofNullable(scores.get(person)); }
 
     /**
      * Checks if the given person has a score in this dictionary.
@@ -58,7 +56,7 @@ public class ScoreDict {
      *
      * @return A map from {@link Person} to their scores.
      */
-    public Map<Person, Integer> getAllScores() {
+    public Map<Person, Score> getAllScores() {
         return Collections.unmodifiableMap(scores);
     }
 }

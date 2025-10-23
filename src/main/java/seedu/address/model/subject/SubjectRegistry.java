@@ -36,8 +36,8 @@ public final class SubjectRegistry {
      * @param person The person whose scores are to be retrieved.
      * @return A map where each key is a Subject and the corresponding value is the person's score in that subject.
      */
-    public static Map<Subject, Integer> getScoresOf(Person person) {
-        Map<Subject, Integer> scores = new LinkedHashMap<>();
+    public static Map<Subject, Score> getScoresOf(Person person) {
+        Map<Subject, Score> scores = new LinkedHashMap<>();
         for (Subject subject : Subject.values()) {
             if (subject.getStudents().contains(person)) {
                 scores.put(subject, subject.getScore(person));
@@ -63,7 +63,7 @@ public final class SubjectRegistry {
      * @param subject The subject whose scores are to be retrieved.
      * @return An unmodifiable map from {@link Person} to their score in the subject.
      */
-    public static Map<Person, Integer> getViewOnlyScores(Subject subject) {
+    public static Map<Person, Score> getViewOnlyScores(Subject subject) {
         return subject.getScoreDict().getAllScores();
     }
 }
