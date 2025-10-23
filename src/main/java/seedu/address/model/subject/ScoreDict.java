@@ -16,20 +16,22 @@ public class ScoreDict {
 
     /**
      * Adds or updates the score of a person.
+     * Made public so storage/deserialization code can directly populate scores.
      *
      * @param person The person whose score is to be set.
      * @param score  The score to assign to the person.
      */
-    void setScore(Person person, int score) {
+    public void setScore(Person person, int score) {
         scores.put(person, score);
     }
 
     /**
      * Removes a person from this score dictionary.
+     * Made public so storage/deserialization can remove entries if necessary.
      *
      * @param person The person to remove.
      */
-    void removePerson(Person person) {
+    public void removePerson(Person person) {
         scores.remove(person);
     }
 

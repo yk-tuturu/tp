@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.subject.Subject;
 
 /**
  * Wraps all data at the address-book level
@@ -16,7 +17,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-
+    private final List<Subject> subjects = Subject.getAllSubjects();
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -106,6 +107,24 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Checks if the subject exists in the address book.
+     * @param subject
+     * @return
+     */
+    public boolean hasSubject(Subject subject) {
+        requireNonNull(subject);
+        return subjects.contains(subject);
+    }
+
+    /**
+     * Returns an unmodifiable list of subjects.
+     * @return
+     */
+    public List<Subject> getSubjectList() {
+        return List.copyOf(subjects);
     }
 
     @Override

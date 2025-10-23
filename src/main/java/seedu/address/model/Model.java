@@ -1,11 +1,13 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.subject.Subject;
 
 /**
  * The API of the Model component.
@@ -84,4 +86,14 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Returns true if the model contains the given subject.
+     */
+    boolean hasSubject(Subject subject);
+
+    /**
+     * Returns an unmodifiable view of the list of Subjects.
+     */
+    List<Subject> getSubjectList();
 }

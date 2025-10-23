@@ -1,0 +1,20 @@
+{
+  "_comment": "Score references a person not present in persons list",
+  "persons": [
+    {
+      "childName": "Alice Pauline",
+      "parentName": "Paulines Mom",
+      "parentPhone": "94351253",
+      "parentEmail": "alice@example.com",
+      "address": "123, Jurong West Ave 6, #08-111",
+      "allergies": ["Peanuts"],
+      "tags": []
+    }
+  ],
+  "subjectScores": {
+    "MATH": [
+      { "personName": "Nonexistent Kid", "score": 50 }
+    ]
+  }
+}
+
