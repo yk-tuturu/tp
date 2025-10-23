@@ -17,7 +17,7 @@ import seedu.address.model.subject.Subject;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-    private final List<Subject> subjects = List.of(Subject.MATH, Subject.ENGLISH, Subject.SCIENCE);
+    private final List<Subject> subjects = Subject.getAllSubjects();
     
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication

@@ -1,6 +1,7 @@
 package seedu.address.model.subject;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.person.Person;
@@ -87,5 +88,14 @@ public enum Subject {
      */
     public ScoreDict getScoreDict() {
         return scoreDict;
+    }
+    
+    /**
+     * Returns a list of all defined subjects.
+     *
+     * @return A list of all subjects.
+     */
+    public static List<Subject> getAllSubjects() {
+        return List.of(Subject.values());
     }
 }
