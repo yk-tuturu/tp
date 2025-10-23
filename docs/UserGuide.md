@@ -33,9 +33,9 @@ ParentConnect is a **desktop app for kindergarten teachers to manage parents' co
 
    * `add c/Jane Doe b/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a child named `Jane Doe` to ParentConnect.
 
-   * `delete 3` : Deletes the 3rd child entry shown in the current list.
+   * `delete 3` : Deletes the 3rd child record shown in the current list.
 
-   * `clear` : Deletes all child entry.
+   * `clear` : Deletes all child record.
 
    * `exit` : Exits the app.
 
@@ -115,37 +115,38 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st child's parent to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 c/Nice Nature t/` Edits the name of the 2nd child to be `Nice Nature` and clears all existing tags.
 
-### Locating child/parent by name: `find`
+### Locating a child record: `find`
 
-Finds child or parent whose names contain any of the given keywords.
+Finds a child record. You can either search using a child's name, a parent's name, allergies or tags.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find [c/CHILD_NAME] [b/PARENT_NAME] [r/ALLERGIES] [t/TAG]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
+* Only the corresponding field is searched. e.h. `b/hans` will only match with parents named `Hans` and not children
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Children records matching at least one keyword will be returned (i.e. `OR` search).
+  e.g. `c/Hans r/ADHD` will return records of all children named Hans and of all children with ADHD
+* At least one of the optional fields must be provided
+* Each category supports multi-search e.g. `c/John Marcus Hans` will return records of all children named either `John`, `Marcus` or `Hans`
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `find c/John` returns records of all children with `john` in their name
+* `find c/Marcus Vertin b/Hoffman r/Dust` returns records where the child is named either Marcus or Vertin, where the parent is named Hoffman, and where the child is allergic to dust (as long as any of the 4 conditions are fulfilled)
 
-### Deleting a child entry : `delete`
+### Deleting a child record : `delete`
 
-Deletes the specified child entry from ParentConnect.
+Deletes the specified child record from ParentConnect.
 
 Format: `delete INDEX`
 
-* Deletes the child entry at the specified `INDEX`.
+* Deletes the child record at the specified `INDEX`.
 * The index refers to the index number shown in the displayed children list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd child entry in ParentConnect.
-* `find Betsy` followed by `delete 1` deletes the 1st child entry in the results of the `find` command.
+* `list` followed by `delete 2` deletes the 2nd child record in ParentConnect.
+* `find Betsy` followed by `delete 1` deletes the 1st child record in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
@@ -228,6 +229,6 @@ Action     | Format, Examples
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [c/CHILD_NAME] [b/PARENT_NAME] [p/PARENT_PHONE_NUMBER] [e/PARENT_EMAIL] [r/ALLERGIES]…​ [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 b/James Lee e/jameslee@example.com`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find**   | `find [c/CHILD_NAME] [b/PARENT_NAME] [r/ALLERGIES] [t/TAG]`<br> e.g., `find c/John Jake Marcus b/Paul Mary r/Dust Peanut t/ADHD Diabetic`
 **List**   | `list`
 **Help**   | `help`

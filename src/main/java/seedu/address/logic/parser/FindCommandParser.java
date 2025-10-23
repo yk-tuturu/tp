@@ -1,12 +1,19 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CHILDNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.PersonContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -19,15 +26,41 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
+        requireNonNull(args);
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_CHILDNAME, PREFIX_PARENTNAME, PREFIX_ALLERGY, PREFIX_TAG);
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CHILDNAME, PREFIX_PARENTNAME, PREFIX_ALLERGY, PREFIX_TAG);
+
+
+        List<String> childNameKeywords = argMultimap.getValue(PREFIX_CHILDNAME)
+                .map(s -> Arrays.asList(s.trim().split("\\s+")))
+                .orElse(Collections.emptyList());
+
+        List<String> parentNameKeywords = argMultimap.getValue(PREFIX_PARENTNAME)
+                .map(s -> Arrays.asList(s.trim().split("\\s+")))
+                .orElse(Collections.emptyList());
+
+        List<String> allergyKeywords = argMultimap.getValue(PREFIX_ALLERGY)
+                .map(s -> Arrays.asList(s.trim().split("\\s+")))
+                .orElse(Collections.emptyList());
+
+        List<String> tagKeywords = argMultimap.getValue(PREFIX_TAG)
+                .map(s -> Arrays.asList(s.trim().split("\\s+")))
+                .orElse(Collections.emptyList());
+
+        if (childNameKeywords.isEmpty()
+                && parentNameKeywords.isEmpty()
+                && allergyKeywords.isEmpty()
+                && tagKeywords.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
-
-        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindCommand(new PersonContainsKeywordsPredicate(childNameKeywords,
+                                                                    parentNameKeywords,
+                                                                    allergyKeywords,
+                                                                    tagKeywords));
     }
 
 }
