@@ -1,15 +1,15 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SUBJECT_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SUBJECT_2_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SCORE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_SUBJECT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_SCORE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_SUBJECT_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SCORE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SUBJECT_2_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SUBJECT_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
@@ -26,7 +26,7 @@ public class SetScoreCommandParserTest {
     private SetScoreCommandParser parser = new SetScoreCommandParser();
 
     @Test
-    public void parse_oneStudent_validArgs_returnsSetScoreCommand() {
+    public void parseOneStudent() {
         String userInput = "1 " + VALID_SUBJECT_DESC + VALID_SCORE_DESC;
 
         Index[] expectedIndexes = new Index[] { INDEX_FIRST_PERSON };
@@ -39,14 +39,10 @@ public class SetScoreCommandParserTest {
     }
 
     @Test
-    public void parse_multipleStudents_validArgs_returnsSetScoreCommand() {
+    public void parseMultipleStudents() {
         String userInput = "1 2 3 " + VALID_SUBJECT_DESC + VALID_SCORE_DESC;
 
-        Index[] expectedIndexes = new Index[] {
-                INDEX_THIRD_PERSON,
-                INDEX_SECOND_PERSON,
-                INDEX_FIRST_PERSON
-        };
+        Index[] expectedIndexes = new Index[] { INDEX_THIRD_PERSON, INDEX_SECOND_PERSON, INDEX_FIRST_PERSON };
         Subject expectedSubject = Subject.MATH;
         int expectedScore = 100;
 
@@ -56,7 +52,7 @@ public class SetScoreCommandParserTest {
     }
 
     @Test
-    public void parse_allStudents_validArgs_returnsSetScoreCommand() {
+    public void parseAllStudents() {
         String userInput = "all " + VALID_SUBJECT_DESC + VALID_SCORE_DESC;
 
         Index[] expectedIndexes = new Index[0];
@@ -69,13 +65,10 @@ public class SetScoreCommandParserTest {
     }
 
     @Test
-    public void parse_withWhitespace_returnsSetScoreCommand() {
+    public void parseWithWhitespace() {
         String userInput = PREAMBLE_WHITESPACE + "1 2 " + VALID_SUBJECT_DESC + VALID_SCORE_DESC;
 
-        Index[] expectedIndexes = new Index[] {
-                INDEX_SECOND_PERSON,
-                INDEX_FIRST_PERSON
-        };
+        Index[] expectedIndexes = new Index[] { INDEX_SECOND_PERSON, INDEX_FIRST_PERSON };
         Subject expectedSubject = Subject.MATH;
         int expectedScore = 100;
 
@@ -85,7 +78,7 @@ public class SetScoreCommandParserTest {
     }
 
     @Test
-    public void parse_duplicatePrefixes_throwsParseException() {
+    public void parseDuplicatePrefixesThrowsParseException() {
         String userInput = "1 " + VALID_SUBJECT_DESC + VALID_SUBJECT_2_DESC + VALID_SCORE_DESC;
 
         assertParseFailure(parser, userInput,
@@ -93,41 +86,41 @@ public class SetScoreCommandParserTest {
     }
 
     @Test
-    public void parse_invalidSubject_throwsParseException() {
+    public void parseInvalidSubject() {
         String userInput = "1 " + INVALID_SUBJECT_DESC + VALID_SCORE_DESC;
         assertParseFailure(parser, userInput,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetScoreCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_invalidScore_throwsParseException() {
+    public void parseInvalidScore() {
         String userInput = "1 " + VALID_SUBJECT_DESC + INVALID_SCORE_DESC;
         assertParseFailure(parser, userInput,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetScoreCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_missingSubject_throwsParseException() {
+    public void parseMissingSubject() {
         String userInput = "1 " + VALID_SCORE_DESC;
         assertParseFailure(parser, userInput,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetScoreCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_missingScore_throwsParseException() {
+    public void parseMissingScore() {
         String userInput = "1 " + VALID_SUBJECT_DESC;
         assertParseFailure(parser, userInput,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetScoreCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_emptyInput_throwsParseException() {
+    public void parseEmptyInput() {
         assertParseFailure(parser, "",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetScoreCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_whitespaceOnly_throwsParseException() {
+    public void parseWhitespaceOnly() {
         assertParseFailure(parser, PREAMBLE_WHITESPACE,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetScoreCommand.MESSAGE_USAGE));
     }

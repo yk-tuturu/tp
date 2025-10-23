@@ -22,7 +22,7 @@ public class EnrollCommandParserTest {
     private EnrollCommandParser parser = new EnrollCommandParser();
 
     @Test
-    public void parse_one_subject_one_student_returnsEnrollCommand() {
+    public void parseOneSubjectOneStudentReturnsEnrollCommand() {
         String userInput = "1 " + VALID_SUBJECT_DESC;
         List<Subject> expectedSet = new ArrayList<Subject>();
         expectedSet.add(Subject.MATH);
@@ -30,7 +30,7 @@ public class EnrollCommandParserTest {
     }
 
     @Test
-    public void parse_one_subject_multiple_student_returnsEnrollCommand() {
+    public void parseOneSubjectMultipleStudentReturnsEnrollCommand() {
         String userInput = "1 2 3 " + VALID_SUBJECT_DESC;
         List<Subject> expectedSet = new ArrayList<>();
         expectedSet.add(Subject.MATH);
@@ -44,7 +44,7 @@ public class EnrollCommandParserTest {
     }
 
     @Test
-    public void parse_one_subject_all_student_returnsEnrollCommand() {
+    public void parseOneSubjectAllStudentReturnsEnrollCommand() {
         String userInput = "all " + VALID_SUBJECT_DESC;
         List<Subject> expectedSet = new ArrayList<>();
         expectedSet.add(Subject.MATH);
@@ -54,7 +54,7 @@ public class EnrollCommandParserTest {
     }
 
     @Test
-    public void parse_multiple_subject_one_student_returnsEnrollCommand() {
+    public void parseMultipleSubjectOneStudentReturnsEnrollCommand() {
         String userInput = "1 " + VALID_SUBJECT_DESC + VALID_SUBJECT_2_DESC;
         List<Subject> expectedList = new ArrayList<>();
         expectedList.add(Subject.MATH);
@@ -67,7 +67,7 @@ public class EnrollCommandParserTest {
     }
 
     @Test
-    public void parse_multiple_subject_multiple_student_returnsEnrollCommand() {
+    public void parseMultipleSubjectMultipleStudentReturnsEnrollCommand() {
         String userInput = "1 2 3 " + VALID_SUBJECT_DESC + VALID_SUBJECT_2_DESC;
         List<Subject> expectedList = new ArrayList<>();
         expectedList.add(Subject.MATH);
@@ -83,7 +83,7 @@ public class EnrollCommandParserTest {
     }
 
     @Test
-    public void parse_multiple_subject_multiple_student_with_whitespace_returnsEnrollCommand() {
+    public void parseMultipleSubjectMultipleStudentWithWhitespaceReturnsEnrollCommand() {
         String userInput = PREAMBLE_WHITESPACE + "1 2 3 " + VALID_SUBJECT_DESC + VALID_SUBJECT_2_DESC;
         List<Subject> expectedList = new ArrayList<>();
         expectedList.add(Subject.MATH);
@@ -98,7 +98,7 @@ public class EnrollCommandParserTest {
     }
 
     @Test
-    public void parse_multiple_subject_all_student_returnsEnrollCommand() {
+    public void parseMultipleSubjectAllStudentReturnsEnrollCommand() {
         String userInput = "all " + VALID_SUBJECT_DESC + VALID_SUBJECT_2_DESC;
         List<Subject> expectedList = new ArrayList<>();
         expectedList.add(Subject.MATH);
@@ -109,7 +109,7 @@ public class EnrollCommandParserTest {
     }
 
     @Test
-    public void parse_duplicate_subject() {
+    public void parseDuplicateSubject() {
         String userInput = "all " + VALID_SUBJECT_DESC + VALID_SUBJECT_DESC;
         List<Subject> expectedList = new ArrayList<>();
         expectedList.add(Subject.MATH);
@@ -118,7 +118,7 @@ public class EnrollCommandParserTest {
     }
 
     @Test
-    public void parse_duplicate_indexes() {
+    public void parseDuplicateIndexes() {
         String userInput = "1 1 " + VALID_SUBJECT_DESC;
         List<Subject> expectedList = new ArrayList<>();
         expectedList.add(Subject.MATH);
@@ -130,7 +130,7 @@ public class EnrollCommandParserTest {
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException() {
+    public void parseInvalidArgsThrowsParseException() {
         // no arguments
         assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 EnrollCommand.MESSAGE_USAGE));

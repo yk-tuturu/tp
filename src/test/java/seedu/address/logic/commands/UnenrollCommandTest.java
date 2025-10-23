@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -46,7 +45,7 @@ public class UnenrollCommandTest {
     }
 
     @Test
-    public void unenrol_one_student_and_one_subject_success() {
+    public void unenrolOneStudentAndOneSubjectSuccess() {
         setupTypical();
         Index targetIndex = Index.fromOneBased(1);
         Index[] indexes = new Index[]{targetIndex};
@@ -67,7 +66,7 @@ public class UnenrollCommandTest {
     }
 
     @Test
-    public void unenrol_multiple_student_and_one_subject_success() {
+    public void unenrolMultipleStudentAndOneSubjectSuccess() {
         setupTypical();
         Index[] indexes = new Index[] {
                 Index.fromOneBased(1),
@@ -95,13 +94,12 @@ public class UnenrollCommandTest {
         // Verify that each student is unenrolled
         for (Index index : indexes) {
             Person person = model.getFilteredPersonList().get(index.getZeroBased());
-            assertFalse(Subject.MATH.getStudents().contains(person),
-                    () -> "Expected " + person + " to be unenrolled from MATH");
+            assertFalse(Subject.MATH.getStudents().contains(person));
         }
     }
 
     @Test
-    public void unenrol_all_student_and_one_subject_success() {
+    public void unenrolAllStudentAndOneSubjectSuccess() {
         setupTypical();
         Index[] indexes = new Index[] {
                 Index.fromOneBased(1),
@@ -129,13 +127,12 @@ public class UnenrollCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
 
         for (Person person : personList) {
-            assertFalse(Subject.MATH.getStudents().contains(person),
-                    () -> "Expected " + person + " to be unenrolled from MATH");
+            assertFalse(Subject.MATH.getStudents().contains(person));
         }
     }
 
     @Test
-    public void unenrol_one_student_and_multiple_subject_success() {
+    public void unenrolOneStudentAndMultipleSubjectSuccess() {
         setupTypical();
         Index targetIndex = Index.fromOneBased(1);
         Index[] indexes = new Index[] {targetIndex};
@@ -161,7 +158,7 @@ public class UnenrollCommandTest {
     }
 
     @Test
-    public void unenrol_multiple_student_and_multiple_subject_success() {
+    public void unenrolMultipleStudentAndMultipleSubjectSuccess() {
         setupTypical();
         Index[] indexes = new Index[] {
                 Index.fromOneBased(1),
@@ -189,15 +186,13 @@ public class UnenrollCommandTest {
 
         for (Index index : indexes) {
             Person person = model.getFilteredPersonList().get(index.getZeroBased());
-            assertFalse(Subject.MATH.getStudents().contains(person),
-                    () -> "Expected " + person + " to be unenrolled from MATH");
-            assertFalse(Subject.SCIENCE.getStudents().contains(person),
-                    () -> "Expected " + person + " to be unenrolled from SCIENCE");
+            assertFalse(Subject.MATH.getStudents().contains(person));
+            assertFalse(Subject.SCIENCE.getStudents().contains(person));
         }
     }
 
     @Test
-    public void unenrol_all_student_and_multiple_subject_success() {
+    public void unenrolAllStudentAndMultipleSubjectSuccess() {
         setupTypical();
         Index[] indexes = new Index[] {
                 Index.fromOneBased(1),
@@ -232,7 +227,7 @@ public class UnenrollCommandTest {
     }
 
     @Test
-    public void invalid_arguments_out_of_range_index() {
+    public void invalidArgumentsOutOfRangeIndex() {
         setupTypical();
         Index outOfRangeIndex = Index.fromOneBased(100);
         Index[] indexes = new Index[] {outOfRangeIndex};
@@ -245,7 +240,7 @@ public class UnenrollCommandTest {
     }
 
     @Test
-    public void not_enrolled_student() {
+    public void notEnrolledStudent() {
         setupTypical();
         Subject.MATH.unenrollPerson(ALICE); // make sure ALICE is not in MATH
         Index[] indexes = new Index[] {

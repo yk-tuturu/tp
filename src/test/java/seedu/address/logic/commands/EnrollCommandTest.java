@@ -45,7 +45,7 @@ public class EnrollCommandTest {
     }
 
     @Test
-    public void enrol_one_student_and_one_subject_success() {
+    public void enrolOneStudentAndOneSubjectSuccess() {
         Index targetIndex = Index.fromOneBased(1);
         Index[] indexes = new Index[]{targetIndex};
 
@@ -66,7 +66,7 @@ public class EnrollCommandTest {
     }
 
     @Test
-    public void enrol_multiple_student_and_one_subject_success() {
+    public void enrolMultipleStudentAndOneSubjectSuccess() {
         Index[] indexes = new Index[] {
                 Index.fromOneBased(1),
                 Index.fromOneBased(2),
@@ -94,15 +94,13 @@ public class EnrollCommandTest {
         // Verify that each student is enrolled and initialized correctly
         for (Index index : indexes) {
             Person person = model.getFilteredPersonList().get(index.getZeroBased());
-            assertTrue(Subject.MATH.getStudents().contains(person),
-                    () -> "Expected " + person + " to be enrolled in MATH");
-            assertEquals(-1, Subject.MATH.getScore(person),
-                    () -> "Expected " + person + " to have an unset score (-1)");
+            assertTrue(Subject.MATH.getStudents().contains(person));
+            assertEquals(-1, Subject.MATH.getScore(person));
         }
     }
 
     @Test
-    public void enrol_all_student_and_one_subject_success() {
+    public void enrolAllStudentAndOneSubjectSuccess() {
         // put in any index list, the enrol all flag will ignore
         Index[] indexes = new Index[] {
                 Index.fromOneBased(1),
@@ -131,15 +129,13 @@ public class EnrollCommandTest {
 
         // Verify that each student is enrolled and initialized correctly
         for (Person person : personList) {
-            assertTrue(Subject.MATH.getStudents().contains(person),
-                    () -> "Expected " + person + " to be enrolled in MATH");
-            assertEquals(-1, Subject.MATH.getScore(person),
-                    () -> "Expected " + person + " to have an unset score (-1)");
+            assertTrue(Subject.MATH.getStudents().contains(person));
+            assertEquals(-1, Subject.MATH.getScore(person));
         }
     }
 
     @Test
-    public void enrol_one_student_and_multiple_subject_success() {
+    public void enrolOneStudentAndMultipleSubject() {
         Index targetIndex = Index.fromOneBased(1);
         Index[] indexes = new Index[] {targetIndex};
 
@@ -166,7 +162,7 @@ public class EnrollCommandTest {
     }
 
     @Test
-    public void enrol_multiple_student_and_multiple_subject_success() {
+    public void enrolMultipleStudentAndMultipleSubjectSuccess() {
         Index[] indexes = new Index[] {
                 Index.fromOneBased(1),
                 Index.fromOneBased(2),
@@ -197,19 +193,15 @@ public class EnrollCommandTest {
         // Verify that each student is enrolled and initialized correctly
         for (Index index : indexes) {
             Person person = model.getFilteredPersonList().get(index.getZeroBased());
-            assertTrue(Subject.MATH.getStudents().contains(person),
-                    () -> "Expected " + person + " to be enrolled in MATH");
-            assertTrue(Subject.SCIENCE.getStudents().contains(person),
-                    () -> "Expected " + person + " to be enrolled in SCIENCE");
-            assertEquals(-1, Subject.MATH.getScore(person),
-                    () -> "Expected " + person + " to have an unset score (-1)");
-            assertEquals(-1, Subject.SCIENCE.getScore(person),
-                    () -> "Expected " + person + " to have an unset score (-1)");
+            assertTrue(Subject.MATH.getStudents().contains(person));
+            assertTrue(Subject.SCIENCE.getStudents().contains(person));
+            assertEquals(-1, Subject.MATH.getScore(person));
+            assertEquals(-1, Subject.SCIENCE.getScore(person));
         }
     }
 
     @Test
-    public void enrol_all_student_and_multiple_subject_success() {
+    public void enrolAllStudentAndMultipleSubjectSuccess() {
         // put in any index list, the enrol all flag will ignore
         Index[] indexes = new Index[] {
                 Index.fromOneBased(1),
@@ -241,19 +233,15 @@ public class EnrollCommandTest {
 
         // Verify that each student is enrolled and initialized correctly
         for (Person person : personList) {
-            assertTrue(Subject.MATH.getStudents().contains(person),
-                    () -> "Expected " + person + " to be enrolled in MATH");
-            assertEquals(-1, Subject.MATH.getScore(person),
-                    () -> "Expected " + person + " to have an unset score (-1)");
-            assertTrue(Subject.SCIENCE.getStudents().contains(person),
-                    () -> "Expected " + person + " to be enrolled in SCIENCE");
-            assertEquals(-1, Subject.SCIENCE.getScore(person),
-                    () -> "Expected " + person + " to have an unset score (-1)");
+            assertTrue(Subject.MATH.getStudents().contains(person));
+            assertEquals(-1, Subject.MATH.getScore(person));
+            assertTrue(Subject.SCIENCE.getStudents().contains(person));
+            assertEquals(-1, Subject.SCIENCE.getScore(person));
         }
     }
 
     @Test
-    public void invalid_arguments_out_of_range_index() {
+    public void invalidArgumentsOutOfRangeIndex() {
         Index outOfRangeIndex = Index.fromOneBased(100);
         Index[] indexes = new Index[] {outOfRangeIndex};
         List<Subject> subjectList = new ArrayList<>();
@@ -265,7 +253,7 @@ public class EnrollCommandTest {
     }
 
     @Test
-    public void already_enrolled_student() {
+    public void alreadyEnrolledStudent() {
         setupTypical();
         Index[] indexes = new Index[] {
                 Index.fromOneBased(1),

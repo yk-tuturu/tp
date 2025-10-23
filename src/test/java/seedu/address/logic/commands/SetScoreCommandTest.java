@@ -40,12 +40,10 @@ public class SetScoreCommandTest {
     }
 
     @Test
-    public void set_one_person_score_success() {
+    public void setOnePersonSuccess() {
         setupTypical();
 
-        Index[] indexes = new Index[] {
-                Index.fromOneBased(1)
-        };
+        Index[] indexes = new Index[] { Index.fromOneBased(1) };
         Subject subject = Subject.MATH;
         int score = 60;
         SetScoreCommand command = new SetScoreCommand(indexes, false, subject, score);
@@ -57,7 +55,7 @@ public class SetScoreCommandTest {
     }
 
     @Test
-    public void set_multiple_person_score_success() {
+    public void setMultiplePersonSuccess() {
         setupTypical();
 
         Index[] indexes = new Index[] {
@@ -78,7 +76,7 @@ public class SetScoreCommandTest {
     }
 
     @Test
-    public void set_score_of_unenrolled_person() {
+    public void setUnenrolledPersonScore() {
         Index[] indexes = new Index[] {
                 Index.fromOneBased(1)
         };

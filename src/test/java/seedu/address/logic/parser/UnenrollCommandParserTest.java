@@ -22,15 +22,16 @@ public class UnenrollCommandParserTest {
     private UnenrollCommandParser parser = new UnenrollCommandParser();
 
     @Test
-    public void parse_one_subject_one_student_returnsUnenrollCommand() {
+    public void parseOneSubjectOneStudentReturnsUnenrollCommand() {
         String userInput = "1 " + VALID_SUBJECT_DESC;
         List<Subject> expectedList = new ArrayList<>();
         expectedList.add(Subject.MATH);
-        assertParseSuccess(parser, userInput, new UnenrollCommand(new Index[] {INDEX_FIRST_PERSON}, false, expectedList));
+        assertParseSuccess(parser, userInput,
+                new UnenrollCommand(new Index[] {INDEX_FIRST_PERSON}, false, expectedList));
     }
 
     @Test
-    public void parse_one_subject_multiple_student_returnsUnenrollCommand() {
+    public void parseOneSubjectMultipleStudentReturnsUnenrollCommand() {
         String userInput = "1 2 3 " + VALID_SUBJECT_DESC;
         List<Subject> expectedList = new ArrayList<>();
         expectedList.add(Subject.MATH);
@@ -44,7 +45,7 @@ public class UnenrollCommandParserTest {
     }
 
     @Test
-    public void parse_one_subject_all_student_returnsUnenrollCommand() {
+    public void parseOneSubjectAllStudentReturnsUnenrollCommand() {
         String userInput = "all " + VALID_SUBJECT_DESC;
         List<Subject> expectedList = new ArrayList<>();
         expectedList.add(Subject.MATH);
@@ -54,7 +55,7 @@ public class UnenrollCommandParserTest {
     }
 
     @Test
-    public void parse_multiple_subject_one_student_returnsEnrollCommand() {
+    public void parseMultipleSubjectOneStudentReturnsUnenrollCommand() {
         String userInput = "1 " + VALID_SUBJECT_DESC + VALID_SUBJECT_2_DESC;
         List<Subject> expectedList = new ArrayList<>();
         expectedList.add(Subject.MATH);
@@ -67,7 +68,7 @@ public class UnenrollCommandParserTest {
     }
 
     @Test
-    public void parse_multiple_subject_multiple_student_returnsEnrollCommand() {
+    public void parseMultipleSubjectMultipleStudentReturnsUnenrollCommand() {
         String userInput = "1 2 3 " + VALID_SUBJECT_DESC + VALID_SUBJECT_2_DESC;
         List<Subject> expectedList = new ArrayList<>();
         expectedList.add(Subject.MATH);
@@ -82,7 +83,7 @@ public class UnenrollCommandParserTest {
     }
 
     @Test
-    public void parse_multiple_subject_multiple_student_with_whitespace_returnsEnrollCommand() {
+    public void parseMultipleSubjectMultipleStudentWithWhitespaceReturnsUnenrollCommand() {
         String userInput = PREAMBLE_WHITESPACE + "1 2 3 " + VALID_SUBJECT_DESC + VALID_SUBJECT_2_DESC;
         List<Subject> expectedList = new ArrayList<>();
         expectedList.add(Subject.MATH);
@@ -97,7 +98,7 @@ public class UnenrollCommandParserTest {
     }
 
     @Test
-    public void parse_multiple_subject_all_student_returnsEnrollCommand() {
+    public void parseMultipleSubjectAllStudentReturnsUnenrollCommand() {
         String userInput = "all " + VALID_SUBJECT_DESC + VALID_SUBJECT_2_DESC;
         List<Subject> expectedList = new ArrayList<>();
         expectedList.add(Subject.MATH);
@@ -107,7 +108,7 @@ public class UnenrollCommandParserTest {
     }
 
     @Test
-    public void parse_duplicate_subject() {
+    public void parseDuplicateSubject() {
         String userInput = "all " + VALID_SUBJECT_DESC + VALID_SUBJECT_DESC;
         List<Subject> expectedList = new ArrayList<>();
         expectedList.add(Subject.MATH);
@@ -116,7 +117,7 @@ public class UnenrollCommandParserTest {
     }
 
     @Test
-    public void parse_duplicate_indexes() {
+    public void parseDuplicateIndexes() {
         String userInput = "1 1 " + VALID_SUBJECT_DESC;
         List<Subject> expectedList = new ArrayList<>();
         expectedList.add(Subject.MATH);
@@ -128,7 +129,7 @@ public class UnenrollCommandParserTest {
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException() {
+    public void parseInvalidArgsThrowsParseException() {
         // no arguments
         assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 UnenrollCommand.MESSAGE_USAGE));
