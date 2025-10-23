@@ -17,6 +17,12 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
 
     public PersonContainsKeywordsPredicate(List<String> childNameKeywords, List<String> parentNameKeywords,
                                            List<String> allergyKeywords, List<String> tagKeywords) {
+
+        assert childNameKeywords != null : "childNameKeywords should not be null";
+        assert parentNameKeywords != null : "parentNameKeywords should not be null";
+        assert allergyKeywords != null : "allergyKeywords should not be null";
+        assert tagKeywords != null : "tagKeywords should not be null";
+
         this.childNameKeywords = childNameKeywords;
         this.parentNameKeywords = parentNameKeywords;
         this.allergyKeywords = allergyKeywords;
