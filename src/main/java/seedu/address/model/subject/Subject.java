@@ -56,6 +56,8 @@ public enum Subject {
             throw new IllegalStateException(
                     person.getChildName() + " is not enrolled in " + name());
         }
+        assert (score == DEFAULT_SCORE || (score >= 0 && score <= 100))
+                : "Score must be -1 (unset) or between 0 and 100 inclusive.";
         scoreDict.setScore(person, score);
     }
 
