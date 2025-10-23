@@ -29,17 +29,17 @@ public class JsonAddressBookStorageTest {
 
     @TempDir
     public Path testFolder;
-    
+
     @BeforeEach
     public void setUp() {
         SubjectTestUtil.resetSubjects();
     }
-    
+
     @AfterEach
     public void tearDown() {
         SubjectTestUtil.resetSubjects();
     }
-    
+
     @Test
     public void readAddressBook_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> readAddressBook(null));
