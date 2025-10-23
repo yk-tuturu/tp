@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Tests that a {@code Person}'s {@code Name}, {@code Allergy} or {@code Tag} matches any of the keywords given.
@@ -29,9 +30,13 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
         this.tagKeywords = tagKeywords;
     }
 
+    /**
+     * Compares the given {@code keywords} against the child's name, parent's name, allergies and tags,
+     * and returns a boolean indicating if it matches any of the respective keywords.
+     */
     @Override
     public boolean test(Person person) {
-        boolean matchesChildName =  childNameKeywords
+        boolean matchesChildName = childNameKeywords
                 .stream()
                 .anyMatch(keyword -> (
                         StringUtil.containsWordIgnoreCase(person.getChildName().fullName, keyword)));
