@@ -134,6 +134,7 @@ public enum Subject {
     @Override
     public String toString() {
         return this.name();
+    }
     /**
      * Returns a list of all defined subjects.
      *

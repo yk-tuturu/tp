@@ -117,10 +117,11 @@ public class UnenrollCommandTest {
 
         // Expected message for all unenrolled students
         StringBuilder expectedMessageBuilder = new StringBuilder();
-        for (Person person : Subject.MATH.getStudents()) {
-            expectedMessageBuilder.append(String.format(
-                    MESSAGE_UNENROLL_PERSON_SUCCESS, Messages.formatShort(person), Subject.MATH));
-        }
+
+        expectedMessageBuilder.append(String.format(
+                MESSAGE_UNENROLL_PERSON_SUCCESS, Messages.formatShort(ALICE), Subject.MATH));
+        expectedMessageBuilder.append(String.format(
+                MESSAGE_UNENROLL_PERSON_SUCCESS, Messages.formatShort(BENSON), Subject.MATH));
 
         String expectedMessage = expectedMessageBuilder.toString();
         Model expectedModel = model;
