@@ -15,16 +15,16 @@ import seedu.address.model.person.Person;
 import seedu.address.model.subject.Subject;
 
 /**
- * Set scores of students
+ * Set scores of children
  */
 public class SetScoreCommand extends Command {
     public static final String COMMAND_WORD = "setscore";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Set score of students at the specified index."
-            + "Can only specify one grade and one subject per command. Multiple students can be selected by"
-            + "using a space-separated list of indexes or the ALL keyword. "
-            + "Parameters: INDEXES (must be positive integers) or 'ALL', s/SUBJECT g/score\n"
-            + "Example: " + COMMAND_WORD + " 1 2 3 s/math g/100"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Set score of children at the specified index. \n"
+            + "Can only specify one grade and one subject per command. Multiple children can be selected by"
+            + "using a space-separated list of indexes or the ALL keyword. \n"
+            + "Parameters: INDEXES (must be positive integers) or 'ALL', s/SUBJECT g/SCORE\n"
+            + "Example: " + COMMAND_WORD + " 1 2 3 s/math g/100 "
             + "or: " + COMMAND_WORD + " all s/math g/85";
 
     public static final String MESSAGE_SET_SCORE_SUCCESS = "Grade of %1$s in Subject: %2$s set to %3$s\n";
@@ -38,7 +38,7 @@ public class SetScoreCommand extends Command {
     /**
      * Creates new set score command. Only one subject and one score to prevent ambiguity
      * @param indexes list of indexes in the current list
-     * @param setAll when true, set score for all listed students
+     * @param setAll when true, set score for all listed children
      * @param subject the subject to set
      * @param score the score to set
      */

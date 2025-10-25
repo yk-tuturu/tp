@@ -21,24 +21,24 @@ public class EnrollCommand extends Command {
 
     public static final String COMMAND_WORD = "enroll";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enrolls all students at the specified indexes "
-            + "into the listed subjects; or enrolls all students currently listed if the 'all' keyword is used\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enrolls all children at the specified indexes "
+            + "into the listed subjects; or enrolls all children currently listed if the 'all' keyword is used\n"
             + "Parameters: INDEXES (must be positive integers) or 'ALL', s/SUBJECT...\n"
-            + "Example: " + COMMAND_WORD + " 1 2 3 s/math"
+            + "Example: " + COMMAND_WORD + " 1 2 3 s/math "
             + "or: " + COMMAND_WORD + " all s/math s/science";
 
-    public static final String MESSAGE_ENROLL_PERSON_SUCCESS = "Enrolled Person: %1$s in Subject: %2$s\n";
-    public static final String MESSAGE_NO_PERSON_ENROLLED = "All selected students are already enrolled!";
+    public static final String MESSAGE_ENROLL_PERSON_SUCCESS = "Enrolled Child: %1$s in Subject: %2$s\n";
+    public static final String MESSAGE_NO_PERSON_ENROLLED = "All selected children are already enrolled!";
 
     private final Index[] indexes;
     private final boolean enrollAll;
     private final List<Subject> subjectList;
 
     /**
-     * Enrolls an index array of students into one or more subjects
-     * The enrollAll flag can be set to true to enroll all shown students
+     * Enrolls an index array of children into one or more subjects
+     * The enrollAll flag can be set to true to enroll all shown children
      * @param indexes the index array
-     * @param enrollAll if true, enroll all currently shown students
+     * @param enrollAll if true, enroll all currently shown children
      * @param subjectList a set of subjects to be enrolled in
      */
     public EnrollCommand(Index[] indexes, boolean enrollAll, List<Subject> subjectList) {
