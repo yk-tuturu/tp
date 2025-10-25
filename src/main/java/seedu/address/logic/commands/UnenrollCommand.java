@@ -35,7 +35,7 @@ public class UnenrollCommand extends Command {
 
     /**
      * Unenrolls an index array of children into one or more subjects
-     * The enrollAll flag can be set to true to unenroll all shown children
+     * The unenrollAll flag can be set to true to unenroll all shown children
      * @param indexes the index array
      * @param unenrollAll if true, unenroll all currently shown children
      * @param subjectList a set of subjects to be unenrolled from

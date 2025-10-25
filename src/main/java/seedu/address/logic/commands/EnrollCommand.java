@@ -24,7 +24,7 @@ public class EnrollCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enrolls all children at the specified indexes "
             + "into the listed subjects; or enrolls all children currently listed if the 'all' keyword is used\n"
             + "Parameters: INDEXES (must be positive integers) or 'ALL', s/SUBJECT...\n"
-            + "Example: " + COMMAND_WORD + " 1 2 3 s/math"
+            + "Example: " + COMMAND_WORD + " 1 2 3 s/math "
             + "or: " + COMMAND_WORD + " all s/math s/science";
 
     public static final String MESSAGE_ENROLL_PERSON_SUCCESS = "Enrolled Child: %1$s in Subject: %2$s\n";
