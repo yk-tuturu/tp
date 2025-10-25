@@ -127,7 +127,9 @@ public class UnenrollCommandTest {
         expectedMessageBuilder.append(String.format(
                 MESSAGE_UNENROLL_PERSON_SUCCESS, Messages.formatShort(BENSON), Subject.MATH));
         for (Person p : model.getFilteredPersonList()) {
-            if (p == ALICE || p == BENSON) continue;
+            if (p == ALICE || p == BENSON) {
+                continue;
+            }
 
             expectedMessageBuilder.append(String.format(MESSAGE_SKIPPED_PERSON,
                     Messages.formatShort(p), Subject.MATH));
@@ -238,7 +240,9 @@ public class UnenrollCommandTest {
                 MESSAGE_SKIPPED_PERSON, Messages.formatShort(BENSON), Subject.SCIENCE));
 
         for (Person p : model.getFilteredPersonList()) {
-            if (p == ALICE || p == BENSON) continue;
+            if (p == ALICE || p == BENSON) {
+                continue;
+            }
 
             expectedMessageBuilder.append(String.format(
                     MESSAGE_SKIPPED_PERSON, Messages.formatShort(p), Subject.MATH));
