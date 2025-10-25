@@ -32,6 +32,12 @@ public class JsonSerializableAddressBookTest {
             .resolve("unknownPersonScoreAddressBook.json");
     private static final Path UNKNOWN_SUBJECT_FILE = TEST_DATA_FOLDER
             .resolve("unknownSubjectAddressBook.json");
+    private static final Path MISSING_SCORE_FILE = TEST_DATA_FOLDER
+            .resolve("missingScoreAddressBook.json");
+    private static final Path MISSING_PERSONNAME_FILE = TEST_DATA_FOLDER
+            .resolve("missingPersonNameAddressBook.json");
+    private static final Path NEGATIVE_SCORE_FILE = TEST_DATA_FOLDER
+            .resolve("negativeScoreAddressBook.json");
 
     @BeforeEach
     public void setUp() {
@@ -91,6 +97,27 @@ public class JsonSerializableAddressBookTest {
     @Test
     public void toModelType_invalidScore_throwsIllegalValueException() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(INVALID_SCORE_FILE,
+                JsonSerializableAddressBook.class).get();
+        assertThrows(IllegalValueException.class, dataFromFile::toModelType);
+    }
+
+    @Test
+    public void toModelType_missingScore_throwsIllegalValueException() throws Exception {
+        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(MISSING_SCORE_FILE,
+                JsonSerializableAddressBook.class).get();
+        assertThrows(IllegalValueException.class, dataFromFile::toModelType);
+    }
+
+    @Test
+    public void toModelType_missingPersonName_throwsIllegalValueException() throws Exception {
+        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(MISSING_PERSONNAME_FILE,
+                JsonSerializableAddressBook.class).get();
+        assertThrows(IllegalValueException.class, dataFromFile::toModelType);
+    }
+
+    @Test
+    public void toModelType_negativeScore_throwsIllegalValueException() throws Exception {
+        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(NEGATIVE_SCORE_FILE,
                 JsonSerializableAddressBook.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
