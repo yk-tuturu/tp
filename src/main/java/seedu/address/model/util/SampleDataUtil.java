@@ -31,7 +31,7 @@ public class SampleDataUtil {
                     List.of(new Allergy("Peanuts"), new Allergy("Milk"))
                 ),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
-                    getTagSet("friends")
+                    getTagSet("adhd")
                 ),
             new Person(
                 new Name("Bernice Yu"),
@@ -42,7 +42,7 @@ public class SampleDataUtil {
                     List.of(new Allergy("Shellfish"))
                 ),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                    getTagSet("colleagues", "friends")
+                    getTagSet("adhd", "only child")
                 ),
             new Person(
                 new Name("Charlotte Oliveir"),
@@ -53,7 +53,7 @@ public class SampleDataUtil {
                     List.of(new Allergy("Dust"))
                 ),
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                    getTagSet("neighbours")
+                    getTagSet("vegetarian")
                 ),
             new Person(
                 new Name("David Li"),
@@ -64,7 +64,7 @@ public class SampleDataUtil {
                     List.of() // No known allergies
                 ),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                    getTagSet("family")
+                    getTagSet("diabetic")
                 ),
             new Person(
                 new Name("Irfan Ibrahim"),
@@ -75,7 +75,7 @@ public class SampleDataUtil {
                     List.of(new Allergy("Eggs"), new Allergy("Soy"))
                 ),
                 new Address("Blk 47 Tampines Street 20, #17-35"),
-                    getTagSet("classmates")
+                    getTagSet("deaf", "blind")
                 ),
             new Person(
                 new Name("Roy Balakrishnan"),
@@ -86,7 +86,7 @@ public class SampleDataUtil {
                     List.of(new Allergy("Gluten"))
                 ),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
-                    getTagSet("colleagues")
+                    getTagSet("hyperhidrosis", "only child")
                 )
         };
     }
