@@ -22,13 +22,15 @@ public class EnrollCommand extends Command {
     public static final String COMMAND_WORD = "enroll";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enrolls all students at the specified indexes "
-            + "into the listed subjects; or enrolls all students currently listed if the 'all' keyword is used\n"
+            + "into the listed subjects; \nor enrolls all students currently listed if the 'all' keyword is used\n"
             + "Parameters: INDEXES (must be positive integers) or 'ALL', s/SUBJECT...\n"
-            + "Example: " + COMMAND_WORD + " 1 2 3 s/math"
+            + "Example: " + COMMAND_WORD + " 1 2 3 s/math\n"
             + "or: " + COMMAND_WORD + " all s/math s/science";
 
-    public static final String MESSAGE_ENROLL_PERSON_SUCCESS = "Enrolled Person: %1$s in Subject: %2$s\n";
+    public static final String MESSAGE_ENROLL_PERSON_SUCCESS = "Enrolled Student: %1$s in Subject: %2$s\n";
+    public static final String MESSAGE_SKIPPED_PERSON = "Student: %1$s is already enrolled in Subject %2$s, skipping...\n";
     public static final String MESSAGE_NO_PERSON_ENROLLED = "All selected students are already enrolled!";
+    public static final String MESSAGE_DONE = "Finished command execution.";
 
     private final Index[] indexes;
     private final boolean enrollAll;
@@ -55,6 +57,8 @@ public class EnrollCommand extends Command {
         StringBuilder sb = new StringBuilder();
         List<Person> personsToProcess;
 
+        int enrollCount = 0;
+
         if (enrollAll) {
             personsToProcess = lastShownList;
         } else {
@@ -75,13 +79,18 @@ public class EnrollCommand extends Command {
                     subject.enrollPerson(person);
                     sb.append(String.format(MESSAGE_ENROLL_PERSON_SUCCESS,
                             Messages.formatShort(person), subject));
+                    enrollCount++;
+                } else {
+                    sb.append(String.format(MESSAGE_SKIPPED_PERSON, Messages.formatShort(person), subject));
                 }
             }
         }
 
+        sb.append(MESSAGE_DONE);
+
         String enrolledPersonsResult = sb.toString();
 
-        return new CommandResult(enrolledPersonsResult.isEmpty() ? MESSAGE_NO_PERSON_ENROLLED
+        return new CommandResult(enrollCount == 0 ? MESSAGE_NO_PERSON_ENROLLED
                 : enrolledPersonsResult);
     }
 

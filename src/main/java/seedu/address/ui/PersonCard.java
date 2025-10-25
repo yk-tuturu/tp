@@ -70,7 +70,7 @@ public class PersonCard extends UiPart<Region> {
         SubjectRegistry.getSubjectsOf(person).stream()
                 .sorted(Comparator.comparing(subject -> subject.toString()))
                 .forEach(subject ->
-                        subjects.getChildren().add(new Label(subject + "|"
+                        subjects.getChildren().add(new Label(subject + " | "
                                 + SubjectRegistry.getScoresOf(person).get(subject))));
     }
 }
