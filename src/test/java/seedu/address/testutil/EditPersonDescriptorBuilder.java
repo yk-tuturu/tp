@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -82,7 +83,7 @@ public class EditPersonDescriptorBuilder {
      * that we are building.
      */
     public EditPersonDescriptorBuilder withAllergies(String... allergies) {
-        List<Allergy> allergyList = Stream.of(allergies).map(Allergy::new).collect(Collectors.toList());
+        Set<Allergy> allergyList = Stream.of(allergies).map(Allergy::new).collect(Collectors.toSet());
         descriptor.setAllergies(new AllergyList(allergyList));
         return this;
     }

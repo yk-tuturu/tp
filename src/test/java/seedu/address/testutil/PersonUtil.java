@@ -59,7 +59,7 @@ public class PersonUtil {
         descriptor.getParentPhone().ifPresent(phone -> sb.append(PREFIX_PARENTPHONE).append(phone.value).append(" "));
         descriptor.getParentEmail().ifPresent(email -> sb.append(PREFIX_PARENTEMAIL).append(email.value).append(" "));
         descriptor.getAllergies().ifPresent(allergyList -> {
-            List<Allergy> allergies = allergyList.getAllergyList();
+            Set<Allergy> allergies = allergyList.getAllergyList();
             if (allergies.isEmpty()) {
                 sb.append(PREFIX_ALLERGY + " ");
             } else {
