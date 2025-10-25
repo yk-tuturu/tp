@@ -60,9 +60,8 @@ class JsonSerializableAddressBook {
             List<JsonAdaptedScoreEntry> entries = new ArrayList<>();
             for (Map.Entry<Person, Integer> e : scores.entrySet()) {
                 Integer sc = e.getValue();
-                if (sc != null && sc >= 0) { // only persist concrete scores
-                    entries.add(new JsonAdaptedScoreEntry(e.getKey(), sc));
-                }
+                assert sc != null && sc >= -1 && sc <= 100 : "score should be validated in model before serialization";
+                entries.add(new JsonAdaptedScoreEntry(e.getKey(), sc));
             }
             if (!entries.isEmpty()) {
                 this.subjectScores.put(subject.name(), entries);
@@ -104,14 +103,13 @@ class JsonSerializableAddressBook {
             for (JsonAdaptedScoreEntry dto : entry.getValue()) {
                 dto.validate();
                 Person person = nameToPerson.get(dto.getPersonName());
+                // this check is necessary in case the person referred to in scores does not exist in the address book
                 if (person == null) {
                     throw new IllegalValueException("Unknown person in scores: " + dto.getPersonName());
                 }
                 subject.enrollPerson(person);
                 Integer sc = dto.getScore();
-                if (sc != null && sc >= 0) {
-                    subject.setScore(person, sc);
-                }
+                subject.setScore(person, sc);
             }
         }
         return addressBook;

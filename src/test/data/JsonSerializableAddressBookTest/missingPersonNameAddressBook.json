@@ -1,0 +1,20 @@
+{
+  "_comment": "Negative score out of allowed range",
+  "persons": [
+    {
+      "childName": "Hoon heh",
+      "parentName": "Elle egh",
+      "parentPhone": "8482424",
+      "parentEmail": "elle@example.com",
+      "address": "Little India",
+      "allergies": ["Soy"],
+      "tags": []
+    }
+  ],
+  "subjectScores": {
+    "MATH": [
+      { "score": 5 }
+    ]
+  }
+}
+
