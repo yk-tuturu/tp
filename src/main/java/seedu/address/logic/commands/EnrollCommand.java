@@ -28,7 +28,8 @@ public class EnrollCommand extends Command {
             + "or: " + COMMAND_WORD + " all s/math s/science";
 
     public static final String MESSAGE_ENROLL_PERSON_SUCCESS = "Enrolled Child: %1$s in Subject: %2$s\n";
-    public static final String MESSAGE_SKIPPED_PERSON = "Child: %1$s is already enrolled in Subject %2$s, skipping...\n";
+    public static final String MESSAGE_SKIPPED_PERSON = "Child: %1$s is already enrolled in Subject %2$s, "
+            + "skipping...\n";
     public static final String MESSAGE_NO_PERSON_ENROLLED = "All selected children are already enrolled!";
     public static final String MESSAGE_DONE = "Finished command execution.";
 
@@ -81,7 +82,8 @@ public class EnrollCommand extends Command {
                             Messages.formatShort(person), subject));
                     enrollCount++;
                 } else {
-                    sb.append(String.format(MESSAGE_SKIPPED_PERSON, Messages.formatShort(person), subject));
+                    sb.append(String.format(MESSAGE_SKIPPED_PERSON,
+                            Messages.formatShort(person), subject));
                 }
             }
         }
