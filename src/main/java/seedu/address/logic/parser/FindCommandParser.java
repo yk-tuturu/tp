@@ -56,7 +56,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         if (hasEmptyList) {
             throw new ParseException(
-                    String.format(MESSAGE_EMPTY_PARAMETER, FindCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_EMPTY_PARAMETER));
         }
 
         if (childNameKeywords.isEmpty()
