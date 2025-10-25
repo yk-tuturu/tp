@@ -3,7 +3,6 @@ package seedu.address.model.person;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
@@ -47,22 +46,22 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
         boolean matchesChildName = childNameKeywords
                 .stream()
                 .anyMatch(keyword -> (
-                        StringUtil.containsWordIgnoreCase(person.getChildName().fullName, keyword)));
+                        person.getChildName().fullName.toLowerCase().contains(keyword.toLowerCase())));
 
         boolean matchesParentName = parentNameKeywords
                 .stream()
                 .anyMatch(keyword -> (
-                        StringUtil.containsWordIgnoreCase(person.getParentName().fullName, keyword)));
+                        person.getParentName().fullName.toLowerCase().contains(keyword.toLowerCase())));
 
         boolean matchesAllergy = allergyKeywords.stream()
                 .anyMatch(keyword -> person.getAllergyList().stream()
                         .anyMatch(allergy -> (
-                                StringUtil.containsWordIgnoreCase(allergy.toString(), keyword))));
+                                allergy.toString().toLowerCase().contains(keyword.toLowerCase()))));
 
         boolean matchesTag = tagKeywords.stream()
                 .anyMatch(keyword -> person.getTags().stream()
                         .anyMatch(tag -> (
-                                StringUtil.containsWordIgnoreCase(tag.toString(), "[" + keyword + "]"))));
+                                tag.toString().toLowerCase().contains(keyword.toLowerCase()))));
 
         return matchesChildName || matchesParentName || matchesAllergy || matchesTag;
     }
