@@ -16,9 +16,9 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all children records "
-            + "whose name, allergy or tag contain any of the specified keywords (case-insensitive) "
+            + "whose child name, parent name, allergy or tag contain any of the specified keywords (case-insensitive) "
             + "and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+            + "Parameters: [c/CHILD_NAME] [b/PARENT_NAME] [r/ALLERGIES] [t/TAG]\n"
             + "Example: " + COMMAND_WORD + " b/alice c/bob r/dust t/adhd";
 
     private final PersonContainsKeywordsPredicate predicate;
