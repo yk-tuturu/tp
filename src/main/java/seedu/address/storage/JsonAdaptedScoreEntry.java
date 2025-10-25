@@ -48,8 +48,8 @@ public class JsonAdaptedScoreEntry {
         if (score == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "score"));
         }
-        if (score < 0 || score > 100) {
-            throw new IllegalValueException("Score must be between 0 and 100.");
+        if (score < -1 || score > 100) {
+            throw new IllegalValueException("Score must be between -1 and 100.");
         }
     }
 }
