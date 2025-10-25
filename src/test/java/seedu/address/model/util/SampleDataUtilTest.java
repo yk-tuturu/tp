@@ -1,12 +1,12 @@
 package seedu.address.model.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class SampleDataUtilTest {
 
