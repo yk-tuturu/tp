@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_EMPTY_PARAMETER;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CHILDNAME;
@@ -10,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -48,6 +50,14 @@ public class FindCommandParser implements Parser<FindCommand> {
         List<String> tagKeywords = argMultimap.getValue(PREFIX_TAG)
                 .map(s -> Arrays.asList(s.trim().split("\\s+")))
                 .orElse(Collections.emptyList());
+
+        boolean hasEmptyList = Stream.of(childNameKeywords, parentNameKeywords, allergyKeywords, tagKeywords)
+                .anyMatch(list -> list.size() == 1 && list.get(0).isEmpty());
+
+        if (hasEmptyList) {
+            throw new ParseException(
+                    String.format(MESSAGE_EMPTY_PARAMETER));
+        }
 
         if (childNameKeywords.isEmpty()
                 && parentNameKeywords.isEmpty()

@@ -15,20 +15,20 @@ import seedu.address.model.person.Person;
 import seedu.address.model.subject.Subject;
 
 /**
- * Unenrolls students from a subject
+ * Unenrolls children from a subject
  */
 public class UnenrollCommand extends Command {
     public static final String COMMAND_WORD = "unenroll";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unenrolls all students at the specified indexes"
-            + "into the listed subjects;\n or unenrolls all students currently listed if the 'all' keyword is used\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unenrolls all children at the specified indexes"
+            + "into the listed subjects;\n or unenrolls all children currently listed if the 'all' keyword is used\n"
             + "Parameters: INDEXES (must be positive integers) or 'ALL', s/SUBJECT...\n"
             + "Example: " + COMMAND_WORD + " 1 2 3 s/math\n"
             + "or: " + COMMAND_WORD + " all s/math s/science\n";
 
-    public static final String MESSAGE_UNENROLL_PERSON_SUCCESS = "Unenrolled Student: %1$s in Subject: %2$s\n";
-    public static final String MESSAGE_SKIPPED_PERSON = "Student: %1$s not enrolled in Subject %2$s, skipping...\n";
-    public static final String MESSAGE_NO_PERSON_UNENROLLED = "All selected students are already unenrolled";
+    public static final String MESSAGE_UNENROLL_PERSON_SUCCESS = "Unenrolled Child: %1$s in Subject: %2$s\n";
+    public static final String MESSAGE_SKIPPED_PERSON = "Child: %1$s not enrolled in Subject %2$s, skipping...\n";
+    public static final String MESSAGE_NO_PERSON_UNENROLLED = "All selected children are already unenrolled";
     public static final String MESSAGE_DONE = "Finished command execution";
 
     private final Index[] indexes;
@@ -36,10 +36,10 @@ public class UnenrollCommand extends Command {
     private final List<Subject> subjectList;
 
     /**
-     * Unenrolls an index array of students into one or more subjects
-     * The enrollAll flag can be set to true to unenroll all shown students
+     * Unenrolls an index array of children into one or more subjects
+     * The unenrollAll flag can be set to true to unenroll all shown children
      * @param indexes the index array
-     * @param unenrollAll if true, unenroll all currently shown students
+     * @param unenrollAll if true, unenroll all currently shown children
      * @param subjectList a set of subjects to be unenrolled from
      */
     public UnenrollCommand(Index[] indexes, boolean unenrollAll, List<Subject> subjectList) {

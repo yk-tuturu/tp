@@ -124,15 +124,15 @@ Format: `find [c/CHILD_NAME] [b/PARENT_NAME] [r/ALLERGIES] [t/TAG]`
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the corresponding field is searched. e.h. `b/hans` will only match with parents named `Hans` and not children
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* Even partial words will be matched e.g. `Han` will match `Hans`, `child` will match `only child`
 * Children records matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `c/Hans r/ADHD` will return records of all children named Hans and of all children with ADHD
+  e.g. `c/Hans r/ADHD` will return records of all children named `Hans` and of all children with `ADHD`
 * At least one of the optional fields must be provided
 * Each category supports multi-search e.g. `c/John Marcus Hans` will return records of all children named either `John`, `Marcus` or `Hans`
 
 Examples:
 * `find c/John` returns records of all children with `john` in their name
-* `find c/Marcus Vertin b/Hoffman r/Dust` returns records where the child is named either Marcus or Vertin, where the parent is named Hoffman, and where the child is allergic to dust (as long as any of the 4 conditions are fulfilled)
+* `find c/Marcus Vertin b/Hoffman r/Dust` returns records where the child is named either `Marcus` or `Vertin`, where the parent is named `Hoffman`, and where the child is allergic to `dust` (as long as any of the 4 conditions are fulfilled)
 
 ### Deleting a child record : `delete`
 
