@@ -56,11 +56,13 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
 
         boolean matchesAllergy = allergyKeywords.stream()
                 .anyMatch(keyword -> person.getAllergyList().stream()
-                        .anyMatch(allergy -> allergy.toString().equalsIgnoreCase(keyword)));
+                        .anyMatch(allergy -> (
+                                StringUtil.containsWordIgnoreCase(allergy.toString(), keyword))));
 
         boolean matchesTag = tagKeywords.stream()
                 .anyMatch(keyword -> person.getTags().stream()
-                        .anyMatch(tag -> tag.toString().equalsIgnoreCase("[" + keyword + "]")));
+                        .anyMatch(tag -> (
+                                StringUtil.containsWordIgnoreCase(tag.toString(), "[" + keyword + "]"))));
 
         return matchesChildName || matchesParentName || matchesAllergy || matchesTag;
     }
