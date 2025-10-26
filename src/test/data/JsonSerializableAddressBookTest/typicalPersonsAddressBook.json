@@ -40,7 +40,7 @@
     {
       "childName": "Elle Meyer",
       "parentName": "Elles Mom",
-      "parentPhone": "9482224",
+      "parentPhone": "94822248",
       "parentEmail": "werner@example.com",
       "address": "Michegan Ave",
       "allergies": ["Pollen"],
@@ -49,7 +49,7 @@
     {
       "childName": "Fiona Kunz",
       "parentName": "Fionas Dad",
-      "parentPhone": "9482427",
+      "parentPhone": "94824278",
       "parentEmail": "lydia@example.com",
       "address": "Little Tokyo",
       "allergies": ["Gluten"],
@@ -58,7 +58,7 @@
     {
       "childName": "George Best",
       "parentName": "Georges Mom",
-      "parentPhone": "9482442",
+      "parentPhone": "94824427",
       "parentEmail": "anna@example.com",
       "address": "4th Street",
       "allergies": [],
