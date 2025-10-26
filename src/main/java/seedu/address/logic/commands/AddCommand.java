@@ -51,6 +51,10 @@ public class AddCommand extends Command {
         toAdd = person;
     }
 
+    public Person getPersonToAdd() {
+        return toAdd;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);

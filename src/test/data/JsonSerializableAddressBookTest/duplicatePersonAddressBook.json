@@ -7,7 +7,8 @@
       "parentEmail": "alice@example.com",
       "address": "123, Jurong West Ave 6, #08-111",
       "allergies": ["Peanuts"],
-      "tags": []
+      "tags": [],
+      "uniqueId": "0"
     },
     {
       "childName": "Alice Pauline",
@@ -16,7 +17,8 @@
       "parentEmail": "pauline@example.com",
       "address": "4th street",
       "allergies": ["Dust"],
-      "tags": []
+      "tags": [],
+      "uniqueId": "0"
     }
   ]
 }

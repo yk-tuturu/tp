@@ -157,6 +157,11 @@ public class LogicManagerTest {
                     throws IOException {
                 throw e;
             }
+
+            @Override
+            public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+                throw e;
+            }
         };
 
         JsonUserPrefsStorage userPrefsStorage =

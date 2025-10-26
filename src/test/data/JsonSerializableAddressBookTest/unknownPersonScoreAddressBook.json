@@ -8,7 +8,8 @@
       "parentEmail": "alice@example.com",
       "address": "123, Jurong West Ave 6, #08-111",
       "allergies": ["Peanuts"],
-      "tags": []
+      "tags": [],
+      "uniqueId": "0"
     }
   ],
   "subjectScores": {
