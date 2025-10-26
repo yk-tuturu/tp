@@ -16,6 +16,8 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
+    // Static counter for generating unique IDs
+    private static int idCounter = 0;
 
     // Identity fields
     private final Name childName;
@@ -28,9 +30,6 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-
-    // Static counter for generating unique IDs
-    private static int idCounter = 0;
 
     /**
      * Every field must be present and not null.
