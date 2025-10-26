@@ -8,7 +8,8 @@
       "parentEmail": "elle@example.com",
       "address": "Little India",
       "allergies": ["Soy"],
-      "tags": []
+      "tags": [],
+      "uniqueId": "0"
     }
   ],
   "subjectScores": {

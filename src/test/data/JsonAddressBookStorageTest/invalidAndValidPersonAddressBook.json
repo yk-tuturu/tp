@@ -7,7 +7,8 @@
       "parentEmail": "hans@example.com",
       "address": "4th street",
       "allergies": ["Peanuts", "Milk"],
-      "tags": []
+      "tags": [],
+      "uniqueId": "0"
     },
     {
       "childName": "Child With Invalid Phone Field",
@@ -16,7 +17,8 @@
       "parentEmail": "hans@example.com",
       "address": "4th street",
       "allergies": ["Dust"],
-      "tags": []
+      "tags": [],
+      "uniqueId": "0"
     }
   ]
 }

@@ -135,20 +135,11 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-//        return childName.equals(otherPerson.childName)
-//                && parentName.equals(otherPerson.parentName)
-//                && parentPhone.equals(otherPerson.parentPhone)
-//                && parentEmail.equals(otherPerson.parentEmail)
-//                && allergies.equals(otherPerson.allergies)
-//                && address.equals(otherPerson.address)
-//                && tags.equals(otherPerson.tags);
         return uniqueId == otherPerson.uniqueId;
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-//        return Objects.hash(childName, parentName, parentPhone, parentEmail, allergies, address, tags);
         return Objects.hash(uniqueId);
     }
 
