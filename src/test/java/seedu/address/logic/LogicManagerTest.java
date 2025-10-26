@@ -73,7 +73,6 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // TODO: For Storage person to fix
         assertCommandFailureForExceptionFromStorage(DUMMY_IO_EXCEPTION, String.format(
                 LogicManager.FILE_OPS_ERROR_FORMAT, DUMMY_IO_EXCEPTION.getMessage()));
     }
@@ -156,6 +155,11 @@ public class LogicManagerTest {
             @Override
             public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath)
                     throws IOException {
+                throw e;
+            }
+
+            @Override
+            public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
                 throw e;
             }
         };
