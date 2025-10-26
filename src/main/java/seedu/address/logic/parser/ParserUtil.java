@@ -178,14 +178,13 @@ public class ParserUtil {
      */
     public static Subject parseSubject(String subject) throws ParseException {
         requireNonNull(subject);
-
         String trimmedSubject = subject.trim();
 
-        if (!Subject.contains(subject)) {
+        if (!Subject.contains(trimmedSubject)) {
             throw new ParseException(Subject.MESSAGE_CONSTRAINTS);
         }
 
-        return Subject.fromString(subject);
+        return Subject.fromString(trimmedSubject);
     }
 
     /**
@@ -221,7 +220,7 @@ public class ParserUtil {
      */
     public static int parseScore(String scoreString) throws ParseException {
         try {
-            int score = Integer.parseInt(scoreString);
+            int score = Integer.parseInt(scoreString.trim());
             if (score < 0 || score > 100) {
                 throw new ParseException(MESSAGE_INVALID_SCORE);
             }
