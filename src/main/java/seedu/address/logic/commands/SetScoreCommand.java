@@ -21,7 +21,7 @@ public class SetScoreCommand extends Command {
     public static final String COMMAND_WORD = "setscore";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Set score of children at the specified index. \n"
-            + "Can only specify one grade and one subject per command. Multiple children can be selected by"
+            + "Can only specify one score and one subject per command. Multiple children can be selected by"
             + "using a space-separated list of indexes or the ALL keyword. \n"
             + "Parameters: INDEXES (must be positive integers) or 'ALL', s/SUBJECT g/SCORE\n"
             + "Example: " + COMMAND_WORD + " 1 2 3 s/math g/100 "
