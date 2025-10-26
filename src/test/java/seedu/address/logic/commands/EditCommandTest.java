@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY_DUST;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY_MILK;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_UNIQUE_ID_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SINGLEPARENT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -53,14 +54,14 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        // TODO: For Edit command person to fix
         Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
         Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
 
         PersonBuilder personInList = new PersonBuilder(lastPerson);
         Person editedPerson = personInList.withChildName(VALID_NAME_BOB).withParentPhone(VALID_PHONE_BOB)
                 .withAllergies(VALID_ALLERGY_DUST, VALID_ALLERGY_MILK)
-                .withTags(VALID_TAG_SINGLEPARENT).build();
+                .withTags(VALID_TAG_SINGLEPARENT)
+                .withUniqueId(VALID_UNIQUE_ID_BOB).build();
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withChildName(VALID_NAME_BOB)
                 .withParentPhone(VALID_PHONE_BOB)
