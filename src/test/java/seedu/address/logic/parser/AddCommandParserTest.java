@@ -140,7 +140,8 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).withAllergies().withTags().withUniqueId(VALID_UNIQUE_ID_AMY).build();
+        Person expectedPerson = new PersonBuilder(AMY).withAllergies().withTags()
+                .withUniqueId(VALID_UNIQUE_ID_AMY).build();
         assertAddCommandParseSuccessIgnoringUniqueId(parser,
                 NAME_DESC_AMY + NAME_DESC_AMY_PARENT + PHONE_DESC_AMY_PARENT
                         + EMAIL_DESC_AMY_PARENT + ADDRESS_DESC_AMY,
