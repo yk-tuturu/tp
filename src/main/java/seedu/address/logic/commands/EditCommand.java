@@ -108,9 +108,10 @@ public class EditCommand extends Command {
         AllergyList updatedAllergies = editPersonDescriptor.getAllergies().orElse(personToEdit.getAllergies());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        int unchangedUniqueId = personToEdit.getUniqueId();
 
         return new Person(updatedChildName, updatedParentName, updatedParentPhone,
-                updatedParentEmail, updatedAllergies, updatedAddress, updatedTags);
+                updatedParentEmail, updatedAllergies, updatedAddress, updatedTags, unchangedUniqueId);
     }
 
     @Override
