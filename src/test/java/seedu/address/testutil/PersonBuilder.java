@@ -121,6 +121,12 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code uniqueId} of the {@code Person} that we are building.
+     *
+     * @param uniqueId The unique identifier to assign to the person.
+     * @return This {@code PersonBuilder} instance with the updated {@code uniqueId}.
+     */
     public PersonBuilder withUniqueId(int uniqueId) {
         this.uniqueId = uniqueId;
         return this;
