@@ -24,18 +24,35 @@ public class NameTest {
         // null name
         assertThrows(NullPointerException.class, () -> Name.isValidName(null));
 
-        // invalid name
+        // invalid names
         assertFalse(Name.isValidName("")); // empty string
         assertFalse(Name.isValidName(" ")); // spaces only
         assertFalse(Name.isValidName("^")); // only non-alphanumeric characters
-        assertFalse(Name.isValidName("peter*")); // contains non-alphanumeric characters
+        assertFalse(Name.isValidName("peter*")); // contains invalid special character
+        assertFalse(Name.isValidName("John@Doe")); // contains @
+        assertFalse(Name.isValidName("Jane_Lee")); // contains underscore
+        assertFalse(Name.isValidName("Mary#Kate")); // contains #
+        assertFalse(Name.isValidName("李华")); // non-English characters
+        assertFalse(Name.isValidName("François-Marie")); // accented characters
+        assertFalse(Name.isValidName("Peter$")); // contains $
 
-        // valid name
+        // valid names — English-only, with allowed symbols
         assertTrue(Name.isValidName("peter jack")); // alphabets only
         assertTrue(Name.isValidName("12345")); // numbers only
         assertTrue(Name.isValidName("peter the 2nd")); // alphanumeric characters
         assertTrue(Name.isValidName("Capital Tan")); // with capital letters
         assertTrue(Name.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
+
+        // new valid cases (expanded rule coverage)
+        assertTrue(Name.isValidName("Mary-Kate O'Neill")); // hyphen and apostrophe
+        assertTrue(Name.isValidName("Jean-Luc Picard")); // hyphen
+        assertTrue(Name.isValidName("O'Connor")); // apostrophe only
+        assertTrue(Name.isValidName("Ali (Senior)")); // parentheses
+        assertTrue(Name.isValidName("Tan, Wei Ling")); // comma
+        assertTrue(Name.isValidName("John R. R. Tolkien")); // period and initials
+        assertTrue(Name.isValidName("Alice Pauline d/o Paulines Mom")); // slash
+        assertTrue(Name.isValidName("Anita Devi w/o Rajesh Singh")); // slash
+        assertTrue(Name.isValidName("Henry VIII")); // numeric suffix
     }
 
     @Test

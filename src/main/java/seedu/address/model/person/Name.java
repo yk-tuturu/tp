@@ -10,13 +10,16 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Names should only contain English letters, numbers, spaces, and allowed symbols "
+                    + "(. , ' ’ - ( ) /), and must contain at least one letter or digit.";
 
     /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * This regex ensures:
+     *  - Only English letters, numbers, spaces, and the listed punctuation are allowed.
+     *  - There must be at least one alphanumeric character (prevents whitespace-only names).
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX =
+            "^(?=.*[A-Za-z0-9])[A-Za-z0-9 .,'’\\-()/]+$";
 
     public final String fullName;
 
@@ -27,8 +30,9 @@ public class Name {
      */
     public Name(String name) {
         requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+        String trimmed = name.trim(); // trim whitespace from both ends
+        checkArgument(isValidName(trimmed), MESSAGE_CONSTRAINTS);
+        fullName = trimmed;
     }
 
     /**
@@ -37,7 +41,6 @@ public class Name {
     public static boolean isValidName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
-
 
     @Override
     public String toString() {
@@ -50,7 +53,6 @@ public class Name {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof Name)) {
             return false;
         }
@@ -63,5 +65,4 @@ public class Name {
     public int hashCode() {
         return fullName.hashCode();
     }
-
 }
