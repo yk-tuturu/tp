@@ -1,41 +1,14 @@
 package seedu.address.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.ALLERGY_DESC_DUST;
-import static seedu.address.logic.commands.CommandTestUtil.ALLERGY_DESC_PEANUTS;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY_PARENT;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB_PARENT;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY_PARENT;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB_PARENT;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY_PARENT;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB_PARENT;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_SINGLEPARENT;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_SPECIALNEEDS;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY_DUST;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY_PEANUTS;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SINGLEPARENT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SPECIALNEEDS;
+import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CHILDNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTEMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTPHONE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
@@ -43,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -54,26 +28,44 @@ import seedu.address.testutil.PersonBuilder;
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
+    private void assertAddCommandParseSuccessIgnoringUniqueId(AddCommandParser parser, String userInput,
+                                                    Person expectedPerson) {
+        try {
+            AddCommand command = parser.parse(userInput);
+            Person actualPerson = command.getPersonToAdd();
+
+            assertEquals(expectedPerson.getChildName(), actualPerson.getChildName());
+            assertEquals(expectedPerson.getParentName(), actualPerson.getParentName());
+            assertEquals(expectedPerson.getParentPhone(), actualPerson.getParentPhone());
+            assertEquals(expectedPerson.getParentEmail(), actualPerson.getParentEmail());
+            assertEquals(expectedPerson.getAddress(), actualPerson.getAddress());
+            assertEquals(expectedPerson.getAllergies(), actualPerson.getAllergies());
+            assertEquals(expectedPerson.getTags(), actualPerson.getTags());
+        } catch (ParseException pe) {
+            throw new IllegalArgumentException("Invalid userInput.", pe);
+        }
+    }
+
     @Test
     public void parse_allFieldsPresent_success() {
         Person expectedPerson = new PersonBuilder(BOB).withAllergies(VALID_ALLERGY_DUST)
                         .withTags(VALID_TAG_SINGLEPARENT).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + NAME_DESC_BOB_PARENT
+        assertAddCommandParseSuccessIgnoringUniqueId(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + NAME_DESC_BOB_PARENT
                 + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT + ADDRESS_DESC_BOB + TAG_DESC_SINGLEPARENT
-                + ALLERGY_DESC_DUST, new AddCommand(expectedPerson));
+                + ALLERGY_DESC_DUST, expectedPerson);
 
         // multiple tags - all accepted
         Person expectedPersonMultipleTags = new PersonBuilder(BOB)
                 .withAllergies(VALID_ALLERGY_DUST, VALID_ALLERGY_PEANUTS)
                 .withTags(VALID_TAG_SINGLEPARENT, VALID_TAG_SPECIALNEEDS)
                 .build();
-        assertParseSuccess(parser,
+        assertAddCommandParseSuccessIgnoringUniqueId(parser,
                 NAME_DESC_BOB + NAME_DESC_BOB_PARENT + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT
                         + ADDRESS_DESC_BOB + ALLERGY_DESC_DUST + ALLERGY_DESC_PEANUTS
                         + TAG_DESC_SPECIALNEEDS + TAG_DESC_SINGLEPARENT,
-                new AddCommand(expectedPersonMultipleTags));
+                expectedPersonMultipleTags);
     }
 
     @Test
@@ -148,11 +140,11 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).withAllergies().withTags().build();
-        assertParseSuccess(parser,
+        Person expectedPerson = new PersonBuilder(AMY).withAllergies().withTags().withUniqueId(VALID_UNIQUE_ID_AMY).build();
+        assertAddCommandParseSuccessIgnoringUniqueId(parser,
                 NAME_DESC_AMY + NAME_DESC_AMY_PARENT + PHONE_DESC_AMY_PARENT
                         + EMAIL_DESC_AMY_PARENT + ADDRESS_DESC_AMY,
-                new AddCommand(expectedPerson));
+                expectedPerson);
     }
 
     @Test
