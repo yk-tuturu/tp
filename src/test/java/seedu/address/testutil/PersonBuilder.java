@@ -24,6 +24,7 @@ public class PersonBuilder {
     public static final String DEFAULT_PARENT_PHONE = "85355255";
     public static final String DEFAULT_PARENT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final int DEFAULT_UNIQUE_ID = 0;
 
     private Name childName;
     private Name parentName;
@@ -32,6 +33,7 @@ public class PersonBuilder {
     private AllergyList allergies;
     private Address address;
     private Set<Tag> tags;
+    private int uniqueId;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -43,6 +45,7 @@ public class PersonBuilder {
         parentEmail = new Email(DEFAULT_PARENT_EMAIL);
         allergies = new AllergyList(List.of());
         address = new Address(DEFAULT_ADDRESS);
+        uniqueId = DEFAULT_UNIQUE_ID;
         tags = new HashSet<>();
     }
 
@@ -118,7 +121,12 @@ public class PersonBuilder {
         return this;
     }
 
+    public PersonBuilder withUniqueId(int uniqueId) {
+        this.uniqueId = uniqueId;
+        return this;
+    }
+
     public Person build() {
-        return new Person(childName, parentName, parentPhone, parentEmail, allergies, address, tags);
+        return new Person(childName, parentName, parentPhone, parentEmail, allergies, address, tags, uniqueId);
     }
 }
