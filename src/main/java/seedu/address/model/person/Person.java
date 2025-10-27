@@ -16,6 +16,8 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
+    // Static counter for generating unique IDs
+    private static int idCounter = 0;
 
     // Identity fields
     private final Name childName;
@@ -23,6 +25,7 @@ public class Person {
     private final Phone parentPhone;
     private final Email parentEmail;
     private final AllergyList allergies;
+    private final int uniqueId;
 
     // Data fields
     private final Address address;
@@ -41,6 +44,24 @@ public class Person {
         this.allergies = allergies;
         this.address = address;
         this.tags.addAll(tags);
+        this.uniqueId = idCounter;
+        idCounter++;
+    }
+
+    /**
+     * Alternative constructor to create an existing Person with a known uniqueId.
+     */
+    public Person(Name childName, Name parentName, Phone parentPhone, Email parentEmail, AllergyList allergies,
+                  Address address, Set<Tag> tags, int uniqueId) {
+        requireAllNonNull(childName, parentName, parentPhone, parentEmail, allergies, address, tags);
+        this.childName = childName;
+        this.parentName = parentName;
+        this.parentPhone = parentPhone;
+        this.parentEmail = parentEmail;
+        this.allergies = allergies;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.uniqueId = uniqueId;
     }
 
     public Name getChildName() {
@@ -69,6 +90,10 @@ public class Person {
 
     public List<Allergy> getAllergyList() {
         return allergies.getAllergyList();
+    }
+
+    public int getUniqueId() {
+        return uniqueId;
     }
 
     /**
@@ -109,19 +134,12 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return childName.equals(otherPerson.childName)
-                && parentName.equals(otherPerson.parentName)
-                && parentPhone.equals(otherPerson.parentPhone)
-                && parentEmail.equals(otherPerson.parentEmail)
-                && allergies.equals(otherPerson.allergies)
-                && address.equals(otherPerson.address)
-                && tags.equals(otherPerson.tags);
+        return uniqueId == otherPerson.uniqueId;
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(childName, parentName, parentPhone, parentEmail, allergies, address, tags);
+        return Objects.hash(uniqueId);
     }
 
     @Override

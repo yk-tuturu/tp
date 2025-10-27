@@ -10,6 +10,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB_PARENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_UNIQUE_ID_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_UNIQUE_ID_BOB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +32,7 @@ public class TypicalPersons {
             .withParentEmail("alice@example.com")
             .withAllergies("Peanuts")
             .withAddress("123, Jurong West Ave 6, #08-111")
+            .withUniqueId(0)
             .build();
 
     public static final Person BENSON = new PersonBuilder()
@@ -39,6 +42,7 @@ public class TypicalPersons {
             .withParentEmail("johnd@example.com")
             .withAllergies("Milk", "Shellfish")
             .withAddress("311, Clementi Ave 2, #02-25")
+            .withUniqueId(1)
             .build();
 
     public static final Person CARL = new PersonBuilder()
@@ -48,6 +52,7 @@ public class TypicalPersons {
             .withParentEmail("heinz@example.com")
             .withAllergies("Dust")
             .withAddress("wall street")
+            .withUniqueId(2)
             .build();
 
     public static final Person DANIEL = new PersonBuilder()
@@ -57,52 +62,58 @@ public class TypicalPersons {
             .withParentEmail("cornelia@example.com")
             .withAllergies("Eggs")
             .withAddress("10th Street")
+            .withUniqueId(3)
             .build();
 
     public static final Person ELLE = new PersonBuilder()
             .withChildName("Elle Meyer")
             .withParentName("Elles Mom")
-            .withParentPhone("9482224")
+            .withParentPhone("94822248")
             .withParentEmail("werner@example.com")
             .withAllergies("Pollen")
             .withAddress("Michegan Ave")
+            .withUniqueId(4)
             .build();
 
     public static final Person FIONA = new PersonBuilder()
             .withChildName("Fiona Kunz")
             .withParentName("Fionas Dad")
-            .withParentPhone("9482427")
+            .withParentPhone("94824278")
             .withParentEmail("lydia@example.com")
             .withAllergies("Gluten")
             .withAddress("Little Tokyo")
+            .withUniqueId(5)
             .build();
 
     public static final Person GEORGE = new PersonBuilder()
             .withChildName("George Best")
             .withParentName("Georges Mom")
-            .withParentPhone("9482442")
+            .withParentPhone("94824427")
             .withParentEmail("anna@example.com")
             .withAllergies() // no allergies
             .withAddress("4th Street")
+            .withUniqueId(6)
             .build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder()
             .withChildName("Hoon heh")
             .withParentName("Elle egh")
-            .withParentPhone("8482424")
+            .withParentPhone("84824249")
             .withParentEmail("elle@example.com")
             .withAllergies("Soy")
             .withAddress("Little India")
+            .withUniqueId(7)
             .build();
 
     public static final Person IDA = new PersonBuilder()
             .withChildName("Ida Mueller")
             .withParentName("Idas Dad")
-            .withParentPhone("8482131")
+            .withParentPhone("84821313")
             .withParentEmail("hans@example.com")
             .withAllergies("Dust")
             .withAddress("Chicago Ave")
+            .withUniqueId(8)
             .build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
@@ -112,6 +123,7 @@ public class TypicalPersons {
             .withParentPhone(VALID_PHONE_AMY)
             .withParentEmail(VALID_EMAIL_AMY)
             .withAddress(VALID_ADDRESS_AMY)
+            .withUniqueId(VALID_UNIQUE_ID_AMY)
             .build();
 
     public static final Person BOB = new PersonBuilder()
@@ -120,6 +132,7 @@ public class TypicalPersons {
             .withParentPhone(VALID_PHONE_BOB)
             .withParentEmail(VALID_EMAIL_BOB)
             .withAddress(VALID_ADDRESS_BOB)
+            .withUniqueId(VALID_UNIQUE_ID_BOB)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

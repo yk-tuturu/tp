@@ -32,6 +32,7 @@ class JsonAdaptedPerson {
     private final String parentEmail;
     private final String address;
     private final List<String> allergies = new ArrayList<>();
+    private final String uniqueId;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -45,13 +46,15 @@ class JsonAdaptedPerson {
             @JsonProperty("parentEmail") String parentEmail,
             @JsonProperty("address") String address,
             @JsonProperty("allergies") List<String> allergies,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+            @JsonProperty("tags") List<JsonAdaptedTag> tags,
+            @JsonProperty("uniqueId") String uniqueId) {
 
         this.childName = childName;
         this.parentName = parentName;
         this.parentPhone = parentPhone;
         this.parentEmail = parentEmail;
         this.address = address;
+        this.uniqueId = uniqueId;
 
         if (allergies != null) {
             this.allergies.addAll(allergies);
@@ -70,6 +73,7 @@ class JsonAdaptedPerson {
         parentPhone = source.getParentPhone().value;
         parentEmail = source.getParentEmail().value;
         address = source.getAddress().value;
+        uniqueId = Integer.toString(source.getUniqueId());
 
         allergies.addAll(source.getAllergies().getAllergyList().stream()
                 .map(Allergy::toString)
@@ -137,7 +141,12 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
+        if (uniqueId == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Unique Id"));
+        }
+        final int modelUniqueId = Integer.parseInt(uniqueId);
+
         return new Person(modelChildName, modelParentName, modelParentPhone,
-                modelParentEmail, modelAllergies, modelAddress, modelTags);
+                modelParentEmail, modelAllergies, modelAddress, modelTags, modelUniqueId);
     }
 }

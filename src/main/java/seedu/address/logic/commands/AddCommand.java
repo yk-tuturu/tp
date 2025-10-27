@@ -36,7 +36,7 @@ public class AddCommand extends Command {
             + PREFIX_PARENTEMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TAG + "likes ice cream";
 
     public static final String MESSAGE_SUCCESS = "New child added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This child already exists in the address book";
@@ -49,6 +49,10 @@ public class AddCommand extends Command {
     public AddCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
+    }
+
+    public Person getPersonToAdd() {
+        return toAdd;
     }
 
     @Override

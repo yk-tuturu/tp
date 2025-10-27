@@ -43,6 +43,8 @@ public class CommandTestUtil {
     public static final String VALID_ALLERGY_DUST = "dust";
     public static final String VALID_TAG_SINGLEPARENT = "single parent";
     public static final String VALID_TAG_SPECIALNEEDS = "special needs";
+    public static final int VALID_UNIQUE_ID_AMY = 998;
+    public static final int VALID_UNIQUE_ID_BOB = 999;
 
     public static final String NAME_DESC_AMY = " " + PREFIX_CHILDNAME + VALID_NAME_AMY;
     public static final String NAME_DESC_AMY_PARENT = " " + PREFIX_PARENTNAME + VALID_NAME_AMY_PARENT;
