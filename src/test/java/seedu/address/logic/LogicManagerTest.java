@@ -177,7 +177,7 @@ public class LogicManagerTest {
                         + PHONE_DESC_AMY_PARENT
                         + EMAIL_DESC_AMY_PARENT
                         + ADDRESS_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        Person expectedPerson = new PersonBuilder(AMY).withTags().withUniqueId(1001).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
