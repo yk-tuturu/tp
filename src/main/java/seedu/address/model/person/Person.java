@@ -45,7 +45,6 @@ public class Person {
         this.tags.addAll(tags);
         this.uniqueId = idCounter;
         idCounter++;
-        System.out.println(idCounter);
     }
 
     /**
