@@ -12,7 +12,8 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
-import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -84,33 +85,37 @@ public class PersonTest {
         // different person -> returns false
         assertFalse(ALICE.equals(BOB));
 
-        // different child name -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withChildName(VALID_NAME_BOB).build();
+        // same Person descriptor attributes, different unique Id -> returns false
+        Person editedAlice = new PersonBuilder(ALICE).withUniqueId(546).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different parent name -> returns false
+        // different child name, same unique Id -> returns true
+        editedAlice = new PersonBuilder(ALICE).withChildName(VALID_NAME_BOB).build();
+        assertTrue(ALICE.equals(editedAlice));
+
+        // different parent name,same unique Id -> returns true
         editedAlice = new PersonBuilder(ALICE).withParentName("Different Parent").build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertTrue(ALICE.equals(editedAlice));
 
-        // different parent phone -> returns false
+        // different parent phone, same unique Id -> returns true
         editedAlice = new PersonBuilder(ALICE).withParentPhone(VALID_PHONE_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertTrue(ALICE.equals(editedAlice));
 
-        // different parent email -> returns false
+        // different parent email, same unique Id -> returns true
         editedAlice = new PersonBuilder(ALICE).withParentEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertTrue(ALICE.equals(editedAlice));
 
-        // different address -> returns false
+        // different address, same unique Id -> returns true
         editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertTrue(ALICE.equals(editedAlice));
 
-        // different tags -> returns false
+        // different tags, same unique Id -> returns true
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_SINGLEPARENT).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertTrue(ALICE.equals(editedAlice));
 
-        // different allergies -> returns false
+        // different allergies, same unique Id -> returns true
         editedAlice = new PersonBuilder(ALICE).withAllergies("Peanuts", "Dust").build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertTrue(ALICE.equals(editedAlice));
     }
 
     @Test
@@ -138,10 +143,10 @@ public class PersonTest {
 
         // ensure allergies actually changed
         assertFalse(originalAlice.getAllergies().equals(editedAlice.getAllergies()));
-        assertEquals(List.of("Peanuts", "Shellfish"),
+        assertEquals(Set.of("Peanuts", "Shellfish"),
                 editedAlice.getAllergies().getAllergyList().stream()
                         .map(Allergy::toString)
-                        .toList());
+                        .collect(Collectors.toSet()));
 
         // all other attributes should remain unchanged
         assertEquals(originalAlice.getChildName(), editedAlice.getChildName());

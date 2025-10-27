@@ -8,7 +8,8 @@
       "parentEmail": "alice@example.com",
       "address": "123, Jurong West Ave 6, #08-111",
       "allergies": ["Peanuts"],
-      "tags": []
+      "tags": [],
+      "uniqueId": "0"
     },
     {
       "childName": "Benson Meier",
@@ -17,7 +18,8 @@
       "parentEmail": "johnd@example.com",
       "address": "311, Clementi Ave 2, #02-25",
       "allergies": ["Milk", "Shellfish"],
-      "tags": []
+      "tags": [],
+      "uniqueId": "1"
     },
     {
       "childName": "Carl Kurz",
@@ -26,7 +28,8 @@
       "parentEmail": "heinz@example.com",
       "address": "wall street",
       "allergies": ["Dust"],
-      "tags": []
+      "tags": [],
+      "uniqueId": "2"
     },
     {
       "childName": "Daniel Meier",
@@ -35,34 +38,38 @@
       "parentEmail": "cornelia@example.com",
       "address": "10th Street",
       "allergies": ["Eggs"],
-      "tags": []
+      "tags": [],
+      "uniqueId": "3"
     },
     {
       "childName": "Elle Meyer",
       "parentName": "Elles Mom",
-      "parentPhone": "9482224",
+      "parentPhone": "94822248",
       "parentEmail": "werner@example.com",
       "address": "Michegan Ave",
       "allergies": ["Pollen"],
-      "tags": []
+      "tags": [],
+      "uniqueId": "4"
     },
     {
       "childName": "Fiona Kunz",
       "parentName": "Fionas Dad",
-      "parentPhone": "9482427",
+      "parentPhone": "94824278",
       "parentEmail": "lydia@example.com",
       "address": "Little Tokyo",
       "allergies": ["Gluten"],
-      "tags": []
+      "tags": [],
+      "uniqueId": "5"
     },
     {
       "childName": "George Best",
       "parentName": "Georges Mom",
-      "parentPhone": "9482442",
+      "parentPhone": "94824427",
       "parentEmail": "anna@example.com",
       "address": "4th Street",
       "allergies": [],
-      "tags": []
+      "tags": [],
+      "uniqueId": "6"
     },
     {
       "childName": "Amy Bee",
@@ -71,7 +78,8 @@
       "parentEmail": "amy@example.com",
       "address": "Block 312, Amy Street 1",
       "allergies": [],
-      "tags": []
+      "tags": [],
+      "uniqueId": "998"
     },
     {
       "childName": "Bob Choo",
@@ -80,7 +88,8 @@
       "parentEmail": "bob@example.com",
       "address": "Block 123, Bobby Street 3",
       "allergies": [],
-      "tags": []
+      "tags": [],
+      "uniqueId": "999"
     }
   ]
 }

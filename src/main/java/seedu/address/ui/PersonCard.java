@@ -71,6 +71,8 @@ public class PersonCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(subject -> subject.toString()))
                 .forEach(subject ->
                         subjects.getChildren().add(new Label(subject + " | "
-                                + SubjectRegistry.getScoresOf(person).get(subject))));
+                                + (SubjectRegistry.getScoresOf(person).get(subject) == -1
+                                ? "N/A"
+                                : SubjectRegistry.getScoresOf(person).get(subject)))));
     }
 }
