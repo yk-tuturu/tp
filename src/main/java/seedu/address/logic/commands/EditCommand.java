@@ -29,6 +29,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.subject.Subject;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -89,6 +90,21 @@ public class EditCommand extends Command {
         }
 
         model.setPerson(personToEdit, editedPerson);
+        for (Subject subject : Subject.getAllSubjects()) {
+            if (subject.getStudents().contains(personToEdit)) {
+                int score;
+                try {
+                    score = subject.getScore(personToEdit);
+                } catch (IllegalStateException e) {
+                    // If no score is present, use default unset value -1
+                    score = -1;
+                }
+
+                subject.unenrollPerson(personToEdit);
+                subject.enrollPerson(editedPerson);
+                subject.setScore(editedPerson, score);
+            }
+        }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_EDIT_CHILD_SUCCESS, Messages.format(editedPerson)));
@@ -104,7 +120,6 @@ public class EditCommand extends Command {
         Name updatedParentName = editPersonDescriptor.getParentName().orElse(personToEdit.getParentName());
         Phone updatedParentPhone = editPersonDescriptor.getParentPhone().orElse(personToEdit.getParentPhone());
         Email updatedParentEmail = editPersonDescriptor.getParentEmail().orElse(personToEdit.getParentEmail());
-        // new AllergyList(new ArrayList<>())
         AllergyList updatedAllergies = editPersonDescriptor.getAllergies().orElse(personToEdit.getAllergies());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
