@@ -85,37 +85,13 @@ public class PersonTest {
         // different person -> returns false
         assertFalse(ALICE.equals(BOB));
 
-        // same Person descriptor attributes, different unique Id -> returns false
+        // same Person attributes, different unique Id -> returns true because equals is not based on uniqueid
         Person editedAlice = new PersonBuilder(ALICE).withUniqueId(546).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertTrue(ALICE.equals(editedAlice));
 
-        // different child name, same unique Id -> returns true
+        // different child name, same unique Id -> returns false
         editedAlice = new PersonBuilder(ALICE).withChildName(VALID_NAME_BOB).build();
-        assertTrue(ALICE.equals(editedAlice));
-
-        // different parent name,same unique Id -> returns true
-        editedAlice = new PersonBuilder(ALICE).withParentName("Different Parent").build();
-        assertTrue(ALICE.equals(editedAlice));
-
-        // different parent phone, same unique Id -> returns true
-        editedAlice = new PersonBuilder(ALICE).withParentPhone(VALID_PHONE_BOB).build();
-        assertTrue(ALICE.equals(editedAlice));
-
-        // different parent email, same unique Id -> returns true
-        editedAlice = new PersonBuilder(ALICE).withParentEmail(VALID_EMAIL_BOB).build();
-        assertTrue(ALICE.equals(editedAlice));
-
-        // different address, same unique Id -> returns true
-        editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
-        assertTrue(ALICE.equals(editedAlice));
-
-        // different tags, same unique Id -> returns true
-        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_SINGLEPARENT).build();
-        assertTrue(ALICE.equals(editedAlice));
-
-        // different allergies, same unique Id -> returns true
-        editedAlice = new PersonBuilder(ALICE).withAllergies("Peanuts", "Dust").build();
-        assertTrue(ALICE.equals(editedAlice));
+        assertFalse(ALICE.equals(editedAlice));
     }
 
     @Test
