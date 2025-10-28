@@ -458,7 +458,7 @@ Below is a summary for the constraints for the different parameters that can be 
 
 Data Type         | Constraints
 ------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Names**    | Names should be **alphanumeric**. Some special characters are supported, such as parentheses `()`, hyphen `-`, single apostrophe `'`, slash `/`, comma `,`, and period `.`. Any other special characters, or characters in other languages, are disallowed. Names are also **case-insensitive**, meaning `john` and `John` are considered the same person
+**Names**    | Names should only consist of **alphabets**. Some special characters are supported, such as parentheses `()`, hyphen `-`, single apostrophe `'`, slash `/`, comma `,`, and period `.`. Any other special characters, or characters in other languages, are disallowed. Names are also **case-insensitive**, meaning `john` and `John` are considered the same person
 **Phone number**  | Should strictly be **8 digits**
 **Email** | Must be in valid email format eg `email@gmail.com` `e123456@u.nus.edu`
 **Address**   | No restrictions, as long as not empty
