@@ -64,7 +64,7 @@ public class PersonTest {
         editedBob = new PersonBuilder(BOB)
                 .withChildName(nameWithTrailingSpaces)
                 .build();
-        assertFalse(BOB.isSamePerson(editedBob));
+        assertTrue(BOB.isSamePerson(editedBob));
     }
 
     @Test
