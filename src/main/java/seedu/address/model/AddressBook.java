@@ -92,6 +92,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {
+        requireNonNull(key);
+
+        // Remove the person from all subject registries so scores/enrollments are not left dangling.
+        for (Subject subject : subjects) {
+            if (subject.getStudents().contains(key)) {
+                subject.unenrollPerson(key);
+            }
+        }
+
         persons.remove(key);
     }
 
