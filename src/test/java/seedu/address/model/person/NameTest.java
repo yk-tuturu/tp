@@ -29,6 +29,8 @@ public class NameTest {
         assertFalse(Name.isValidName(" ")); // spaces only
         assertFalse(Name.isValidName("^")); // only non-alphanumeric characters
         assertFalse(Name.isValidName("peter*")); // contains invalid special character
+        assertFalse(Name.isValidName("12345")); // numbers only
+        assertFalse(Name.isValidName("peter the 2nd")); // alphanumeric characters
         assertFalse(Name.isValidName("John@Doe")); // contains @
         assertFalse(Name.isValidName("Jane_Lee")); // contains underscore
         assertFalse(Name.isValidName("Mary#Kate")); // contains #
@@ -38,10 +40,8 @@ public class NameTest {
 
         // valid names — English-only, with allowed symbols
         assertTrue(Name.isValidName("peter jack")); // alphabets only
-        assertTrue(Name.isValidName("12345")); // numbers only
-        assertTrue(Name.isValidName("peter the 2nd")); // alphanumeric characters
         assertTrue(Name.isValidName("Capital Tan")); // with capital letters
-        assertTrue(Name.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
+        assertTrue(Name.isValidName("David Roger Jackson Ray Jr II")); // long names
 
         // new valid cases (expanded rule coverage)
         assertTrue(Name.isValidName("Mary-Kate O'Neill")); // hyphen and apostrophe
