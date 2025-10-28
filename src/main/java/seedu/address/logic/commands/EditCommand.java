@@ -105,7 +105,6 @@ public class EditCommand extends Command {
                 subject.setScore(editedPerson, score);
             }
         }
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_EDIT_CHILD_SUCCESS, Messages.format(editedPerson)));
     }
