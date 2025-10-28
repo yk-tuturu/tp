@@ -71,6 +71,7 @@ public class PersonTest {
     public void equals() {
         // same values -> returns true
         Person aliceCopy = new PersonBuilder(ALICE).build();
+
         assertTrue(ALICE.equals(aliceCopy));
 
         // same object -> returns true
@@ -85,12 +86,36 @@ public class PersonTest {
         // different person -> returns false
         assertFalse(ALICE.equals(BOB));
 
-        // same Person attributes, different unique Id -> returns true because equals is not based on uniqueid
+        // same Person attributes, different unique Id -> returns true because equals is not based on uniqueId
         Person editedAlice = new PersonBuilder(ALICE).withUniqueId(546).build();
         assertTrue(ALICE.equals(editedAlice));
 
         // different child name, same unique Id -> returns false
         editedAlice = new PersonBuilder(ALICE).withChildName(VALID_NAME_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // 🆕 different parent name -> returns false
+        editedAlice = new PersonBuilder(ALICE).withParentName("Different Parent").build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // 🆕 different phone -> returns false
+        editedAlice = new PersonBuilder(ALICE).withParentPhone(VALID_PHONE_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // 🆕 different email -> returns false
+        editedAlice = new PersonBuilder(ALICE).withParentEmail(VALID_EMAIL_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // 🆕 different address -> returns false
+        editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // 🆕 different tags -> returns false
+        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_SINGLEPARENT).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // 🆕 different allergies -> returns false
+        editedAlice = new PersonBuilder(ALICE).withAllergies("Dust").build();
         assertFalse(ALICE.equals(editedAlice));
     }
 

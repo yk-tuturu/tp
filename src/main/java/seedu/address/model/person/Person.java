@@ -45,7 +45,6 @@ public class Person {
         this.tags.addAll(tags);
         this.uniqueId = idCounter;
         idCounter++;
-        System.out.println(idCounter);
     }
 
     /**
@@ -63,7 +62,6 @@ public class Person {
         this.tags.addAll(tags);
         this.uniqueId = uniqueId;
         idCounter = Math.max(idCounter, uniqueId + 1);
-        System.out.println(idCounter);
     }
 
     public Name getChildName() {
