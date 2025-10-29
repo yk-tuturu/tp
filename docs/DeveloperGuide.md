@@ -103,7 +103,7 @@ How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
+1. The command can communicate with the `Model` when it is executed (e.g. to delete a child).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
@@ -176,11 +176,11 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 <puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th child in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 <puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …​` to add a new child. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 <puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
 
@@ -190,7 +190,7 @@ Step 3. The user executes `add n/David …​` to add a new person. The `add` co
 
 </box>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the child was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 <puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
 
@@ -246,7 +246,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+  * Pros: Will use less memory (e.g. for `delete`, just save the child being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
@@ -275,17 +275,17 @@ _{Explain here how the data archiving feature will be implemented}_
 **Target user profile**:
 
 * kindergarten teacher/admin
-* has to manage a significant number of students
+* has to manage a significant number of children
 * needs to keep track of the personal details and parents’ contact information
-* would like to manage the student’s activities and preferences (diet restrictions, grades, attendance)
+* would like to manage the child’s activities and preferences (diet restrictions, grades, attendance)
 * prefer desktop apps over other types
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
 **Value proposition**: 
 
-* Provide fast access to the parents' contact details of any given student
-* Provide functionality to record and access the details of each student (e.g. allergies, preferences, grades etc.)
+* Provide fast access to the parents' contact details of any given child
+* Provide functionality to record and access the details of each child (e.g. allergies, preferences, grades etc.)
 
 
 
@@ -295,33 +295,33 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | ID | Priority | Epic                              | As a …​              | I want to …​                                                  | So that I can…​                                                  |
 |----|----------|-----------------------------------|----------------------|---------------------------------------------------------------|------------------------------------------------------------------|
-| C1 | `* * *`  | Contact Management                | kindergarten teacher | view a student's parents' contact details                     | quickly contact them during emergencies                          | 
+| C1 | `* * *`  | Contact Management                | kindergarten teacher | view a child's parents' contact details                       | quickly contact them during emergencies                          | 
 | C2 | `* * *`  | Contact Management                | kindergarten admin   | store and retrieve parents' phone numbers and addresses       | send out updates and notices efficiently                         |
-| C3 | `* * *`  | Contact Management                | kindergarten teacher | search for a student by name                                  | access their profile quickly                                     | 
+| C3 | `* * *`  | Contact Management                | kindergarten teacher | search for a child by name                                    | access their profile quickly                                     | 
 | C4 | `* *`    | Contact Management                | kindergarten admin   | see the name of the primary guardian                          | know who to contact first                                        |
 | C6 | `* *`    | Contact Management                | kindergarten teacher | update a parent's phone number                                | ensure the system always reflects the latest contact information |
 | C7 | `*`      | Contact Management                | kindergarten teacher | quickly retrieve parent contact info from my phone            | call them even when I am outside the office                      |
-| P1 | `* * *`  | Child Profiling                   | kindergarten teacher | record important facts about each student                     | tailor care and instructions to their needs                      |
-| P2 | `* * *`  | Child Profiling                   | kindergarten admin   | store and update each student's medical information           | respond correctly in health-related situations                   | 
+| P1 | `* * *`  | Child Profiling                   | kindergarten teacher | record important facts about each child                       | tailor care and instructions to their needs                      |
+| P2 | `* * *`  | Child Profiling                   | kindergarten admin   | store and update each child's medical information             | respond correctly in health-related situations                   | 
 | P3 | `* * *`  | Child Profiling                   | kindergarten teacher | record emergency care instructions                            | act quickly in case of an incident                               |
 | U1 | `* * *`  | System Usability & Data Integrity | kindergarten admin   | secure sensitive data like medical condition and contact info | get parents to trust the system                                  |
-| U2 | `* *`    | System Usability & Data Integrity | user                 | delete outdated student information                           | ensure the database remains accurate                             |
-| U3 | `* *`    | System Usability & Data Integrity | user                 | edit outdated student information                             | ensure the database remains accurate                             |
-| U4 | `* *`    | System Usability & Data Integrity | user                 | export filtered student lists to PDF/Excel                    | share them with staff who do not use the system                  |
-| U5 | `*`      | System Usability & Data Integrity | kindergarten teacher | mark groups of students in bulk as graduated                  | avoid having to edit their info one by one                       |
-| U6 | `*`      | System Usability & Data Integrity | kindergarten teacher | import a list of student in bulk                              | avoid having to input them one by one                            |
-| U7 | `*`      | System Usability & Data Integrity | kindergarten teacher | access student profiles from my phone                         | look up information when I am outside the classroom              |
-| A1 | `* *`    | Academic Tracking                 | kindergarten teacher | record test scores for each student                           | track their progress over time                                   |
-| A2 | `* *`    | Academic Tracking                 | kindergarten teacher | take attendance of students                                   | track which students are present                                 |
+| U2 | `* *`    | System Usability & Data Integrity | user                 | delete outdated child information                             | ensure the database remains accurate                             |
+| U3 | `* *`    | System Usability & Data Integrity | user                 | edit outdated child information                               | ensure the database remains accurate                             |
+| U4 | `* *`    | System Usability & Data Integrity | user                 | export filtered child lists to PDF/Excel                      | share them with staff who do not use the system                  |
+| U5 | `*`      | System Usability & Data Integrity | kindergarten teacher | mark groups of children in bulk as graduated                  | avoid having to edit their info one by one                       |
+| U6 | `*`      | System Usability & Data Integrity | kindergarten teacher | import a list of child in bulk                                | avoid having to input them one by one                            |
+| U7 | `*`      | System Usability & Data Integrity | kindergarten teacher | access child profiles from my phone                           | look up information when I am outside the classroom              |
+| A1 | `* *`    | Academic Tracking                 | kindergarten teacher | record test scores for each child                             | track their progress over time                                   |
+| A2 | `* *`    | Academic Tracking                 | kindergarten teacher | take attendance of children                                   | track which children are present                                 |
 | A3 | `* *`    | Academic Tracking                 | kindergarten teacher | tag notes alongside attendance                                | ensure context is preserved in records                           |
-| A4 | `*`      | Academic Tracking                 | kindergarten teacher | automatically calculate a student's average score             | give timely feedback to parents                                  |
-| F1 | `* *`    | Filtering and Grouping            | kindergarten teacher | filter students by food allergies                             | inform the kitchen staff accordingly                             |
-| F2 | `* *`    | Filtering and Grouping            | kindergarten teacher | filter students who require halal meals                       | ensure meal orders are adjusted appropriately                    |
-| F3 | `* *`    | Filtering and Grouping            | kindergarten teacher | filter students with special needs                            | prepare inclusive activities                                     |
-| F4 | `*`      | Filtering and Grouping            | kindergarten teacher | sort students by their grades                                 | focus in on groups of a particular level of academic performance |
-| F5 | `*`      | Filtering and Grouping            | kindergarten teacher | filter students who are on medication                         | remind staff to monitor them more closely                        |
-| F6 | `*`      | Filtering and Grouping            | kindergarten teacher | filter students by graduation status                          | quickly see which students are active versus graduated           |
-| F7 | `*`      | Filtering and Grouping            | kindergarten teacher | filter students by abscence frequency                         | identify at-risk students                                        |
+| A4 | `*`      | Academic Tracking                 | kindergarten teacher | automatically calculate a child's average score               | give timely feedback to parents                                  |
+| F1 | `* *`    | Filtering and Grouping            | kindergarten teacher | filter children by food allergies                             | inform the kitchen staff accordingly                             |
+| F2 | `* *`    | Filtering and Grouping            | kindergarten teacher | filter children who require halal meals                       | ensure meal orders are adjusted appropriately                    |
+| F3 | `* *`    | Filtering and Grouping            | kindergarten teacher | filter children with special needs                            | prepare inclusive activities                                     |
+| F4 | `*`      | Filtering and Grouping            | kindergarten teacher | sort children by their grades                                 | focus in on groups of a particular level of academic performance |
+| F5 | `*`      | Filtering and Grouping            | kindergarten teacher | filter children who are on medication                         | remind staff to monitor them more closely                        |
+| F6 | `*`      | Filtering and Grouping            | kindergarten teacher | filter children by graduation status                          | quickly see which children are active versus graduated           |
+| F7 | `*`      | Filtering and Grouping            | kindergarten teacher | filter children by abscence frequency                         | identify at-risk children                                        |
 
 
 ### Use cases
@@ -439,7 +439,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to hold up to 100 records without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 *{More to be added}*
@@ -447,7 +447,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Child**: A child enrolled in the kindergarten
+* **User**: Kindergarten teacher or admin who uses ParentConnect to manage child records
+* **Parent**: A guardian of a child (e.g., parent, legal guardian, caretaker)
+* **Contact**: Information that allows one to contact a parent (e.g., phone number, address)
+* **DTO**: Data Transfer Object, an object that carries data between processes 
+* **CLI**: Command Line Interface, a text-based user interface used to operate software
+* **GUI**: Graphical User Interface, a visual-based user interface used to operate software
+* **Datafile**: A file on the hard disk where ParentConnect stores its data, a json file
 
 --------------------------------------------------------------------------------------------------------------------
 
