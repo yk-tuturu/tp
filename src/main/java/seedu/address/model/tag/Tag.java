@@ -21,8 +21,9 @@ public class Tag {
      */
     public Tag(String tagName) {
         requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
-        this.tagName = tagName;
+        String trimmedName = tagName.trim();
+        checkArgument(isValidTagName(trimmedName), MESSAGE_CONSTRAINTS);
+        this.tagName = trimmedName;
     }
 
     /**
@@ -44,7 +45,7 @@ public class Tag {
         }
 
         Tag otherTag = (Tag) other;
-        return tagName.equals(otherTag.tagName);
+        return tagName.equalsIgnoreCase(otherTag.tagName);
     }
 
     @Override
