@@ -462,7 +462,7 @@ Data Type         | Constraints
 **Phone number**  | Should strictly be **8 digits**
 **Email** | Must be in valid email format eg `email@gmail.com` `e123456@u.nus.edu`
 **Address**   | No restrictions, as long as not empty
-**Tag/Allergy**   | Tag/Allergy information should only contain **alphanumeric characters and spaces**, and it should not be blank
+**Tag/Allergy**   | Tag/Allergy information should only contain **alphanumeric characters and spaces**, and it should not be blank. Maximum length of 30 characters for tags and 20 characters for allergies.
 **INDEXES** | Must be between 1 and the length of the currently displayed list
 **Subject** | Must be one of `math`, `science`, `english`. Note that subjects are **case-insensitive**
 **Scores** | Must be between 0 - 100
