@@ -145,8 +145,22 @@ The `Model` component,
 
 The `Storage` component,
 * can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
-* depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
+* inherits from both AddressBookStorage and UserPrefStorage, which means it can be treated as either one (if only the functionality of only one is needed).
+* depends on some classes in the Model component (because the Storage component’s job is to save/retrieve objects that belong to the Model)
+* validates persisted data on read and surface clear errors or recovery actions when files are missing or corrupted.
+* addressbook.json contains 2 sections `persons` and `subjectScores`. Each score entry in `subjectScores` has a stable link to the person achieved through an internal map from name to id. Refer to typical JSON data file [here](https://github.com/AY2526S1-CS2103T-F08a-4/tp/blob/master/src/test/data/JsonSerializableAddressBookTest/typicalPersonsAddressBook.json)
+
+Read / write flow (high level)
+
+- Write (save): convert in‑memory ScoreEntry and Person objects to JSON DTOs and write them to the configured data file(s).
+- Read (load): read persons first and reconstruct the in‑memory AddressBook. Then read the `subjectScores` section and convert each DTO into a domain ScoreEntry while resolving each entry's link to a Person in the loaded AddressBook.
+- Validation happens during DTO→domain conversion. Any malformed or semantically invalid fields should produce clear, testable errors.
+
+- DTOs (the JSON adapter classes) map raw JSON to typed fields and perform syntactic validation (presence, types, basic formats). They convert to domain objects via a conversion method (e.g., `toModelType()`), which throws a clear exception on invalid data.
+
+Validation rules (examples to document)
+- Subject: non‑empty identifier (or valid enum value if subjects are fixed by product policy).
+- Score: numeric and within project bounds (e.g., 0..100). Reject out‑of‑range values with a clear message.
 
 ### Common classes
 
