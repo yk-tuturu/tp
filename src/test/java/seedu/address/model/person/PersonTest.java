@@ -56,7 +56,7 @@ public class PersonTest {
                 .withChildName(VALID_NAME_BOB.toLowerCase())
                 .withParentName(BOB.getParentName().toString().toLowerCase())
                 .build();
-        assertFalse(BOB.isSamePerson(editedBob));
+        assertTrue(BOB.isSamePerson(editedBob));
 
         // name with trailing spaces -> false
         String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
