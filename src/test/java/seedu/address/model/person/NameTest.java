@@ -65,6 +65,9 @@ public class NameTest {
         // same object -> returns true
         assertTrue(name.equals(name));
 
+        // different case -> returns true
+        assertTrue(name.equals(new Name("vALID nAME")));
+
         // null -> returns false
         assertFalse(name.equals(null));
 
