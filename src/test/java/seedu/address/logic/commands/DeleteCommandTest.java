@@ -43,9 +43,9 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+        // index too big (no need test for <= 0 case as ParserUtil will handle it)
         Index[] outOfBoundIndex = {Index.fromOneBased(model.getFilteredPersonList().size() + 1)};
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
-
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
