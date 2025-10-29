@@ -96,7 +96,7 @@ public class EditCommand extends Command {
                     score = subject.getScore(personToEdit);
                 } catch (IllegalStateException e) {
                     // If no score is present, use default unset value -1
-                    score = -1;
+                    score = Subject.getDefaultScore();
                 }
 
                 subject.unenrollPerson(personToEdit);
