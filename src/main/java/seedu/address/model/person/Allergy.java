@@ -26,9 +26,10 @@ public class Allergy {
      * @param allergyName A valid allergy name.
      */
     public Allergy(String allergyName) {
+        String trimmedName = allergyName.trim();
         requireNonNull(allergyName);
-        checkArgument(isValidAllergy(allergyName), MESSAGE_CONSTRAINTS);
-        this.allergyName = allergyName;
+        checkArgument(isValidAllergy(trimmedName), MESSAGE_CONSTRAINTS);
+        this.allergyName = trimmedName;
     }
 
     /**
@@ -54,7 +55,7 @@ public class Allergy {
         }
 
         Allergy otherAllergy = (Allergy) other;
-        return allergyName.equals(otherAllergy.allergyName);
+        return allergyName.equalsIgnoreCase(otherAllergy.allergyName);
     }
 
     @Override
