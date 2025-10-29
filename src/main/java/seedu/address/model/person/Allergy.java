@@ -8,7 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidAllergy(String)}.
  */
 public class Allergy {
-    public static final int MAX_ALLERGY_LENGTH = 30;
+    public static final int MAX_ALLERGY_LENGTH = 50;
     public static final String MESSAGE_CONSTRAINTS =
             "Allergy should be alphanumeric and spaces, must start with an alphanumeric character, "
                     + "and be at most " + MAX_ALLERGY_LENGTH + " characters long.";

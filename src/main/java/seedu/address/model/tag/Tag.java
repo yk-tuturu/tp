@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Tag {
 
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
-    public static final int MAX_TAG_LENGTH = 20;
+    public static final int MAX_TAG_LENGTH = 50;
     public static final String MESSAGE_CONSTRAINTS =
             "Tags should be alphanumeric and spaces, must start with an alphanumeric character, "
                     + "and be at most " + MAX_TAG_LENGTH + " characters long.";
