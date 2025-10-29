@@ -458,11 +458,16 @@ Below is a summary for the constraints for the different parameters that can be 
 
 Data Type         | Constraints
 ------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Names**    | Names should only consist of **alphabets**. Some special characters are supported, such as parentheses `()`, hyphen `-`, single apostrophe `'`, slash `/`, comma `,`, and period `.`. Any other special characters, or characters in other languages, are disallowed. Names are also **case-insensitive**, meaning `john` and `John` are considered the same person
+**Names**    | Names should only consist of **alphabets**. The following special characters are also allowed: `()-'/,.`. Any other special characters, numbers, or characters in other languages, are disallowed. Names are also **case-insensitive**, meaning `john` and `John` are considered the same person
 **Phone number**  | Should strictly be **8 digits**
-**Email** | Must be in valid email format eg `email@gmail.com` `e123456@u.nus.edu`
+**Email** | Follows the format `local-part@domain`<br>**Local-part**: Should only contain alphanumeric characters and these special characters: `+_.-`. May not start or end with any special characters<br>**Separator:** `@` symbol<br>**Domain Name:** Made up of domain labels separated by periods<br>**Domain Requirements:** Must end with a domain label at least 2 characters long. Each domain label must start and end with alphanumeric characters. Each domain label must consist of alphanumeric characters, separated only by hyphens, if any
 **Address**   | No restrictions, as long as not empty
+<<<<<<< Updated upstream
 **Tag/Allergy**   | Tag/Allergy information should only contain **alphanumeric characters and spaces**, and it should not be blank. Maximum length of 30 characters for tags and 20 characters for allergies.
 **INDEXES** | Must be between 1 and the length of the currently displayed list
+=======
+**Tag/Allergy**   | Tag/Allergy information should only contain **alphanumeric characters and spaces**, and it should not be blank
+**Indexes** | Must be between 1 and the length of the currently displayed list
+>>>>>>> Stashed changes
 **Subject** | Must be one of `math`, `science`, `english`. Note that subjects are **case-insensitive**
 **Scores** | Must be between 0 - 100
