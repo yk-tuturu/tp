@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -55,7 +56,6 @@ public class SetScoreCommand extends Command {
         requireNonNull(model);
 
         List<Person> lastShownList = model.getFilteredPersonList();
-        StringBuilder sb = new StringBuilder();
 
         List<Person> personsToProcess;
 
@@ -73,19 +73,20 @@ public class SetScoreCommand extends Command {
             }
         }
 
+        List<Person> childrenSet = new ArrayList<>();
+        List<Person> personsSkipped = new ArrayList<>();
+
         // Process each person
         for (Person person : personsToProcess) {
             if (!subject.getStudents().contains(person)) {
-                sb.append(String.format(MESSAGE_SKIPPED_STUDENT, Messages.formatShort(person), subject));
+                personsSkipped.add(person);
             } else {
                 subject.setScore(person, score);
-                sb.append(String.format(MESSAGE_SET_SCORE_SUCCESS, Messages.formatShort(person), subject, score));
+                childrenSet.add(person);
             }
         }
 
-        sb.append(MESSAGE_DONE);
-
-        String setScoreResult = sb.toString();
+        String setScoreResult = formatOutput(subject, score, childrenSet, personsSkipped);
 
         return new CommandResult(setScoreResult);
     }
@@ -116,5 +117,26 @@ public class SetScoreCommand extends Command {
                 .add("subject", subject)
                 .add("score", score)
                 .toString();
+    }
+
+    public static String formatOutput(Subject subject, int score, List<Person> childrenSet, List<Person> skipped) {
+        StringBuilder sb = new StringBuilder();
+        String skippedPersons = skipped.stream()
+                .map(Messages::formatShort)
+                .collect(Collectors.joining(", "));
+
+        String personsScoreSet = childrenSet.stream()
+                .map(Messages::formatShort)
+                .collect(Collectors.joining(", "));
+
+        if (skipped.size() > 0) {
+            sb.append(String.format(MESSAGE_SKIPPED_STUDENT, skippedPersons, subject));
+        }
+
+        sb.append(String.format(MESSAGE_SET_SCORE_SUCCESS, personsScoreSet, subject, score));
+
+        sb.append(MESSAGE_DONE);
+
+        return sb.toString();
     }
 }
