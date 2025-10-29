@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain English letters, numbers, spaces, and allowed symbols "
+            "Names should only contain English letters, spaces, and allowed symbols "
                     + "(. , ' ’ - ( ) /), and must contain at least one letter or digit.";
 
     /*
@@ -19,7 +19,7 @@ public class Name {
      *  - There must be at least one alphanumeric character (prevents whitespace-only names).
      */
     public static final String VALIDATION_REGEX =
-            "^(?=.*[A-Za-z0-9])[A-Za-z0-9 .,'’\\-()/]+$";
+            "^(?=.*[A-Za-z])[A-Za-z .,'’\\-()/]+$";
 
     public final String fullName;
 
