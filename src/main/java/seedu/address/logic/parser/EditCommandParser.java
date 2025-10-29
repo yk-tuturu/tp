@@ -34,17 +34,33 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
+
+        // Detect any invalid prefixes (e.g. "i/") early and report format error
+        String invalid = ParserUtil.detectInvalidPrefixes(args, PREFIX_CHILDNAME, PREFIX_PARENTNAME,
+                PREFIX_PARENTPHONE, PREFIX_PARENTEMAIL, PREFIX_ALLERGY, PREFIX_ADDRESS, PREFIX_TAG);
+        if (!invalid.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CHILDNAME, PREFIX_PARENTNAME, PREFIX_PARENTPHONE,
                         PREFIX_PARENTEMAIL, PREFIX_ALLERGY, PREFIX_ADDRESS, PREFIX_TAG);
 
-        Index index;
-
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+        // Determine whether the user provided a numeric-like preamble (index) or not.
+        String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
+        String firstToken = trimmedArgs.split("\\s+")[0];
+
+        // If first token is not an integer-like string, treat as missing index -> invalid format
+        if (!firstToken.matches("-?\\d+")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+
+        // At this point first token looks numeric (may be negative or zero). Validate the full preamble as index.
+        String preamble = argMultimap.getPreamble().trim();
+        Index index = ParserUtil.parseIndex(preamble); // may throw ParseException with MESSAGE_INVALID_INDEX
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CHILDNAME, PREFIX_PARENTNAME, PREFIX_PARENTPHONE,
                 PREFIX_PARENTEMAIL, PREFIX_ADDRESS);
