@@ -148,6 +148,74 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd child record in ParentConnect.
 * `find Betsy` followed by `delete 1` deletes the 1st child record in the results of the `find` command.
 
+### Enrolling children into a subject : `enroll`
+
+Enrolls children into subjects in ParentConnect.
+
+Format:
+`enroll INDEXES... s/SUBJECT`
+
+* Enrolls all children at the specified `INDEXES` into the listed subjects.
+* You can also enroll **all children** currently listed by using the `all` keyword instead of indexes.
+* `INDEXES` must be **positive integers** 1, 2, 3, …
+* `SUBJECT` refers to the subject name(s) and can be repeated to enroll a child in multiple subjects.
+We support these three subjects currently: `math`, `science` and `english`.
+
+Examples:
+* `enroll 1 s/english`  
+  Enrolls the child at index 1 into the English subject.
+
+* `enroll 1 2 3 s/math`  
+  Enrolls children at indexes 1, 2, and 3 into the Math subject.
+
+* `enroll all s/math s/science`  
+  Enrolls all listed children into both Math and Science subjects.
+
+### Unenrolling children into a subject : `unenroll`
+
+Unenrolls children from subjects in ParentConnect.
+
+Format:
+`unenroll INDEXES... s/SUBJECT`
+
+* Unenrolls all children at the specified `INDEXES` from the listed subjects.
+* You can also unenroll **all children** currently listed by using the `all` keyword instead of indexes.
+* `INDEXES` must be positive integers 1, 2, 3, …
+* `SUBJECT` refers to the subject name(s) and can be repeated to unenroll a child from multiple subjects.
+
+Examples:
+* `unenroll 1 s/english`  
+  Unenrolls the child at index 1 from the English subject.
+
+* `unenroll 1 2 3 s/math`  
+  Unenrolls children at indexes 1, 2, and 3 from the Math subject.
+
+* `unenroll all s/math s/science`  
+  Unenrolls all listed children from both Math and Science subjects.
+
+### Setting scores : `setscore`
+
+Sets the score of children for a specific subject in ParentConnect.
+
+**Format:**  
+`setscore INDEXES... s/SUBJECT g/SCORE`
+
+* Sets the score for the specified children at `INDEXES` for the given `SUBJECT`.
+* You can also set scores for **all children** currently listed by using the `all` keyword instead of indexes.
+* Only **one subject** and **one score** can be specified per command.
+* `INDEXES` must be positive integers 1, 2, 3, …
+* `SCORE` must be a valid numeric value according to the subject's grading scheme.
+
+**Examples:**
+* `setscore 2 s/science g/100`  
+  Sets the Science score of the child at index 2 to 100.
+
+* `setscore 1 2 3 s/math g/90`  
+  Sets the Math score of children at indexes 1, 2, and 3 to 90.
+
+* `setscore all s/math g/85`  
+  Sets the Math score of all listed children to 85.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from ParentConnect.
@@ -176,10 +244,6 @@ Furthermore, certain edits can cause the ParentConnect to behave in unexpected w
 </box>
 
 ### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
-
-### Subject and Grades `[coming in v1.4]`
 
 _Details coming soon ..._
 

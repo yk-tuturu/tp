@@ -4,7 +4,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -62,6 +61,7 @@ public class Person {
         this.address = address;
         this.tags.addAll(tags);
         this.uniqueId = uniqueId;
+        idCounter = Math.max(idCounter, uniqueId + 1);
     }
 
     public Name getChildName() {
@@ -88,7 +88,7 @@ public class Person {
         return allergies;
     }
 
-    public List<Allergy> getAllergyList() {
+    public Set<Allergy> getAllergyList() {
         return allergies.getAllergyList();
     }
 
@@ -134,7 +134,15 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return uniqueId == otherPerson.uniqueId;
+        return this.getChildName().equals(otherPerson.getChildName())
+                && this.getParentName().equals(otherPerson.getParentName())
+                && this.getParentPhone().equals(otherPerson.getParentPhone())
+                && this.getParentEmail().equals(otherPerson.getParentEmail())
+                && this.getTags().equals(otherPerson.getTags())
+                && this.getAddress().equals(otherPerson.getAddress())
+                && this.getAllergyList().equals(otherPerson.getAllergyList());
+        //return this.getUniqueId() == otherPerson.getUniqueId();
+
     }
 
     @Override

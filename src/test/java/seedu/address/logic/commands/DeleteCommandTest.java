@@ -18,6 +18,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.subject.Subject;
+import seedu.address.testutil.SubjectTestUtil;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -43,9 +45,9 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+        // index too big (no need test for <= 0 case as ParserUtil will handle it)
         Index[] outOfBoundIndex = {Index.fromOneBased(model.getFilteredPersonList().size() + 1)};
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
-
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
@@ -107,6 +109,34 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(new Index[] {targetIndex});
         String expected = DeleteCommand.class.getCanonicalName() + "{targetIndex=" + targetIndex + "}";
         assertEquals(expected, deleteCommand.toString());
+    }
+
+    @Test
+    public void execute_deleteAlsoUnenrollsFromSubjects() {
+        // Reset subjects to avoid interference from other tests
+        SubjectTestUtil.resetSubjects();
+
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+
+        // Enroll and set a score
+        Subject.MATH.enrollPerson(personToDelete);
+        Subject.MATH.setScore(personToDelete, 85);
+
+        DeleteCommand deleteCommand = new DeleteCommand(new Index[] {INDEX_FIRST_PERSON});
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
+                Messages.format(personToDelete));
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.deletePerson(personToDelete);
+
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+
+        // After deletion, subject should no longer contain the person
+        assertFalse(Subject.MATH.getStudents().contains(personToDelete));
+
+        // Clean up subjects
+        SubjectTestUtil.resetSubjects();
     }
 
     /**

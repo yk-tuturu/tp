@@ -12,7 +12,8 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
-import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -63,13 +64,14 @@ public class PersonTest {
         editedBob = new PersonBuilder(BOB)
                 .withChildName(nameWithTrailingSpaces)
                 .build();
-        assertFalse(BOB.isSamePerson(editedBob));
+        assertTrue(BOB.isSamePerson(editedBob));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
         Person aliceCopy = new PersonBuilder(ALICE).build();
+
         assertTrue(ALICE.equals(aliceCopy));
 
         // same object -> returns true
@@ -84,37 +86,37 @@ public class PersonTest {
         // different person -> returns false
         assertFalse(ALICE.equals(BOB));
 
-        // same Person descriptor attributes, different unique Id -> returns false
+        // same Person attributes, different unique Id -> returns true because equals is not based on uniqueId
         Person editedAlice = new PersonBuilder(ALICE).withUniqueId(546).build();
+        assertTrue(ALICE.equals(editedAlice));
+
+        // different child name, same unique Id -> returns false
+        editedAlice = new PersonBuilder(ALICE).withChildName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different child name, same unique Id -> returns true
-        editedAlice = new PersonBuilder(ALICE).withChildName(VALID_NAME_BOB).build();
-        assertTrue(ALICE.equals(editedAlice));
-
-        // different parent name,same unique Id -> returns true
+        // 🆕 different parent name -> returns false
         editedAlice = new PersonBuilder(ALICE).withParentName("Different Parent").build();
-        assertTrue(ALICE.equals(editedAlice));
+        assertFalse(ALICE.equals(editedAlice));
 
-        // different parent phone, same unique Id -> returns true
+        // 🆕 different phone -> returns false
         editedAlice = new PersonBuilder(ALICE).withParentPhone(VALID_PHONE_BOB).build();
-        assertTrue(ALICE.equals(editedAlice));
+        assertFalse(ALICE.equals(editedAlice));
 
-        // different parent email, same unique Id -> returns true
+        // 🆕 different email -> returns false
         editedAlice = new PersonBuilder(ALICE).withParentEmail(VALID_EMAIL_BOB).build();
-        assertTrue(ALICE.equals(editedAlice));
+        assertFalse(ALICE.equals(editedAlice));
 
-        // different address, same unique Id -> returns true
+        // 🆕 different address -> returns false
         editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
-        assertTrue(ALICE.equals(editedAlice));
+        assertFalse(ALICE.equals(editedAlice));
 
-        // different tags, same unique Id -> returns true
+        // 🆕 different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_SINGLEPARENT).build();
-        assertTrue(ALICE.equals(editedAlice));
+        assertFalse(ALICE.equals(editedAlice));
 
-        // different allergies, same unique Id -> returns true
-        editedAlice = new PersonBuilder(ALICE).withAllergies("Peanuts", "Dust").build();
-        assertTrue(ALICE.equals(editedAlice));
+        // 🆕 different allergies -> returns false
+        editedAlice = new PersonBuilder(ALICE).withAllergies("Dust").build();
+        assertFalse(ALICE.equals(editedAlice));
     }
 
     @Test
@@ -142,10 +144,10 @@ public class PersonTest {
 
         // ensure allergies actually changed
         assertFalse(originalAlice.getAllergies().equals(editedAlice.getAllergies()));
-        assertEquals(List.of("Peanuts", "Shellfish"),
+        assertEquals(Set.of("Peanuts", "Shellfish"),
                 editedAlice.getAllergies().getAllergyList().stream()
                         .map(Allergy::toString)
-                        .toList());
+                        .collect(Collectors.toSet()));
 
         // all other attributes should remain unchanged
         assertEquals(originalAlice.getChildName(), editedAlice.getChildName());

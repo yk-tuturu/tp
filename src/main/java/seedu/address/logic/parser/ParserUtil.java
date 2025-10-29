@@ -8,6 +8,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -27,6 +30,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_SCORE = "Score must be a number between 0 to 100!";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -162,7 +166,7 @@ public class ParserUtil {
      */
     public static AllergyList parseAllergies(Collection<String> allergies) throws ParseException {
         requireNonNull(allergies);
-        final List<Allergy> allergyList = new ArrayList<>();
+        final Set<Allergy> allergyList = new HashSet<>();
         for (String allergyName : allergies) {
             allergyList.add(parseAllergy(allergyName));
         }
@@ -177,14 +181,13 @@ public class ParserUtil {
      */
     public static Subject parseSubject(String subject) throws ParseException {
         requireNonNull(subject);
-
         String trimmedSubject = subject.trim();
 
-        if (!Subject.contains(subject)) {
+        if (!Subject.contains(trimmedSubject)) {
             throw new ParseException(Subject.MESSAGE_CONSTRAINTS);
         }
 
-        return Subject.fromString(subject);
+        return Subject.fromString(trimmedSubject);
     }
 
     /**
@@ -220,14 +223,40 @@ public class ParserUtil {
      */
     public static int parseScore(String scoreString) throws ParseException {
         try {
-            int score = Integer.parseInt(scoreString);
+            int score = Integer.parseInt(scoreString.trim());
             if (score < 0 || score > 100) {
-                throw new ParseException("Score must be between 0 to 100!");
+                throw new ParseException(MESSAGE_INVALID_SCORE);
             }
 
             return score;
         } catch (NumberFormatException | NullPointerException e) {
-            throw new ParseException("Score must be numeric!");
+            throw new ParseException(MESSAGE_INVALID_SCORE);
         }
+    }
+
+    /**
+     * Detects and returns any invalid prefixes found in the given {@code args} string.
+     * A prefix is considered invalid if it matches the pattern {@code [a-zA-Z]+/}
+     * but is not present in the specified list of {@code validPrefixes}.
+     *
+     * @param args the full command arguments string to check
+     * @param validPrefixes the list of prefixes that are considered valid
+     * @return a comma-separated string of invalid prefixes found, or an empty string if none exist
+     */
+    public static String detectInvalidPrefixes(String args, Prefix... validPrefixes) {
+        Set<String> valid = Arrays.stream(validPrefixes)
+                .map(Prefix::getPrefix)
+                .collect(Collectors.toSet());
+
+        Matcher m = Pattern.compile("([a-zA-Z]+/)").matcher(args);
+        List<String> invalids = new ArrayList<>();
+        while (m.find()) {
+            String prefix = m.group(1);
+            if (!valid.contains(prefix)) {
+                invalids.add(prefix);
+            }
+        }
+
+        return String.join(", ", invalids);
     }
 }
