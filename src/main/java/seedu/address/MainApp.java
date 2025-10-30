@@ -1,6 +1,6 @@
 package seedu.address;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -49,8 +49,8 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
-    private String dataLoadingErrorMessage = null; //When a data loading error happens during init, store a message to show after the UI is started.
-    
+    //When a data loading error happens during init, store a message to show after the UI is started.
+    private String dataLoadingErrorMessage = null;
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing AddressBook ]===========================");
@@ -193,10 +193,8 @@ public class MainApp extends Application {
                 alert.setTitle("Data file issue");
                 alert.setHeaderText("Invalid or corrupted data file");
                 alert.setContentText(dataLoadingErrorMessage);
-                
                 ButtonType openFolder = new ButtonType("Open data folder");
                 alert.getButtonTypes().setAll(openFolder, ButtonType.OK);
-                
                 alert.showAndWait().ifPresent(choice -> {
                     if (choice == openFolder) {
                         try {
