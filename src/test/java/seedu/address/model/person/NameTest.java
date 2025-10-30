@@ -58,22 +58,18 @@ public class NameTest {
     @Test
     public void equals() {
         Name name = new Name("Valid Name");
-
         // same values -> returns true
         assertTrue(name.equals(new Name("Valid Name")));
-
         // same object -> returns true
         assertTrue(name.equals(name));
-
         // different case -> returns true
         assertTrue(name.equals(new Name("vALID nAME")));
-
+        // same name with extra spaces -> returns true
+        assertTrue(name.equals(new Name("Valid  Name"))); // two spaces
         // null -> returns false
         assertFalse(name.equals(null));
-
         // different types -> returns false
         assertFalse(name.equals(5.0f));
-
         // different values -> returns false
         assertFalse(name.equals(new Name("Other Valid Name")));
     }

@@ -32,7 +32,7 @@ public class Name {
         requireNonNull(name);
         String trimmed = name.trim(); // trim whitespace from both ends
         checkArgument(isValidName(trimmed), MESSAGE_CONSTRAINTS);
-        fullName = trimmed;
+        fullName = trimmed.replaceAll("\\s+", " ");
     }
 
     /**
