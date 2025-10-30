@@ -67,6 +67,9 @@ public class NameTest {
 
         // different case -> returns true
         assertTrue(name.equals(new Name("vALID nAME")));
+        
+        // same name with extra spaces -> returns true
+        assertTrue(name.equals(new Name("Valid  Name"))); // two spaces
 
         // null -> returns false
         assertFalse(name.equals(null));
