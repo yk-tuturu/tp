@@ -24,7 +24,9 @@ public enum Subject {
     private final ScoreDict scoreDict = new ScoreDict();
     private final Set<Person> students = new HashSet<>();
 
-
+    public static int getDefaultScore() {
+        return DEFAULT_SCORE;
+    }
 
     /**
      * Gets the correct subject based on string, case insensitive
