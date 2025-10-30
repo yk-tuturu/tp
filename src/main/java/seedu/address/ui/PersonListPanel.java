@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,7 +33,7 @@ public class PersonListPanel extends UiPart<Region> {
 
         for (Subject s : Subject.values()) {
             s.getScoreDict().getObservableScores().addListener((MapChangeListener<Person, Integer>) change -> {
-                personListView.refresh();
+                Platform.runLater(() -> personListView.refresh());
             });
         }
     }
