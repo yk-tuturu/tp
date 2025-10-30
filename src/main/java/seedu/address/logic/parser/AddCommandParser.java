@@ -1,5 +1,5 @@
 package seedu.address.logic.parser;
-// TODO: add in the new imports from CliSyntax and use them
+
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
@@ -54,7 +54,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         AllergyList allergies = ParserUtil.parseAllergies(argMultimap.getAllValues(PREFIX_ALLERGY));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        // TODO: For Add command person to fix
         Person person = new Person(name, parentName, phone, email, allergies, address, tagList);
 
         return new AddCommand(person);

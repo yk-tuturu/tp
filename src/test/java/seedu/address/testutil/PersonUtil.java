@@ -32,7 +32,6 @@ public class PersonUtil {
      * Returns the part of command string for the given {@code person}'s details.
      */
     public static String getPersonDetails(Person person) {
-        // TODO: For GUI person to fix
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_CHILDNAME + person.getChildName().fullName + " ");
         sb.append(PREFIX_PARENTNAME + person.getParentName().fullName + " ");

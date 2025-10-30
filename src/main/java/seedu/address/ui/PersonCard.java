@@ -52,7 +52,6 @@ public class PersonCard extends UiPart<Region> {
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
     public PersonCard(Person person, int displayedIndex) {
-        // TODO: For GUI person to fix
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
