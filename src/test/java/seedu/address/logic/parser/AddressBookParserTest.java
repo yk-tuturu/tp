@@ -110,4 +110,32 @@ public class AddressBookParserTest {
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
     }
+
+    @Test
+    public void parseCommand_caseInsensitive_list() throws Exception {
+        assertTrue(parser.parseCommand("LIST") instanceof ListCommand);
+        assertTrue(parser.parseCommand("List") instanceof ListCommand);
+        assertTrue(parser.parseCommand("LiSt") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_caseInsensitive_help() throws Exception {
+        assertTrue(parser.parseCommand("HELP") instanceof HelpCommand);
+        assertTrue(parser.parseCommand("Help") instanceof HelpCommand);
+        assertTrue(parser.parseCommand("HeLp") instanceof HelpCommand);
+    }
+
+    @Test
+    public void parseCommand_caseInsensitive_clear() throws Exception {
+        assertTrue(parser.parseCommand("CLEAR") instanceof ClearCommand);
+        assertTrue(parser.parseCommand("Clear") instanceof ClearCommand);
+        assertTrue(parser.parseCommand("ClEaR") instanceof ClearCommand);
+    }
+
+    @Test
+    public void parseCommand_caseInsensitive_exit() throws Exception {
+        assertTrue(parser.parseCommand("EXIT") instanceof ExitCommand);
+        assertTrue(parser.parseCommand("Exit") instanceof ExitCommand);
+        assertTrue(parser.parseCommand("ExIt") instanceof ExitCommand);
+    }
 }

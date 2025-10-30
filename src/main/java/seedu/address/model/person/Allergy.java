@@ -8,10 +8,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidAllergy(String)}.
  */
 public class Allergy {
-
+    public static final int MAX_ALLERGY_LENGTH = 50;
     public static final String MESSAGE_CONSTRAINTS =
-            "Allergy information should only contain alphanumeric characters and spaces, and it should not be blank";
-
+            "Allergy should be alphanumeric and spaces, must start with an alphanumeric character, "
+                    + "and be at most " + MAX_ALLERGY_LENGTH + " characters long.";
     /**
      * The first character of the allergy name must not be a whitespace,
      * otherwise a blank string (" ") becomes a valid input.
@@ -26,16 +26,17 @@ public class Allergy {
      * @param allergyName A valid allergy name.
      */
     public Allergy(String allergyName) {
+        String trimmedName = allergyName.trim();
         requireNonNull(allergyName);
-        checkArgument(isValidAllergy(allergyName), MESSAGE_CONSTRAINTS);
-        this.allergyName = allergyName;
+        checkArgument(isValidAllergy(trimmedName), MESSAGE_CONSTRAINTS);
+        this.allergyName = trimmedName;
     }
 
     /**
      * Returns true if a given string is a valid allergy.
      */
     public static boolean isValidAllergy(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= MAX_ALLERGY_LENGTH;
     }
 
     @Override
@@ -54,7 +55,7 @@ public class Allergy {
         }
 
         Allergy otherAllergy = (Allergy) other;
-        return allergyName.equals(otherAllergy.allergyName);
+        return allergyName.equalsIgnoreCase(otherAllergy.allergyName);
     }
 
     @Override

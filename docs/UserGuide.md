@@ -381,7 +381,7 @@ ParentConnect data are saved in the hard disk automatically after any command th
 
 ### Editing the data file
 
-ParentConnect data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Backup save files can be created just by making copies of this save file at regular intervals. Advanced users are welcome to update data directly by editing that data file.
+ParentConnect data are saved automatically as a JSON file `[JAR file location]/data/parentconnect.json`. Backup save files can be created just by making copies of this save file at regular intervals. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="important">
 
