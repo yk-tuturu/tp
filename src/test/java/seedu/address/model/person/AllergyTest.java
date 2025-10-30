@@ -40,6 +40,34 @@ public class AllergyTest {
         assertFalse(Allergy.isValidAllergy(INVALID_ALLERGY_STARTS_WITH_SPACE));
     }
 
+    // --- Length boundary tests ---
+
+    @Test
+    public void isValidAllergy_maxLength_returnsTrue() {
+        int max = Allergy.MAX_ALLERGY_LENGTH;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < max; i++) {
+            sb.append('A');
+        }
+        String maxLength = sb.toString();
+        // should be valid by length (also matches regex since it starts with alnum)
+        assertTrue(Allergy.isValidAllergy(maxLength));
+        Allergy a = new Allergy(maxLength);
+        assertEquals(maxLength, a.toString());
+    }
+
+    @Test
+    public void isValidAllergy_overMaxLength_returnsFalseAndConstructorThrows() {
+        int over = Allergy.MAX_ALLERGY_LENGTH + 1;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < over; i++) {
+            sb.append('A');
+        }
+        String overLength = sb.toString();
+        assertFalse(Allergy.isValidAllergy(overLength));
+        assertThrows(IllegalArgumentException.class, () -> new Allergy(overLength));
+    }
+
     // --- Constructor tests ---
 
     @Test
