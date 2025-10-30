@@ -307,35 +307,25 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| ID | Priority | Epic                              | As a …​              | I want to …​                                                  | So that I can…​                                                  |
-|----|----------|-----------------------------------|----------------------|---------------------------------------------------------------|------------------------------------------------------------------|
-| C1 | `* * *`  | Contact Management                | kindergarten teacher | view a child's parents' contact details                       | quickly contact them during emergencies                          | 
-| C2 | `* * *`  | Contact Management                | kindergarten admin   | store and retrieve parents' phone numbers and addresses       | send out updates and notices efficiently                         |
-| C3 | `* * *`  | Contact Management                | kindergarten teacher | search for a child by name                                    | access their profile quickly                                     | 
-| C4 | `* *`    | Contact Management                | kindergarten admin   | see the name of the primary guardian                          | know who to contact first                                        |
-| C6 | `* *`    | Contact Management                | kindergarten teacher | update a parent's phone number                                | ensure the system always reflects the latest contact information |
-| C7 | `*`      | Contact Management                | kindergarten teacher | quickly retrieve parent contact info from my phone            | call them even when I am outside the office                      |
-| P1 | `* * *`  | Child Profiling                   | kindergarten teacher | record important facts about each child                       | tailor care and instructions to their needs                      |
-| P2 | `* * *`  | Child Profiling                   | kindergarten admin   | store and update each child's medical information             | respond correctly in health-related situations                   | 
-| P3 | `* * *`  | Child Profiling                   | kindergarten teacher | record emergency care instructions                            | act quickly in case of an incident                               |
-| U1 | `* * *`  | System Usability & Data Integrity | kindergarten admin   | secure sensitive data like medical condition and contact info | get parents to trust the system                                  |
-| U2 | `* *`    | System Usability & Data Integrity | user                 | delete outdated child information                             | ensure the database remains accurate                             |
-| U3 | `* *`    | System Usability & Data Integrity | user                 | edit outdated child information                               | ensure the database remains accurate                             |
-| U4 | `* *`    | System Usability & Data Integrity | user                 | export filtered child lists to PDF/Excel                      | share them with staff who do not use the system                  |
-| U5 | `*`      | System Usability & Data Integrity | kindergarten teacher | mark groups of children in bulk as graduated                  | avoid having to edit their info one by one                       |
-| U6 | `*`      | System Usability & Data Integrity | kindergarten teacher | import a list of child in bulk                                | avoid having to input them one by one                            |
-| U7 | `*`      | System Usability & Data Integrity | kindergarten teacher | access child profiles from my phone                           | look up information when I am outside the classroom              |
-| A1 | `* *`    | Academic Tracking                 | kindergarten teacher | record test scores for each child                             | track their progress over time                                   |
-| A2 | `* *`    | Academic Tracking                 | kindergarten teacher | take attendance of children                                   | track which children are present                                 |
-| A3 | `* *`    | Academic Tracking                 | kindergarten teacher | tag notes alongside attendance                                | ensure context is preserved in records                           |
-| A4 | `*`      | Academic Tracking                 | kindergarten teacher | automatically calculate a child's average score               | give timely feedback to parents                                  |
-| F1 | `* *`    | Filtering and Grouping            | kindergarten teacher | filter children by food allergies                             | inform the kitchen staff accordingly                             |
-| F2 | `* *`    | Filtering and Grouping            | kindergarten teacher | filter children who require halal meals                       | ensure meal orders are adjusted appropriately                    |
-| F3 | `* *`    | Filtering and Grouping            | kindergarten teacher | filter children with special needs                            | prepare inclusive activities                                     |
-| F4 | `*`      | Filtering and Grouping            | kindergarten teacher | sort children by their grades                                 | focus in on groups of a particular level of academic performance |
-| F5 | `*`      | Filtering and Grouping            | kindergarten teacher | filter children who are on medication                         | remind staff to monitor them more closely                        |
-| F6 | `*`      | Filtering and Grouping            | kindergarten teacher | filter children by graduation status                          | quickly see which children are active versus graduated           |
-| F7 | `*`      | Filtering and Grouping            | kindergarten teacher | filter children by abscence frequency                         | identify at-risk children                                        |
+| ID | Priority | Epic                              | As a …​              | I want to …​                                            | So that I can…​                                                  |
+|----|----------|-----------------------------------|----------------------|---------------------------------------------------------|------------------------------------------------------------------|
+| C1 | `* * *`  | Contact Management                | kindergarten teacher | view a child's parents' contact details                 | quickly contact them during emergencies                          | 
+| C2 | `* * *`  | Contact Management                | kindergarten admin   | store and retrieve parents' phone numbers and addresses | send out updates and notices efficiently                         |
+| C3 | `* * *`  | Contact Management                | kindergarten teacher | search for a child by name                              | access their profile quickly                                     | 
+| C4 | `* *`    | Contact Management                | kindergarten admin   | see the name of the primary guardian                    | know who to contact first                                        |
+| C5 | `* *`    | Contact Management                | kindergarten teacher | update a parent's phone number                          | ensure the system always reflects the latest contact information |
+| P1 | `* * *`  | Child Profiling                   | kindergarten teacher | record important facts about each child                 | tailor care and instructions to their needs                      |
+| P2 | `* * *`  | Child Profiling                   | kindergarten teacher | record emergency care instructions                      | act quickly in case of an incident                               |
+| U1 | `* *`    | System Usability & Data Integrity | user                 | delete outdated child information                       | ensure the database remains accurate                             |
+| U2 | `* *`    | System Usability & Data Integrity | user                 | edit outdated child information                         | ensure the database remains accurate                             |
+| A1 | `* *`    | Academic Tracking                 | kindergarten teacher | record test scores for each child                       | track their progress over time                                   |
+| A2 | `* *`    | Academic Tracking                 | kindergarten teacher | tag notes alongside attendance                          | ensure context is preserved in records                           |
+| A3 | `* *`    | Academic Tracking                 | kindergarten teacher | bulk delete child records                               |                                                                  |
+| A4 | `* *`    | Academic Tracking                 | kindergarten teacher | bulk enroll/unenroll chilren                            |                                                                  |
+| F1 | `* *`    | Filtering and Grouping            | kindergarten teacher | filter children by food allergies                       | inform the kitchen staff accordingly                             |
+| F2 | `* *`    | Filtering and Grouping            | kindergarten teacher | filter children with special needs                      | prepare inclusive activities                                     |
+| F3 | `*`      | Filtering and Grouping            | kindergarten teacher | filter children who are on medication                   | remind staff to monitor them more closely                        |
+
 
 
 ### Use cases
