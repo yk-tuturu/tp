@@ -1,11 +1,15 @@
 package seedu.address;
 
+import java.awt.Desktop;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
@@ -45,7 +49,8 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
-
+    //When a data loading error happens during init, store a message to show after the UI is started.
+    private String dataLoadingErrorMessage = null;
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing AddressBook ]===========================");
@@ -85,6 +90,11 @@ public class MainApp extends Application {
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataLoadingException e) {
+            dataLoadingErrorMessage = "Your data file appears to contain invalid or corrupted values.\n\n"
+                    + "Please check the file at: " + storage.getAddressBookFilePath().toAbsolutePath()
+                    + "\n\nApplication will start with an empty dataset. \n"
+                    + "If you wish to start afresh with an empty dataset, click OK. \n"
+                    + "Otherwise, fix the corrupted file to preserve your original data on next start.";
             logger.warning("Data file at " + storage.getAddressBookFilePath() + " could not be loaded."
                     + " Will be starting with an empty datafile.");
             initialData = new AddressBook();
@@ -172,6 +182,36 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         logger.info("Starting ParentConnect " + MainApp.VERSION);
         ui.start(primaryStage);
+        /*
+         * Show the data-loading error (if any) after the UI has been started so the
+         * alert appears on top of the application window. Provide a convenient
+         * \"Open data folder\" button so users can locate & inspect the file.
+         */
+        if (dataLoadingErrorMessage != null) {
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Data file issue");
+                alert.setHeaderText("Invalid or corrupted data file");
+                alert.setContentText(dataLoadingErrorMessage);
+                ButtonType openFolder = new ButtonType("Open data folder");
+                alert.getButtonTypes().setAll(openFolder, ButtonType.OK);
+                alert.showAndWait().ifPresent(choice -> {
+                    if (choice == openFolder) {
+                        try {
+                            Path dir = storage.getAddressBookFilePath().toAbsolutePath().getParent();
+                            if (dir != null && Desktop.isDesktopSupported()) {
+                                Desktop.getDesktop().open(dir.toFile());
+                            }
+                            // close application after opening folder
+                            // to prevent user from entering commands so the file doesn't get overwritten
+                            Platform.exit();
+                        } catch (IOException ex) {
+                            logger.warning("Failed to open data folder: " + StringUtil.getDetails(ex));
+                        }
+                    }
+                });
+            });
+        }
     }
 
     @Override
