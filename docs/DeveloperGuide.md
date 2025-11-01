@@ -332,113 +332,225 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `ParentConnect` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Add a child**
+**Use case: UC01 - View all child records**
 
 **MSS**
 
-1. User requests to add a child and provides the necessary details
-2. ParentConnect adds the child
+1.  User requests to view all child records.
+2.  ParentConnect displays a list of all child records.
 
    Use case ends.
 
 **Extensions**
 
-* 1a. The given details are invalid.
+* 1a. There are no existing child records.
+
+  Use case ends.
+
+**Use case: UC02 - Add a child record**
+
+**MSS**
+
+1.  User requests to add a child record and provides the necessary details.
+2.  ParentConnect adds the child record and displays details of the newly added child record.
+3.  ParentConnect displays a list of all child records.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. The provided details are invalid.
 
     * 1a1. ParentConnect shows an error message.
 
       Use case ends.
 
-* 1b. Some fields are missing.
+* 1b. Some necessary details are not provided by user.
+
+    * 1b1. ParentConnect shows an error message.
+  
+      Use case ends.
+
+* 1c. The provided details match an existing child record.
+
+    * 1c1. ParentConnect shows an error message.
+  
+      Use case ends.
+
+
+**Use case: UC03 - Delete child record(s)**
+
+**MSS**
+
+1.  User requests to delete child record(s) in the displayed list.
+2.  ParentConnect deletes the child record(s) and displays details of the deleted child record.
+3.  ParentConnect updates the displayed child records.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The displayed list is currently empty or provided index(es) is invalid.
+
+    * 1a1. ParentConnect shows an error message.
+  
+      Use case ends.
+
+* 1b. No index is provided.
 
     * 1b1. ParentConnect shows an error message.
 
       Use case ends.
 
-
-**Use case: Delete a child record**
+**Use case: UC04 - Edit a child record**
 
 **MSS**
 
-1.  User requests to list children's details
-2.  ParentConnect shows a list of children
-3.  User requests to delete a specific child record in the list
-4.  ParentConnect deletes the child record
+1.  User requests to edit a specific child record in the displayed list and provides necessary details.
+2.  ParentConnect updates the child record with the new info provided.
+3.  ParentConnect updates the displayed child records.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The displayed list is empty or the provided index is invalid.
 
-  Use case ends.
+    * 1a1. ParentConnect shows an error message.
+  
+      Use case ends.
 
-* 3a. The given index is invalid.
+* 1b. The provided details are invalid.
 
-    * 3a1. ParentConnect shows an error message.
+    * 1b1. ParentConnect shows an error message.
+  
+      Use case ends.
 
-      Use case resumes at step 2.
+* 1c. No details are provided.
 
-**Use case: Edit a child**
+    * 1c1. ParentConnect shows an error message.
+  
+      Use case ends.
+
+**Use case: UC05 - Find child records**
 
 **MSS**
 
-1.  User requests to list children's details
-2.  ParentConnect shows a list of children
-3.  User requests to edit a specific child in the list and provides necessary details
-4.  ParentConnect updates the child with the new info provided
+1.  User enters search command and provides search details.
+2.  ParentConnect displays a list of child records based on search details.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The provided details are invalid.
 
-  Use case ends.
+    * 1a1. ParentConnect shows an error message.
+  
+      Use case ends.
 
-* 3a. The given index is invalid.
+* 1b. The provided details are missing.
 
-    * 3a1. ParentConnect shows an error message.
-
-      Use case resumes at step 2.
-* 3b. The given details are invalid.
-
-    * 3b1. ParentConnect shows an error message.
+    * 1b1. ParentConnect shows an error message.
 
       Use case ends.
 
-* 3c. Some fields are missing.
-
-    * 3c1. ParentConnect shows an error message.
-
-      Use case ends.
-
-**Use case: Find a child record**
+**Use case: UC06 - Clear child records**
 
 **MSS**
 
-1.  User enters search command with one or more details.
-2.  ParentConnect validates the input details.
-3.  ParentConnect displays a list of child records based on search details.
+1.  User requests to clear all child records.
+2.  ParentConnect clears all child records.
+3.  ParentConnect displays an empty list.
+
+    Use case ends.
+
+**Use case: UC07 - Enroll child(ren) into subject(s)**
+
+**MSS**
+
+1.  User requests to enroll the selected child(ren) into the selected subject(s).
+2.  ParentConnect enrolls the selected child(ren) into the selected subject(s).
+3.  ParentConnect updates the displayed child records.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The input format is invalid.
+* 1a. The provided details are invalid.
 
-    * 2a1. ParentConnect shows an error message.
-
-      Use case ends.
-
-* 2b. The input is blank.
-
-    * 2b1. ParentConnect shows an error message.
+    * 1a1. ParentConnect shows an error message.
 
       Use case ends.
 
+* 1b. The provided details are missing.
 
-*{More to be added}*
+    * 1b1. ParentConnect shows an error message.
+
+      Use case ends.
+
+* 1c. The selected child(ren) is/are already enrolled in the selected subjects.
+
+    * 1c1. ParentConnect shows a message informing the user.
+
+      Use case ends.
+
+**Use case: UC08 - Unenroll child(ren) from subject(s)**
+
+**MSS**
+
+1.  User requests to unenroll the selected child(ren) from the selected subject(s).
+2.  ParentConnect unenrolls the selected child(ren) from the selected subject(s).
+3.  ParentConnect updates the displayed child records.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The provided details are invalid.
+
+    * 1a1. ParentConnect shows an error message.
+
+      Use case ends.
+
+* 1b. The provided details are missing.
+
+    * 1b1. ParentConnect shows an error message.
+
+      Use case ends.
+
+* 1c. The selected child(ren) is/are not enrolled in the selected subjects.
+
+    * 1c1. ParentConnect shows a message informing the user.
+
+      Use case ends.
+
+**Use case: UC09 - Set score of child(ren) for subject**
+**Guarantees**
+- Selected children will only have score updated if they are enrolled in the selected subject.
+- Children not enrolled in the subject will not have their records affected in any way through this command.
+
+**MSS**
+
+1.  User requests to set the score of the selected child(ren) for the selected subject.
+2.  ParentConnect sets the score of the selected child(ren) for the selected subject.
+3.  ParentConnect updates the displayed child records.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The provided details are invalid.
+
+    * 1a1. ParentConnect shows an error message.
+
+      Use case ends.
+
+* 1b. The provided details are missing.
+
+    * 1b1. ParentConnect shows an error message.
+
+      Use case ends.
 
 ### Non-Functional Requirements
 
@@ -489,36 +601,74 @@ testers are expected to do more *exploratory* testing.
     1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+### Finding a child record
 
-### Deleting a child record
+1. Finding a child record while some child records are being shown
 
-1. Deleting a child record while all child records are being shown
+    1. Prerequisites: Sample data provided upon initialisation is used.
 
-    1. Prerequisites: List all child records using the `list` command. Multiple child records in the list.
+    1. Test case: `find c/Li David`<br>
+       Expected: Child records for `David Li` and `Charlotte Oliveir` are displayed. Number of child records found is shown in the status message.
+
+    1. Test case: `find t/adhd`<br>
+       Expected: Child records for `Alex Jr` and `Bernice Yu` are displayed. Number of child records found is shown in the status message.
+
+    1. Test case: `find a/City`<br>
+       Expected: Displayed records will not change. Error details shown in the status message.
+
+    1. Other incorrect find commands to try: `find`, `find c/Li c/David`, `...` <br>
+       Expected: Similar to previous.
+
+### Adding a child record
+
+1. Adding a child record
+
+    1. Test case: `add c/Hua Cheng b/Xie Lian a/Paradise Mansion p/66661111 e/xielian@example.com`<br>
+       Expected: Child record is added to the list. Details of the added child record shown in the status message. Displayed child records are updated.
+
+    1. Test case: `add c/Hua Cheng b/Xie Lian a/Paradise Mansion p/66661111 e/xielian@example.com`<br>
+       Expected: If this is done again after step 1., an error message will be shown in the status message due to detected duplicate. No child record is added.
+
+    1. Test case: `add c/Nyx Xia b/Selene Yan a/Ocean City p/88888888 e/selene@example.com r/cats t/ocd`
+       Expected: Child record is added to the list. Details of the added child record shown in the status message. Displayed child records are updated.
+
+    1. Test case: `add c/inval!d N@me`<br>
+       Expected: No child record is added. Error details shown in the status message.
+
+    1. Other incorrect add commands to try: `add`, `add e/invalid_email`, `...` <br>
+       Expected: Similar to previous.
+
+### Delete child record(s)
+
+1. Deleting child record(s) while some child records are being shown
+
+    1. Prerequisites: At least three child records in the displayed list.
 
     1. Test case: `delete 1`<br>
        Expected: First child record is deleted from the list. Details of the deleted child record shown in the status message.
 
+    1. Test case: `delete 1 2`<br>
+       Expected: The first and second child records are both deleted from the list. Details of the deleted child records shown in the status message.
+
     1. Test case: `delete 0`<br>
-       Expected: No child record is deleted. Error details shown in the status message. Status bar remains the same.
+       Expected: No child record is deleted. Error details shown in the status message.
 
     1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
 ### Editing a child record
 
-1. Editing a child record while all child records are being shown
+1. Editing a child record while some child records are being shown
 
-    1. Prerequisites: List all child records using the `list` command. Multiple child records in the list.
+    1. Prerequisites: Multiple child records in the list.
 
-    1. Test case: `edit 1 p/12345678 a/123 Road`<br>
-       Expected: First child record's phone number and address are updated. Details of the updated record are shown in the status message.
+    1. Test case: `edit 1 p/12345678 a/123, Nice Nature Road`<br>
+       Expected: First child record's parent phone number and address are updated. Details of the updated record are shown in the status message.
 
     1. Test case: `edit 0`<br>
-       Expected: No record is updated. Error details shown in the status message. Status bar remains the same.
+       Expected: No record is updated. Error details shown in the status message.
 
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+    1. Other incorrect edit commands to try: `edit`, `edit 1`, `...` <br>
        Expected: Similar to previous.
 
 ### Saving data
