@@ -48,8 +48,6 @@ AddressBook *--> "1" UniquePersonList
 Person *--> ChildName
 Person *--> ParentName
 Person *-right-> ParentPhoneNumber
-Person -[hidden]left-> _LeftSpacer
-_LeftSpacer -[hidden]-> ParentEmail
 Person *-left-> ParentEmail
 Person *--> "*" Tag
 Person *--> "*" Allergy
