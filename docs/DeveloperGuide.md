@@ -526,9 +526,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case ends.
 
 **Use case: UC09 - Set score of child(ren) for subject**
-**Guarantees**
+
+**Guarantees**<br>
 - Selected children will only have score updated if they are enrolled in the selected subject.
-- Children not enrolled in the subject will not have their records affected in any way through this command.
+- Children not enrolled in the subject will not have their records affected in any way through this action.
 
 **MSS**
 
@@ -616,7 +617,7 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `find a/City`<br>
        Expected: Displayed records will not change. Error details shown in the status message.
 
-    1. Other incorrect find commands to try: `find`, `find c/Li c/David`, `...` <br>
+    1. Other incorrect find commands to try: `find`, `find c/Li c/David` <br>
        Expected: Similar to previous.
 
 ### Adding a child record
@@ -629,13 +630,13 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `add c/Hua Cheng b/Xie Lian a/Paradise Mansion p/66661111 e/xielian@example.com`<br>
        Expected: If this is done again after step 1., an error message will be shown in the status message due to detected duplicate. No child record is added.
 
-    1. Test case: `add c/Nyx Xia b/Selene Yan a/Ocean City p/88888888 e/selene@example.com r/cats t/ocd`
+    1. Test case: `add c/Nyx Xia b/Selene Yan a/Ocean City p/88888888 e/selene@example.com r/cats t/ocd`<br>
        Expected: Child record is added to the list. Details of the added child record shown in the status message. Displayed child records are updated.
 
     1. Test case: `add c/inval!d N@me`<br>
        Expected: No child record is added. Error details shown in the status message.
 
-    1. Other incorrect add commands to try: `add`, `add e/invalid_email`, `...` <br>
+    1. Other incorrect add commands to try: `add`, `add e/invalid_email`, `add c/Nyx Xia b/Selene Yan a/Ocean City p/88888888` <br>
        Expected: Similar to previous.
 
 ### Delete child record(s)
@@ -653,7 +654,7 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `delete 0`<br>
        Expected: No child record is deleted. Error details shown in the status message.
 
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+    1. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
 ### Editing a child record
@@ -668,7 +669,7 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `edit 0`<br>
        Expected: No record is updated. Error details shown in the status message.
 
-    1. Other incorrect edit commands to try: `edit`, `edit 1`, `...` <br>
+    1. Other incorrect edit commands to try: `edit`, `edit 1`, `edit p/1234` <br>
        Expected: Similar to previous.
 
 ### Saving data
