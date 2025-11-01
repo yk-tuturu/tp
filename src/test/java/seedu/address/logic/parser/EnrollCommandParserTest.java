@@ -124,7 +124,6 @@ public class EnrollCommandParserTest {
         List<Subject> expectedList = new ArrayList<>();
         expectedList.add(Subject.MATH);
         Index[] expectedIndexes = new Index[] {
-                Index.fromOneBased(1),
                 Index.fromOneBased(1)
         };
         assertParseSuccess(parser, userInput, new EnrollCommand(expectedIndexes, false, expectedList));

@@ -64,9 +64,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndexes_repeat() throws Exception {
-        Index[] expected = new Index[] {
-                INDEX_FIRST_PERSON
-        };
+        Index[] expected = new Index[] { INDEX_FIRST_PERSON };
         assertArrayEquals(expected, ParserUtil.parseIndexArray("1 1  1"));
     }
 
