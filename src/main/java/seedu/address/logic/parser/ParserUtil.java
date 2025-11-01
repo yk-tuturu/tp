@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -55,8 +56,9 @@ public class ParserUtil {
         for (int i = 0; i < indexStrings.length; i++) {
             indexArray[i] = parseIndex(indexStrings[i]);
         }
-        Arrays.sort(indexArray, (x, y) -> y.getZeroBased() - x.getZeroBased());
-        return indexArray;
+        return Arrays.stream(indexArray).distinct()
+                .sorted(Comparator.comparingInt(Index::getZeroBased).reversed())
+                .toArray(Index[]::new);
     }
 
     /**
