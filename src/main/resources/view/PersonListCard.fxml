@@ -25,15 +25,15 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+        <Label fx:id="name" text="\$first" styleClass="cell_big_label" wrapText="true"/>
       </HBox>
       <FlowPane fx:id="allergies" />
       <FlowPane fx:id="tags" />
       <FlowPane fx:id="subjects" />
-      <Label fx:id="parent" styleClass="cell_small_label" text="\$parent" />
+      <Label fx:id="parent" styleClass="cell_small_label" text="\$parent" wrapText="true"/>
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-      <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+      <Label fx:id="address" styleClass="cell_small_label" text="\$address" wrapText="true"/>
+      <Label fx:id="email" styleClass="cell_small_label" text="\$email" wrapText="true"/>
     </VBox>
   </GridPane>
 </HBox>
