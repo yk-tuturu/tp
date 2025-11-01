@@ -639,7 +639,7 @@ testers are expected to do more *exploratory* testing.
     1. Other incorrect add commands to try: `add`, `add e/invalid_email`, `add c/Nyx Xia b/Selene Yan a/Ocean City p/88888888` <br>
        Expected: Similar to previous.
 
-### Delete child record(s)
+### Deleting child record(s)
 
 1. Deleting child record(s) while some child records are being shown
 
@@ -670,6 +670,65 @@ testers are expected to do more *exploratory* testing.
        Expected: No record is updated. Error details shown in the status message.
 
     1. Other incorrect edit commands to try: `edit`, `edit 1`, `edit p/1234` <br>
+       Expected: Similar to previous.
+
+### Enrolling a child into a subject
+
+1. Enrolling a child into a subject while some child records are being shown
+
+    1. Prerequisites: Multiple child records are being displayed in the list.
+
+    1. Test case: `enroll 1 2 s/science s/math s/english`<br>
+       Expected: First two child records' subjects are updated. Details of the enrollment are shown in the status message.
+
+    1. Test case: `enroll all s/math`<br>
+       Expected: All displayed child records' subjects are updated. Details of the enrollment are shown in the status message.
+                 If a child is already enrolled in the subject before running this command, they will be skipped. This is reflected in the status message.
+                 If all the displayed children are already enrolled in the subject before running this command, the status message will inform the user about this.
+
+    1. Test case: `enroll 1`<br>
+       Expected: No record is updated. Error details shown in the status message.
+
+    1. Other incorrect enroll commands to try: `enroll`, `enroll 0 s/math` <br>
+       Expected: Similar to previous.
+
+### Setting the score of a child for a subject
+
+1. Setting the score of a child for a subject while some child records are being shown
+
+    1. Prerequisites: Multiple child records are being displayed in the list. The following tests are done right after the manual testing for enrollment above.
+
+    1. Test case: `setscore 1 2 s/science g/50`<br>
+       Expected: First two child records' scores are updated. Details of the update are shown in the status message.
+
+    1. Test case: `setscore all s/math g/20`<br>
+       Expected: All displayed child records' subjects are updated. Details of the update are shown in the status message.
+
+    1. Test case: `setscore 1 2 s/science s/math g/50`<br>
+       Expected: No record is updated. Error details shown in the status message.
+
+    1. Other incorrect set score commands to try: `setscore`, `setscore 1 s/science g/50 g/20`, `setscore 1` <br>
+       Expected: Similar to previous.
+
+### Unenrolling a child from a subject
+
+1. Unenrolling a child from a subject while some child records are being shown
+
+    1. Prerequisites: Multiple child records are being displayed in the list.
+       The following tests are done after the manual testing for enrollment above.
+
+    1. Test case: `unenroll 1 2 s/science s/math s/english`<br>
+       Expected: First two child records' subjects are updated. Details of the unenrollment are shown in the status message.
+
+    1. Test case: `unenroll all s/math`<br>
+       Expected: All displayed child records' subjects are updated. Details of the unenrollment are shown in the status message.
+       If a child is not enrolled in the subject before running this command, they will be skipped. This is reflected in the status message.
+       If all the displayed children are not enrolled in the subject before running this command, the status message will inform the user about this.
+
+    1. Test case: `unenroll 1`<br>
+       Expected: No record is updated. Error details shown in the status message.
+
+    1. Other incorrect unenroll commands to try: `unenroll`, `unenroll 0 s/math` <br>
        Expected: Similar to previous.
 
 ### Saving data
