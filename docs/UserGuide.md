@@ -43,7 +43,7 @@ To help you get the most out of ParentConnect, this guide walks you through **in
 
 1. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-F08a-4/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your ParentConnect. This can be any folder in your documents, or on your desktop for easy access. 
+1. Copy the file to the folder you want to use as the _home folder_ for your ParentConnect. This can be any folder in your documents, or on your desktop for easy access. The folder should ideally be empty to prevent any issues with loading the sample data upon initial launch.
 
 1. Open a command terminal. You can do this as follows:
 
@@ -100,6 +100,7 @@ To help you get the most out of ParentConnect, this guide walks you through **in
 
 </box>
 
+   ![QuickStartUi](images/QuickStartUi.png)
  
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window. Refer to the [Features](#features) below for details of each command. <br>
@@ -131,7 +132,7 @@ Here are some frequent actions you may want to perform:
 **Notes about the command format:**
 
 * Words in `UPPER_CASE` are parameters to be supplied by the user.  
-  For example, in `find c/CHILD_NAME`, `CHILD_NAME` can be replaced with `find c/John Doe`.
+  For example, in `add c/CHILD_NAME`, `CHILD_NAME` can be replaced with `add c/John Doe`.
 
 * Items in square brackets `[ ]` are optional.  
   For example, `c/CHILD_NAME [t/TAG]` can be used as `c/John Doe t/friend` or simply `c/John Doe`.
@@ -507,7 +508,7 @@ Action     | Format, Examples
 **Add**    | `add c/CHILD_NAME b/PARENT_NAME p/PARENT_PHONE_NUMBER e/PARENT_EMAIL a/ADDRESS [r/ALLERGIES]…​ [t/TAG]…​` <br> e.g., `add c/Ho Ho b/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 r/sunlight r/grass t/friend t/colleague`
 **Clear**  | `clear`
 **Delete** | `delete INDEXES`<br> e.g., `delete 1 2 3`
-**Edit**   | `edit INDEX [c/CHILD_NAME] [b/PARENT_NAME] [p/PARENT_PHONE_NUMBER] [e/PARENT_EMAIL] [r/ALLERGIES]…​ [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 b/James Lee e/jameslee@example.com`
+**Edit**   | `edit INDEX [c/CHILD_NAME] [b/PARENT_NAME] [p/PARENT_PHONE_NUMBER] [e/PARENT_EMAIL] [a/ADDRESS] [r/ALLERGIES]…​ [t/TAG]…​`<br> e.g.,`edit 2 b/James Lee e/jameslee@example.com`
 **Find**   | `find [c/CHILD_NAME] [b/PARENT_NAME] [r/ALLERGIES] [t/TAG]`<br> e.g., `find c/John Jake Marcus b/Paul Mary r/Dust Peanut t/ADHD Diabetic`
 **List**   | `list`
 **Help**   | `help`
