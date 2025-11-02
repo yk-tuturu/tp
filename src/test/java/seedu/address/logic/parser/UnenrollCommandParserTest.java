@@ -123,7 +123,6 @@ public class UnenrollCommandParserTest {
         List<Subject> expectedList = new ArrayList<>();
         expectedList.add(Subject.MATH);
         Index[] expectedIndexes = new Index[] {
-                Index.fromOneBased(1),
                 Index.fromOneBased(1)
         };
         assertParseSuccess(parser, userInput, new UnenrollCommand(expectedIndexes, false, expectedList));
