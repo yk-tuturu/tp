@@ -563,7 +563,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4.  Should have a special colouring scheme to differentiate between tags, allergies and subject fields.
 5.  Should warn the user if their data file is corrupted on startup.
-    *{More to be added}*
 
 ### Glossary
 
