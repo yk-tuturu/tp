@@ -20,8 +20,8 @@ import seedu.address.model.subject.Subject;
 public class UnenrollCommand extends Command {
     public static final String COMMAND_WORD = "unenroll";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unenrolls all children at the specified indexes"
-            + "into the listed subjects;\n or unenrolls all children currently listed if the 'all' keyword is used\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unenrolls all children at the specified indexes "
+            + "into the listed subjects;\nor unenrolls all children currently listed if the 'all' keyword is used\n"
             + "Parameters: INDEXES (must be positive integers) or 'ALL', s/SUBJECT...\n"
             + "Example: " + COMMAND_WORD + " 1 2 3 s/math\n"
             + "or: " + COMMAND_WORD + " all s/math s/science\n";
