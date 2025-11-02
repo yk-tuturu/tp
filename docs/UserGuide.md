@@ -172,6 +172,9 @@ Adds a child named Ella Dawson who has parent Helen Dawson, phone number 9123456
 * `add c/Justin Jr b/Justin Sr p/88888888 e/TT@example.com a/22 College Avenue West #20-204 136754 Singapore t/ADHD r/dust`<br>
 Adds a child named Justin Jr, with parent Justin Sr, phone number, email and address as shown above, and the optional tag ADHD with an allergy to dust.
 
+**Result:**
+![add command result](images/add-command-result.png)
+
 </box>
 
 <box type="warning" header="Duplicate children detection">
@@ -211,7 +214,12 @@ Format: `edit INDEX [c/CHILD_NAME] [b/PARENT_NAME] [p/PARENT_PHONE_NUMBER] [e/PA
 Edits the phone number and email address of the 1st child's parent to be `91234567` and `johndoe@example.com` respectively.
 
 *  `edit 2 c/Alison Wang t/` <br>
-Edits the name of the 2nd child to be `Alison Wang` and clears all existing tags.<br>
+   Edits the name of the 2nd child to be `Alison Wang` and clears all tags<br>
+
+*  `edit 2 c/Alexis Jr t/adhd r/milk` <br>
+Edits the name of the 2nd child to be `Alexis Jr` and adds the tags adhd and allergy to milk<br>
+
+![edit command result](images/edit-command-ss.png)
 
 </box>
 
@@ -239,6 +247,9 @@ Format: `find [c/CHILD_NAME] [b/PARENT_NAME] [r/ALLERGIES]…​ [t/TAG]…​`
 * `find c/John` returns records of all children with `john` in their name
 * `find c/Marcus Vertin b/Hoffman r/Dust` returns records where the child is named either `Marcus` or `Vertin`, where the parent is named `Hoffman`, and where the child is allergic to `dust` (as long as any of the 4 conditions are fulfilled)
 * `find c/David Li` will match with `Davidson`, `David Becker`, `Elliana` and any other name with substrings `David` or `Li` in them.
+
+**Result:** 
+![find comamnd result](images/find-command.png)
 
 </box>
 
@@ -301,10 +312,10 @@ Format:
 * `enroll all s/math s/science`  
   Enrolls all listed children into both Math and Science subjects.
 
-* Executing `find c/Danny` followed by `enroll all s/math` will only enroll all found children named `Danny` into the subject
+**Sample output:**
+!["enroll command output"](images/enroll-command.png)
 
 </box>
-
 
 ### Unenrolling children from a subject : `unenroll`
 <box type="warning">
@@ -339,6 +350,9 @@ Format:
 
 * Executing `find c/Danny` followed by `unenroll all s/math` will only unenroll all found children named `Danny` into the subject
 
+**Sample output:**
+![Unenroll command output](images/unenroll.png)
+
 </box>
 
 
@@ -370,6 +384,9 @@ Sets the score of children for a specific subject in ParentConnect.
 
 * `setscore all s/math g/85`  
   Sets the Math score of all listed children to 85.
+
+**Sample output:**
+![setscore result](images/setscore.png)
 
 </box>
 
@@ -419,7 +436,7 @@ Below is a summary for the constraints for the different parameters that can be 
 
 Data Type         | Constraints
 ------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Names**    | Names should only consist of **alphabets** and **spaces**. The following special characters are also allowed: `()-'/,.`. For `/`, as it is used as a command delimiter, it must also not be preceded by any accepted prefix used in ParentConnect such as `c/`, `b/`, etc. Any other special characters, numbers, or characters in other languages, are disallowed. Names are also **case-insensitive**, meaning `john` and `John` are considered the same person. Spaces are also normalized, meaning  <code style="white-space: pre;">john     doe</code>  will be converted to `john doe`
+**Names**    | <ul><li>Names should only consist of **alphabets** and **spaces**.</li><li>The following special characters are also allowed: `()-'/,.`.</li><li>For `/`, as it is used as a command delimiter, a new word in the name cannot start with anything that looks like a command prefix. Example: `child b/o` is not a valid name, as `b/o` collides with the `b/` prefix. However, `childb/o` is allowed, as it is not a new word. `child d/o` is also allowed, as `d/` is not a prefix.</li><li>Any other special characters, numbers, or characters in other languages, are disallowed.</li><li>Names are also **case-insensitive**, meaning `john` and `John` are considered the same person.</li><li>Spaces are automatically normalized, meaning  <code style="white-space: pre;">john     doe</code>  will be converted to `john doe`</li></ul>     
 **Phone number**  | Should strictly be **8 digits** Singaporean phone number
 **Email** | Follows the format `local-part@domain`<br>**Local-part**: Should only contain alphanumeric characters and these special characters: `+_.-`. May not start or end with any special characters<br>**Separator:** `@` symbol<br>**Domain Name:** Made up of domain labels separated by periods<br>**Domain Requirements:** Must end with a domain label at least 2 characters long. Each domain label must start and end with alphanumeric characters. Each domain label must consist of alphanumeric characters, separated only by hyphens, if any
 **Address**   | No restrictions, as long as not empty
@@ -432,7 +449,7 @@ Data Type         | Constraints
 
 ## FAQ
 
-**Q**: Why does the system say "duplicate person" when adding a child with a different phone number?<br>
+**Q**: Why does the system say "duplicate person" when adding a child with a different phone number/address/email?<br>
 **A**: Students are identified uniquely by the parent and child name combination, not by contact details. This is because siblings may share the same contact details as they are from the same family. While it may be possible for two children and parent pairs to share the same name, we don't foresee this key collision having a high likelihood of occurring in the scope of one kindergarten.
 
 **Q**: Why is each child attached to only one parent? Can I put both parents?<br>
