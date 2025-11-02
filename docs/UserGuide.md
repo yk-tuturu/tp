@@ -8,7 +8,7 @@
 
 Welcome to **ParentConnect** — your all-in-one digital assistant for **managing children contact information and grade information!**
 
-Tired of dealing with messy spreadsheets or handwritten notes? ParentConnect is a desktop application built especially for kindergarten teachers, helping you stay organized, save time, and focus more on your students. With our **clean user interface** and **intuitive commands**, ParentConnect provides a quick and reliable way to search, filter, and update student information.
+Tired of dealing with messy spreadsheets or handwritten notes? ParentConnect is a desktop application built especially for kindergarten teachers in Singapore, helping you stay organized, save time, and focus more on your students. With our **clean user interface** and **intuitive commands**, ParentConnect provides a quick and reliable way to search, filter, and update student information.
 
 Designed for fast typists, ParentConnect provides a text field for users to enter commands, while presenting information back in a simple visual interface (GUI) that makes admin work easy and hassle-free. 
 
@@ -36,8 +36,10 @@ To help you get the most out of ParentConnect, this guide walks you through **in
 
 ## Quick start
 
-1. Ensure you have Java `17` or above installed in your Computer. Download Java 17 <a href="https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html">here</a> and follow the instructions on the site.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+1. Ensure you have Java `17` or above installed in your Computer.<br>
+  **Mac users:** Follow the setup guide [here](https://se-education.org/guides/tutorials/javaInstallationMac.html) to install the correct JDK version.<br>
+  **Windows users:** Follow the setup guide [here](https://se-education.org/guides/tutorials/javaInstallationWindows.html) to install the correct JDK version. <br>
+  **Linux users:** Follow the setup guide [here](https://se-education.org/guides/tutorials/javaInstallationLinux.html) to install the correct JDK version. <br>
 
 1. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-F08a-4/tp/releases).
 
@@ -93,9 +95,13 @@ To help you get the most out of ParentConnect, this guide walks you through **in
 
 - There is an empty command box at the top to enter your first command!
 
+**Example ParentConnect Interface:**
+  ![Ui](images/Ui.png)
+
 </box>
 
    ![QuickStartUi](images/QuickStartUi.png)
+ 
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window. Refer to the [Features](#features) below for details of each command. <br>
 
@@ -135,7 +141,7 @@ Here are some frequent actions you may want to perform:
   For example, `[t/TAG]…` can be left empty, or contain `t/friend`, `t/friend t/family`, etc.
 
 * Parameters can be in any order.  
-  For example, `c/CHILD_NAME p/PARENT_PHONE_NUMBER` is equivalent to `p/PARENT_PHONE_NUMBER c/CHILD_NAME`.
+  For example, `c/CHILD_NAME p/PHONE_NUMBER` is equivalent to `p/PHONE_NUMBER c/CHILD_NAME`.
 
 * Commands that don’t take parameters (`help`, `list`, `exit`, `clear`) will ignore extra text.  
   For example, `help 123` is interpreted as `help`.
@@ -153,7 +159,7 @@ Format: `help`
 
 ### Adding a child: `add`
 
-Adds a new child record to ParentConnect. At minimum, the child's name, parent name, parent phone number, email and address need to be provided
+Adds a new child record to ParentConnect. At minimum, the child's name, parent name, parent phone number, email and address need to be provided. (Refer to [this section](#data-constraints-advanced) for information regarding the various parameters)
 
 Format: `add c/CHILD_NAME b/PARENT_NAME p/PARENT_PHONE_NUMBER e/PARENT_EMAIL a/ADDRESS [r/ALLERGIES]…​ [t/TAG]…​`
 
@@ -164,8 +170,21 @@ Format: `add c/CHILD_NAME b/PARENT_NAME p/PARENT_PHONE_NUMBER e/PARENT_EMAIL a/A
 
 <box type="tip" header="Examples: ">
 
-* `add c/Ella Dawson b/Helen Dawson p/91234567 e/hofmann@example.com a/John street, block 123, #01-01`
-* `add c/Justin Jr b/Justin Sr p/88888888 e/TT@example.com a/22 College Avenue West #20-204 136754 Singapore t/ADHD r/dust`
+* `add c/Ella Dawson b/Helen Dawson p/91234567 e/hofmann@example.com a/John street, block 123, #01-01`<br>
+Adds a child named Ella Dawson who has parent Helen Dawson, phone number 91234567, email: hofmann@example.com, and address John street, block 123, #01-01
+
+* `add c/Justin Jr b/Justin Sr p/88888888 e/TT@example.com a/22 College Avenue West #20-204 136754 Singapore t/ADHD r/dust`<br>
+Adds a child named Justin Jr, with parent Justin Sr, phone number, email and address as shown above, and the optional tag ADHD with an allergy to dust.
+
+**Result:**
+![add command result](images/add-command-result.png)
+
+</box>
+
+<box type="warning" header="Duplicate children detection">
+
+* Children are detected to be duplicates only if both the **child name** and **parent name** are the same. This is to allow for multiple children to share a phone number/email, as siblings will usually share their parent's contact details.
+* It is possible for both child and parent to share a name legitimately, but such cases are unlikely
 
 </box>
 
@@ -199,13 +218,18 @@ Format: `edit INDEX [c/CHILD_NAME] [b/PARENT_NAME] [p/PARENT_PHONE_NUMBER] [e/PA
 Edits the phone number and email address of the 1st child's parent to be `91234567` and `johndoe@example.com` respectively.
 
 *  `edit 2 c/Alison Wang t/` <br>
-Edits the name of the 2nd child to be `Alison Wang` and clears all existing tags.<br>
+   Edits the name of the 2nd child to be `Alison Wang` and clears all tags<br>
+
+*  `edit 2 c/Alexis Jr t/adhd r/milk` <br>
+Edits the name of the 2nd child to be `Alexis Jr` and adds the tags adhd and allergy to milk<br>
+
+![edit command result](images/edit-command-ss.png)
 
 </box>
 
 ### Locating a child record: `find`
 
-Finds a child record. You can search for a specific child entry using their name or their parent's name. Or you can filter to find all children with a specific tag, or a specific allergy to accomodate their needs.
+Finds a child record with **partial string matching**. You can search for a specific child entry using their name or their parent's name. Or you can filter to find all children with a specific tag, or a specific allergy to accomodate their needs.
 
 Format: `find [c/CHILD_NAME] [b/PARENT_NAME] [r/ALLERGIES]…​ [t/TAG]…​`
 
@@ -226,6 +250,10 @@ Format: `find [c/CHILD_NAME] [b/PARENT_NAME] [r/ALLERGIES]…​ [t/TAG]…​`
 
 * `find c/John` returns records of all children with `john` in their name
 * `find c/Marcus Vertin b/Hoffman r/Dust` returns records where the child is named either `Marcus` or `Vertin`, where the parent is named `Hoffman`, and where the child is allergic to `dust` (as long as any of the 4 conditions are fulfilled)
+* `find c/David Li` will match with `Davidson`, `David Becker`, `Elliana` and any other name with substrings `David` or `Li` in them.
+
+**Result:** 
+![find comamnd result](images/find-command.png)
 
 </box>
 
@@ -271,6 +299,7 @@ Format:
 
 * Enrolls all children at the specified `INDEXES` into the listed subjects.
 * You can also enroll **all children** currently listed by using the `all` keyword instead of indexes. 
+* When the `all` keyword is used, it only includes children in the current list view. If you have executed the `find` command beforehand, the command only applies to the result returned by `find`
 * `INDEXES` must be **positive integers** 1, 2, 3, …
 * `SUBJECT` refers to the subject name(s) and can be repeated to enroll a child in multiple subjects.
 
@@ -287,10 +316,10 @@ Format:
 * `enroll all s/math s/science`  
   Enrolls all listed children into both Math and Science subjects.
 
-* Executing `find c/Danny` followed by `enroll all s/math` will only enroll all found children named `Danny` into the subject
+**Sample output:**
+!["enroll command output"](images/enroll-command.png)
 
 </box>
-
 
 ### Unenrolling children from a subject : `unenroll`
 <box type="warning">
@@ -306,6 +335,7 @@ Format:
 
 * Unenrolls all children at the specified `INDEXES` from the listed subjects.
 * You can also unenroll **all children** currently listed by using the `all` keyword instead of indexes.
+* When the `all` keyword is used, it only includes children in the current list view. If you have executed the `find` command beforehand, the command only applies to the result returned by `find`
 * `INDEXES` must be positive integers 1, 2, 3, …
 * `SUBJECT` refers to the subject name(s) and can be repeated to unenroll a child from multiple subjects.
 
@@ -324,6 +354,9 @@ Format:
 
 * Executing `find c/Danny` followed by `unenroll all s/math` will only unenroll all found children named `Danny` into the subject
 
+**Sample output:**
+![Unenroll command output](images/unenroll.png)
+
 </box>
 
 
@@ -338,9 +371,10 @@ Sets the score of children for a specific subject in ParentConnect.
 
 * Sets the score for the specified children at `INDEXES` for the given `SUBJECT`.
 * You can also set scores for **all children** currently listed by using the `all` keyword instead of indexes.
+* When the `all` keyword is used, it only includes children in the current list view. If you have executed the `find` command beforehand, the command only applies to the result returned by `find`
 * Only **one subject** and **one score** can be specified per command.
 * `INDEXES` must be positive integers 1, 2, 3, …
-* `SCORE` must be between 0 - 100
+* `SCORE` must be an integer between 0 - 100
 
 </box>
 
@@ -354,6 +388,9 @@ Sets the score of children for a specific subject in ParentConnect.
 
 * `setscore all s/math g/85`  
   Sets the Math score of all listed children to 85.
+
+**Sample output:**
+![setscore result](images/setscore.png)
 
 </box>
 
@@ -397,22 +434,51 @@ _Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
+## Data constraints (advanced)
+
+Below is a summary for the constraints for the different parameters that can be supplied to commands, such as names, phone numbers, emails and subjects
+
+Data Type         | Constraints
+------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**Names**    | <ul><li>Names should only consist of **alphabets** and **spaces**.</li><li>The following special characters are also allowed: `()-'/,.`.</li><li>For `/`, as it is used as a command delimiter, a new word in the name cannot start with anything that looks like a command prefix. Example: `child b/o` is not a valid name, as `b/o` collides with the `b/` prefix. However, `childb/o` is allowed, as it is not a new word. `child d/o` is also allowed, as `d/` is not a prefix.</li><li>Any other special characters, numbers, or characters in other languages, are disallowed.</li><li>Names are also **case-insensitive**, meaning `john` and `John` are considered the same person.</li><li>Spaces are automatically normalized, meaning  <code style="white-space: pre;">john     doe</code>  will be converted to `john doe`</li></ul>     
+**Phone number**  | Should strictly be **8 digits** Singaporean phone number
+**Email** | Follows the format `local-part@domain`<br>**Local-part**: Should only contain alphanumeric characters and these special characters: `+_.-`. May not start or end with any special characters<br>**Separator:** `@` symbol<br>**Domain Name:** Made up of domain labels separated by periods<br>**Domain Requirements:** Must end with a domain label at least 2 characters long. Each domain label must start and end with alphanumeric characters. Each domain label must consist of alphanumeric characters, separated only by hyphens, if any
+**Address**   | No restrictions, as long as not empty
+**Tag/Allergy**   | Tag/Allergy information should only contain **alphanumeric characters and spaces**, and it should not be blank. Max length of 50 characters.
+**Indexes** | Must be between 1 and the length of the currently displayed list
+**Subject** | Must be one of `math`, `science`, `english`. Note that subjects are **case-insensitive**
+**Scores** | Must be a whole number between 0 - 100
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## FAQ
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains 
-the data of your previous AddressBook home folder.
+**Q**: Why does the system say "duplicate person" when adding a child with a different phone number/address/email?<br>
+**A**: Students are identified uniquely by the parent and child name combination, not by contact details. This is because siblings may share the same contact details as they are from the same family. While it may be possible for two children and parent pairs to share the same name, we don't foresee this key collision having a high likelihood of occurring in the scope of one kindergarten.
 
-**Q**: I made a mistake by bulk deleting some children. Can I undo? <br>
-**A**: No, unfortunately ParentConnect does not have an undo feature. However, if you have a backup of your data file, 
-you can restore the deleted data by replacing the current data file with your backup. 
+**Q**: Why is each child attached to only one parent? Can I put both parents?<br>
+**A**: In most schools and kindergartens, one of the parents is usually required to be listed as the 'primary guardian', and our system reflects that. It is far more important to store the contact details of the primary guardian as they would be the first point of contact in case of any emergencies. In future updates we may add on the feature to have multiple parent contacts.
+
+**Q**: Why does ParentConnect only support 8 digit phone numbers? What about international numbers?<br>
+**A**: ParentConnect is targeted at kindergartens in Singapore and currently only supports 8-digit Singapore phone numbers. This ensures data consistency and simplifies local operations.
 
 **Q**: Does ParentConnect support enrollment for subjects other than those listed?<br>
 **A**: This is a known issue, and it is one of the features coming soon in release `2.0`
 
+**Q**: Why can't I add a score with decimal points?<br>
+**A**: Scores are stored as integers. It is usually rare for kindergartens to require such finetuned score tracking that they need decimal points. However, this feature may potentially be added in `2.0`
+
+**Q**: I made a mistake by bulk deleting some children. Can I undo? <br>
+**A**: No, unfortunately ParentConnect does not have an undo feature. However, if you have a backup of your data file,
+you can restore the deleted data by replacing the current data file with your backup.
+
 **Q**: Where can I find the data file?<br>
 **A**: The data file is located in the `data` folder inside your ParentConnect home folder (i.e., the folder where the 
 jar file is located).
+
+**Q**: How do I transfer my data to another Computer?<br>
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
+the data of your previous ParentConnect home folder.
 
 **Q**: Can I use ParentConnect on my mobile device?<br>
 **A**: No, ParentConnect is a desktop application and does not support mobile devices.
@@ -451,18 +517,3 @@ Action     | Format, Examples
 **SetScore**| `setscore INDEXES s/SUBJECT g/SCORE`
 
 --------------------------------------------------------------------------------------------------------------------
-
-## Data constraints (advanced)
-
-Below is a summary for the constraints for the different parameters that can be supplied to commands, such as names, phone numbers, emails and subjects
-
-Data Type         | Constraints
-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Names**    | Names should only consist of **alphabets**. The following special characters are also allowed: `()-'/,.`. Any other special characters, numbers, or characters in other languages, are disallowed. Names are also **case-insensitive**, meaning `john` and `John` are considered the same person
-**Phone number**  | Should strictly be **8 digits**
-**Email** | Follows the format `local-part@domain`<br>**Local-part**: Should only contain alphanumeric characters and these special characters: `+_.-`. May not start or end with any special characters<br>**Separator:** `@` symbol<br>**Domain Name:** Made up of domain labels separated by periods<br>**Domain Requirements:** Must end with a domain label at least 2 characters long. Each domain label must start and end with alphanumeric characters. Each domain label must consist of alphanumeric characters, separated only by hyphens, if any
-**Address**   | No restrictions, as long as not empty
-**Tag/Allergy**   | Tag/Allergy information should only contain **alphanumeric characters and spaces**, and it should not be blank. Max length of 50 characters.
-**Indexes** | Must be between 1 and the length of the currently displayed list
-**Subject** | Must be one of `math`, `science`, `english`. Note that subjects are **case-insensitive**
-**Scores** | Must be between 0 - 100
