@@ -95,9 +95,12 @@ To help you get the most out of ParentConnect, this guide walks you through **in
 
 - There is an empty command box at the top to enter your first command!
 
+**Example ParentConnect Interface:**
+  ![Ui](images/Ui.png)
+
 </box>
 
-   ![Ui](images/Ui.png)
+ 
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window. Refer to the [Features](#features) below for details of each command. <br>
 
@@ -460,6 +463,9 @@ Data Type         | Constraints
 
 **Q**: Does ParentConnect support enrollment for subjects other than those listed?<br>
 **A**: This is a known issue, and it is one of the features coming soon in release `2.0`
+
+**Q**: Why can't I add a score with decimal points?<br>
+**A**: Scores are stored as integers. It is usually rare for kindergartens to require such finetuned score tracking that they need decimal points. However, this feature may potentially be added in `2.0`
 
 **Q**: I made a mistake by bulk deleting some children. Can I undo? <br>
 **A**: No, unfortunately ParentConnect does not have an undo feature. However, if you have a backup of your data file,
