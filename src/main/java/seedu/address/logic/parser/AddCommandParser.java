@@ -37,12 +37,13 @@ public class AddCommandParser implements Parser<AddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_CHILDNAME, PREFIX_PARENTNAME, PREFIX_PARENTPHONE,
                         PREFIX_PARENTEMAIL, PREFIX_ADDRESS, PREFIX_ALLERGY, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CHILDNAME, PREFIX_ADDRESS, PREFIX_PARENTPHONE, PREFIX_PARENTEMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_CHILDNAME, PREFIX_PARENTNAME, PREFIX_ADDRESS, PREFIX_PARENTPHONE, PREFIX_PARENTEMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CHILDNAME,
+                                                 PREFIX_PARENTNAME,
                                                  PREFIX_PARENTPHONE,
                                                  PREFIX_PARENTEMAIL,
                                                  PREFIX_ADDRESS);
