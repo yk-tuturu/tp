@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_PREFIX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCORE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 
@@ -27,6 +28,12 @@ public class SetScoreCommandParser implements Parser<SetScoreCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_SUBJECT, PREFIX_SCORE)
                 || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetScoreCommand.MESSAGE_USAGE));
+        }
+        String invalidPrefixes =
+                ParserUtil.detectInvalidPrefixes(args, PREFIX_SUBJECT, PREFIX_SCORE);
+        if (!invalidPrefixes.isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_PREFIX, invalidPrefixes, SetScoreCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_SUBJECT, PREFIX_SCORE);

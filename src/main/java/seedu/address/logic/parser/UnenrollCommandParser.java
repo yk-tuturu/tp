@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_PREFIX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 
 import java.util.List;
@@ -28,6 +29,12 @@ public class UnenrollCommandParser implements Parser<UnenrollCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_SUBJECT)
                 || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnenrollCommand.MESSAGE_USAGE));
+        }
+        String invalidPrefixes =
+                ParserUtil.detectInvalidPrefixes(args, PREFIX_SUBJECT);
+        if (!invalidPrefixes.isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_PREFIX, invalidPrefixes, UnenrollCommand.MESSAGE_USAGE));
         }
 
         Index[] indices;
