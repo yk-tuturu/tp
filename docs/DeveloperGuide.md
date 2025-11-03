@@ -318,12 +318,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | C5 | `* *`    | Contact Management                | kindergarten teacher | update a parent's phone number                          | ensure the system always reflects the latest contact information |
 | P1 | `* * *`  | Child Profiling                   | kindergarten teacher | record important facts about each child                 | tailor care and instructions to their needs                      |
 | P2 | `* * *`  | Child Profiling                   | kindergarten teacher | record emergency care instructions                      | act quickly in case of an incident                               |
-| U1 | `* *`    | System Usability & Data Integrity | user                 | delete outdated child information                       | ensure the database remains accurate                             |
-| U2 | `* *`    | System Usability & Data Integrity | user                 | edit outdated child information                         | ensure the database remains accurate                             |
+| U1 | `* *`    | System Usability & Data Integrity | kindergarten teacher | delete outdated child information                       | ensure the database remains accurate                             |
+| U2 | `* *`    | System Usability & Data Integrity | kindergarten teacher | edit outdated child information                         | ensure the database remains accurate                             |
 | A1 | `* *`    | Academic Tracking                 | kindergarten teacher | record test scores for each child                       | track their progress over time                                   |
 | A2 | `* *`    | Academic Tracking                 | kindergarten teacher | tag notes alongside attendance                          | ensure context is preserved in records                           |
 | A3 | `* *`    | Academic Tracking                 | kindergarten teacher | bulk delete child records                               |                                                                  |
-| A4 | `* *`    | Academic Tracking                 | kindergarten teacher | bulk enroll/unenroll chilren                            |                                                                  |
+| A4 | `* *`    | Academic Tracking                 | kindergarten teacher | bulk enroll/unenroll children                           |                                                                  |
+| A5 | `* *`    | Academic Tracking                 | kindergarten teacher | enroll/unenroll specified children into subjects        |                                                                  |
 | F1 | `* *`    | Filtering and Grouping            | kindergarten teacher | filter children by food allergies                       | inform the kitchen staff accordingly                             |
 | F2 | `* *`    | Filtering and Grouping            | kindergarten teacher | filter children with special needs                      | prepare inclusive activities                                     |
 | F3 | `*`      | Filtering and Grouping            | kindergarten teacher | filter children who are on medication                   | remind staff to monitor them more closely                        |
@@ -558,11 +559,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 100 records without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to hold up to 100 child records without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4.  Should have a special colouring scheme to differentiate between tags, allergies and subject fields.
 5.  Should warn the user if their data file is corrupted on startup.
-    *{More to be added}*
 
 ### Glossary
 
