@@ -35,6 +35,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_UNIQUE_ID_AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CHILDNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTEMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTPHONE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.testutil.TypicalPersons.AMY;
@@ -98,7 +99,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_repeatedNonTagValue_failure() {
-        String validExpectedPersonString = NAME_DESC_BOB + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT
+        String validExpectedPersonString = NAME_DESC_BOB + NAME_DESC_BOB_PARENT + PHONE_DESC_BOB_PARENT + EMAIL_DESC_BOB_PARENT
                 + ADDRESS_DESC_BOB + TAG_DESC_SINGLEPARENT;
 
         // multiple names
@@ -125,7 +126,7 @@ public class AddCommandParserTest {
                         + NAME_DESC_AMY
                         + ADDRESS_DESC_AMY
                         + validExpectedPersonString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CHILDNAME, PREFIX_ADDRESS, PREFIX_PARENTEMAIL,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CHILDNAME, PREFIX_PARENTNAME, PREFIX_ADDRESS, PREFIX_PARENTEMAIL,
                         PREFIX_PARENTPHONE));
 
         // invalid value followed by valid value
