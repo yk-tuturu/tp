@@ -196,7 +196,7 @@ Step 2. The user executes `delete 5` command to delete the 5th child in the data
 
 <puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
 
-Step 3. The user executes `add n/David …​` to add a new child. The `add` command also calls `Model#commitAddressBook()`, causing another modified app's state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add c/David …​` to add a new child. The `add` command also calls `Model#commitAddressBook()`, causing another modified app's state to be saved into the `addressBookStateList`.
 
 <puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
 
