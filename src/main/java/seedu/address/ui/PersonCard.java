@@ -2,12 +2,15 @@ package seedu.address.ui;
 
 import java.util.Comparator;
 
+import javafx.application.Platform;
+import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
+import seedu.address.model.subject.Subject;
 import seedu.address.model.subject.SubjectRegistry;
 
 /**
@@ -48,6 +51,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane subjects;
 
+    private final MapChangeListener<Person, Integer> scoreListener;
+
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
@@ -66,12 +71,34 @@ public class PersonCard extends UiPart<Region> {
         person.getAllergyList().stream()
                 .sorted(Comparator.comparing(al -> al.toString()))
                 .forEach(al -> allergies.getChildren().add(new Label(al.toString())));
-        SubjectRegistry.getSubjectsOf(person).stream()
-                .sorted(Comparator.comparing(subject -> subject.toString()))
-                .forEach(subject ->
-                        subjects.getChildren().add(new Label(subject + " | "
-                                + (SubjectRegistry.getScoresOf(person).get(subject) == -1
-                                ? "N/A"
-                                : SubjectRegistry.getScoresOf(person).get(subject)))));
+        SubjectRegistry.getSubjectsOf(person).stream().sorted(Comparator.comparing(Object::toString))
+                .forEach(subject -> {
+                    int score = subject.getScore(person);
+                    subjects.getChildren().add(new Label(subject + " | " + (score == -1 ? "N/A" : score)));
+                });
+        scoreListener = change -> {
+            if ((change.wasAdded() || change.wasRemoved()) && change.getKey().equals(person)) {
+                Platform.runLater(() -> {
+                    subjects.getChildren().clear();
+                    SubjectRegistry.getSubjectsOf(person).stream().sorted(Comparator.comparing(Object::toString))
+                            .forEach(subject -> {
+                                int score = subject.getScore(person);
+                                subjects.getChildren().add(new Label(subject + " | " + (score == -1 ? "N/A" : score)));
+                            });
+                });
+            }
+        };
+        for (Subject s : Subject.values()) {
+            s.getScoreDict().getObservableScores().addListener(scoreListener);
+        }
+    }
+
+    /**
+     * Detach listeners when this card is disposed.
+     */
+    public void dispose() {
+        for (Subject s : Subject.values()) {
+            s.getScoreDict().getObservableScores().removeListener(scoreListener);
+        }
     }
 }
