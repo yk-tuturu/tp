@@ -1,13 +1,19 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_PREFIX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CHILDNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EnrollCommand;
+import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.subject.Subject;
 
@@ -28,6 +34,12 @@ public class EnrollCommandParser implements Parser<EnrollCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_SUBJECT)
                 || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EnrollCommand.MESSAGE_USAGE));
+        }
+        String invalidPrefixes =
+                ParserUtil.detectInvalidPrefixes(args, PREFIX_SUBJECT);
+        if (!invalidPrefixes.isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_PREFIX, invalidPrefixes, EnrollCommand.MESSAGE_USAGE));
         }
 
         Index[] indices;

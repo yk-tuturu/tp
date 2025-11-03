@@ -11,7 +11,7 @@ public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain English letters, spaces, and allowed symbols "
-                    + "(. , ' ’ - ( ) /), and must contain at least one letter or digit.";
+                    + "(. , ' ’ - ( ) /), and must contain at least one letter";
 
     /*
      * This regex ensures:
