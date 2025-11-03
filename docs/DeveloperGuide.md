@@ -734,9 +734,46 @@ testers are expected to do more *exploratory* testing.
        Expected: Similar to previous.
 
 ### Saving data
+1. Automatic data saving
 
-1. Dealing with missing/corrupted data files
+    1.1. **Test automatic save after add command:**
+      - Prerequisites: Database does not have an entry where child's name is "Test Child" and parent's name is "Test Parent".
+      - Execute `add c/Test Child b/Test Parent a/Test Address p/12345678 e/test@example.com`.
+      - Exit the program.
+      - Navigate to the directory where you ran `java -jar parentconnect.jar`.
+      - Open data/parentconnect.json in a text editor.
+      - Search for the newly added child's name (or parent's name).
+      - Expected: the newly added child is present in the json file.
 
-    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    1.2. **Test automatic save after edit command:**
+      - Prerequisites: At least one child record exists.
+      - Execute `edit 1 p/87654321`.
+      - Exit the program.
+      - Navigate to the directory where you ran `java -jar parentconnect.jar`.
+      - Open data/parentconnect.json in a text editor.
+      - Expected: The edited phone number is reflected in the JSON file.
 
-1. _{ more test cases …​ }_
+    1.3. **Test automatic save after delete command:**
+      - Prerequisites: At least one child record exists.
+      - Note the first child's name.
+      - Execute `delete 1`.
+      - Exit the program.
+      - Navigate to the directory where you ran `java -jar parentconnect.jar`.
+      - Open data/parentconnect.json in a text editor.
+      - Open data/parentconnect.json in a text editor.
+      - Expected: The deleted child record is no longer present in the JSON file.
+
+    1.4. **Test automatic save after enroll command:**
+      - Prerequisites: At least one child record exists.
+      - Execute `enroll 1 s/math`.
+      - Exit the program.
+      - Navigate to the directory where you ran `java -jar parentconnect.jar`.
+      - Expected: The child's name is present in MATH subject.
+
+    1.5. **Test automatic save after setscore command:**
+      - Prerequisites: The first child is enrolled in math.
+      - Execute `setscore 1 s/math g/85`.
+      - Exit the program.
+      - Navigate to the directory where you ran `java -jar parentconnect.jar`.
+      - Open data/parentconnect.json in a text editor.
+      - Expected: The `subjectScores` section contains an entry with the child's name, subject "math", and score 85.
