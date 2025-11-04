@@ -19,7 +19,7 @@ original source: [AddressBook-Level3](https://se-education.org/addressbook-level
 
 ## **Setting up, getting started**
 
-Refer to the guide [_Setting up and getting started_](SettingUp.md).
+Refer to the guide [_Setting up and getting started_](https://ay2526s1-cs2103t-f08a-4.github.io/tp/SettingUp.html).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -254,11 +254,11 @@ The subject system implements enrollment and scoring functionality as follows:
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
-* [Documentation guide](Documentation.md)
-* [Testing guide](Testing.md)
-* [Logging guide](Logging.md)
-* [Configuration guide](Configuration.md)
-* [DevOps guide](DevOps.md)
+* [Documentation guide](https://ay2526s1-cs2103t-f08a-4.github.io/tp/Documentation.html)
+* [Testing guide](https://ay2526s1-cs2103t-f08a-4.github.io/tp/Testing.html)
+* [Logging guide](https://ay2526s1-cs2103t-f08a-4.github.io/tp/Logging.html)
+* [Configuration guide](https://ay2526s1-cs2103t-f08a-4.github.io/tp/Configuration.html)
+* [DevOps guide](https://ay2526s1-cs2103t-f08a-4.github.io/tp/DevOps.html)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -759,3 +759,49 @@ testers are expected to do more *exploratory* testing.
       - Navigate to the directory where you ran `java -jar parentconnect.jar`.
       - Open data/parentconnect.json in a text editor.
       - Expected: The `subjectScores` section contains an entry with the child's name, subject "math", and score 85.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+#### Dynamic subject addition
+- Right now, subjects are limited to one of `math`, `science` or `english`, since we use an enum to keep track of subjects. Later on we plan on adding ways to add your own subjects to improve the customizability of the app.
+
+#### Statistics dashboard
+- Teachers can view a breakdown of scores of the students enrolled in ParentConnect, allowing for more convenient data analysis
+
+#### Better name constraints
+- Various special characters are currently allowed for names, but not all. For instance, slashes are allowed, but must not collide with a prefix that ParentConnect currently uses. We may come up with a better way to demarcate names and allow more special characters in the future. 
+
+#### Data recovery/Undo/Redo
+- Add a method for users to undo previous commands to prevent accidental data loss 
+
+--------------------------------------------------------------------------------------------------------------------
+## **Appendix: Effort**
+Difficulty level: Moderate ~ High
+
+#### Technical Challenges
+
+1. **Domain Model Integration**
+    - Implementing Subject-Student relationships while maintaining data consistency
+    - Managing bidirectional references between Person and Subject entities
+
+2. **Data Consistency Guarantees**
+    - Maintaining score validity across enrollment changes
+    - Ensuring atomic operations for batch enrollments/unenrollments
+    - Preventing orphaned scores when students are deleted
+    - Validating data integrity during JSON serialization/deserialization
+
+3. **Intuitive UI/UX** 
+   - Ensuring that user interface is updated correctly at all times and there is never a time lag between the model and the UI
+   - Consistent navigation and easy display of various statistics for users
+   - Intuitive and easy to learn commands with informative error messages
+
+4. **Robust and secure system**
+    - Constant validity checks to ensure data integrity and prevent unintentional errors
+    - All error messages are targeted and informative
+
+#### Notable Achievements
+
+1. New Subject System integrated on top of existing model
+2. Fixed bugs inherited from AB3 and improved error messages and data validity checks 
+3. GUI update to display information accurately 

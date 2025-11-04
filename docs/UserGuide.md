@@ -15,7 +15,7 @@ Designed for fast typists, ParentConnect provides a text field for users to ente
 <box type="tip" header="Why teachers love ParentConnect 💖">
 
 🕒 **Saves time:** Perform common tasks like adding or finding contacts in just a few keystrokes.  
-👩‍🏫 **Built for educators:** Manage all your class contact details — children, parents, allergies and notes, and more — in one place.  
+👩‍🏫 **Built for educators:** Manage all your class contact details — children, parents, allergies and tags, and more — in one place.  
 💾 **Worry-free:** Your data is automatically saved and ready to use every time you open the app.  
 🧠 **Smart search:** Quickly find children by name, parent, allergy, or tag.
 
@@ -84,7 +84,7 @@ To help you get the most out of ParentConnect, this guide walks you through **in
 - Type the following command and press <kbd>Enter</kbd>:
 
     ```bash
-    java -jar addressbook.jar
+    java -jar parentconnect.jar
     ```
   
 **Step 3: What you will see**
@@ -99,8 +99,6 @@ To help you get the most out of ParentConnect, this guide walks you through **in
   ![Ui](images/Ui.png)
 
 </box>
-
-   ![QuickStartUi](images/QuickStartUi.png)
  
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window. Refer to the [Features](#features) below for details of each command. <br>
@@ -119,7 +117,7 @@ Here are some frequent actions you may want to perform:
 
 * **Set scores for a subject:** [Set score](#setting-scores-setscore)
 
-* **Delete or clear records:** [Delete/Clear](#deleting-a-child-record-delete)
+* **Delete records:** [Delete](#deleting-a-child-record-delete)
 
 </box>
 
@@ -428,9 +426,7 @@ Furthermore, certain edits can cause the ParentConnect to behave in unexpected w
 
 </box>
 
-### Archiving data files `[coming in v2.0]`
 
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
