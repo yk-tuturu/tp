@@ -128,16 +128,6 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<box type="info" seamless>
-
-**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. 
-This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.
-For brevity, connections between Person and its fields (e.g., ChildName, ParentName, etc.) are omitted in the diagram below.<br>
-
-<puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
-
-</box>
-
 
 ### Storage component
 
@@ -170,103 +160,95 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Implementation**
+## Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some noteworthy details on how certain systems are implemented. 
 
-### \[Proposed\] Undo/redo feature
+### Subject System
 
-#### Proposed Implementation
+The subject system manages student enrollment and academic scores through three main components:
+- `Subject` (enum): Represents fixed subjects (MATH, ENGLISH, SCIENCE)
+- `ScoreDict`: Manages score records for each subject
+- `SubjectRegistry`: Provides centralized access to enrollment and score data
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+#### Core Classes
 
-* `VersionedAddressBook#commit()` — Saves the current app's state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous app's state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone app's state from its history.
+**Class Diagram:**
+<puml src="diagrams/SubjectClassDiagram.puml" width="300" />
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+#### Implementation Details
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+The subject system implements enrollment and scoring functionality as follows:
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial app's state, and the `currentStatePointer` pointing to that single app's state.
+1. **Enroll Command Flow**
 
-<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
+**How it works:**
+- Upon execution, command checks for the validity of its inputs, such that the subject and indexes provided is valid
+- For every person and every subject listed in the command ,it calls `Subject::enrollPerson()`
+- The person is added to the list of persons enrolled in the subject
+- The subject updates its corresponding `ScoreDict` with a default score of `-1`
 
-Step 2. The user executes `delete 5` command to delete the 5th child in the database. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the app after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted app's state.
+<puml src="diagrams/SubjectEnrollSequenceDiagram.puml" width="700" />
 
-<puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
+2. **Unenroll Command Flow**
 
-Step 3. The user executes `add c/David …​` to add a new child. The `add` command also calls `Model#commitAddressBook()`, causing another modified app's state to be saved into the `addressBookStateList`.
+**How it works:**
+- Upon execution, command checks for the validity of its inputs, such that the subject and indexes provided is valid
+- For every person and every subject listed in the command ,it calls `Subject::unenrollPerson()`
+- The person is removed from the list of persons enrolled in the subject
+- The subject removes the person entry from its corresponding `ScoreDict`
 
-<puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
-
-<box type="info" seamless>
-
-**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the app's state will not be saved into the `addressBookStateList`.
-
-</box>
-
-Step 4. The user now decides that adding the child was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous app's state, and restores the app to that state.
-
-<puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
+<puml src="diagrams/SubjectUnenrollSequenceDiagram.puml" width="700" />
 
 
-<box type="info" seamless>
+3. **Set Score Command Flow**
 
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
+**How it works:**
+- Upon execution, command checks for the validity of its inputs, such that the subject and indexes provided is valid
+- For every person and every subject listed in the command ,it calls `Subject::setScore()`
+- The subject checks if the person provided is enrolled in the corresponding subject, if not, it throws an error which is captured gracefully by the command object
+- If the person is enrolled, set the relevant entry in `ScoreDict` to the provided value.
 
-</box>
+<puml src="diagrams/SubjectScoreSequenceDiagram.puml" width="700" />
 
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
+#### Design Considerations
 
-<puml src="diagrams/UndoSequenceDiagram-Logic.puml" alt="UndoSequenceDiagram-Logic" />
+##### Aspect: Score Storage
+* **Alternative 1 (current choice):** Store scores in `ScoreDict` within each `Subject`
+    * Pros: Direct access to scores through subject
+    * Cons: Score data distributed across subjects
+* **Alternative 2:** Subject and Score storage within `Person` object
+    * Pros: Single source of truth for both person information and subject information, as they are all packaged within `Person`
+    * Cons: More complex enrollment data lookup and management
 
-<box type="info" seamless>
+##### Aspect: Subject Representation
+* **Alternative 1 (current choice):** Use enum for subjects
+    * Pros:
+        * Type-safe subject references
+        * Built-in singleton behavior
+        * Compile-time validation of subject types
+    * Cons:
+        * Cannot add new subjects without code changes
+* **Alternative 2:** Dynamic subject creation
+    * Pros: Flexible subject addition at runtime
+    * Cons: Less type safety, more complex validation
 
-**Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+#### Notable Features
 
-</box>
+1. **Observable Collections**
+- Uses JavaFX `ObservableMap` for UI binding
+- Automatic UI updates when scores change
+- Thread-safe score modifications
 
-Similarly, how an undo operation goes through the `Model` component is shown below:
+2. **Validation Rules**
+- Score range: -1 (default) or 0-100
+- Enrollment check before score assignment
+- Case-insensitive subject name matching
 
-<puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the app to that state.
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest app's state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</box>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the app, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-<puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all app's states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-<puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<puml src="diagrams/CommitActivityDiagram.puml" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire app.
-    * Pros: Easy to implement.
-    * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-    * Pros: Will use less memory (e.g. for `delete`, just save the child being deleted).
-    * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
+3. **Data Access Control**
+- Read-only views of internal collections
+- Controlled mutation through public methods
+- Clear error messages for invalid operations
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -589,10 +571,14 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-    1. Download the jar file and copy into an empty folder
+    1. Download the jar file and copy into an empty folder.
 
-    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+    1. Open a command terminal and `cd` into the folder with the jar file.
 
+    1. Run `java --version` to ensure that you are using Java 17 or above.
+
+    1. Run `java -jar parentconnect.jar` to open the application. Expected: A window appears loaded with placeholder contacts. The window size may not be optimum. 
+    
 1. Saving window preferences
 
     1. Resize the window to an optimum size. Move the window to a different location. Close the window.
