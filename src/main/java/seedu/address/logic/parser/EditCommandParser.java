@@ -34,14 +34,6 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-
-        // Detect any invalid prefixes (e.g. "i/") early and report format error
-        String invalid = ParserUtil.detectInvalidPrefixes(args, PREFIX_CHILDNAME, PREFIX_PARENTNAME,
-                PREFIX_PARENTPHONE, PREFIX_PARENTEMAIL, PREFIX_ALLERGY, PREFIX_ADDRESS, PREFIX_TAG);
-        if (!invalid.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        }
-
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CHILDNAME, PREFIX_PARENTNAME, PREFIX_PARENTPHONE,
                         PREFIX_PARENTEMAIL, PREFIX_ALLERGY, PREFIX_ADDRESS, PREFIX_TAG);
