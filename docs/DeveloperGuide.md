@@ -19,7 +19,7 @@ original source: [AddressBook-Level3](https://se-education.org/addressbook-level
 
 ## **Setting up, getting started**
 
-Refer to the guide [_Setting up and getting started_](SettingUp.md).
+Refer to the guide [_Setting up and getting started_](https://ay2526s1-cs2103t-f08a-4.github.io/tp/SettingUp.html).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -254,11 +254,11 @@ The subject system implements enrollment and scoring functionality as follows:
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
-* [Documentation guide](Documentation.md)
-* [Testing guide](Testing.md)
-* [Logging guide](Logging.md)
-* [Configuration guide](Configuration.md)
-* [DevOps guide](DevOps.md)
+* [Documentation guide](https://ay2526s1-cs2103t-f08a-4.github.io/tp/Documentation.html)
+* [Testing guide](https://ay2526s1-cs2103t-f08a-4.github.io/tp/Testing.html)
+* [Logging guide](https://ay2526s1-cs2103t-f08a-4.github.io/tp/Logging.html)
+* [Configuration guide](https://ay2526s1-cs2103t-f08a-4.github.io/tp/Configuration.html)
+* [DevOps guide](https://ay2526s1-cs2103t-f08a-4.github.io/tp/DevOps.html)
 
 --------------------------------------------------------------------------------------------------------------------
 
